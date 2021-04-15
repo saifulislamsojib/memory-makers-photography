@@ -11,6 +11,9 @@
 # production
 /build
 
+# configs
+src/components/Login/configs/
+
 # misc
 .DS_Store
 .env.local

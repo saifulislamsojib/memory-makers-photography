@@ -1,0 +1,52 @@
+.login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.login-inner {
+  padding: 8%;
+  border-radius: 10px;
+  box-shadow: 10px 10px 30px lightgray;
+  max-width: 500px;
+}
+.input {
+  font-size: 16px;
+  display: block;
+  border-radius: 10px;
+  padding: 13px;
+}
+.email-password-login {
+  border: 1px solid #b8b8b8;
+  padding: 6%;
+  border-radius: 7px;
+}
+.password-section {
+  position: relative;
+}
+.eye {
+  font-size: 20px;
+  position: absolute;
+  top: 19px;
+  right: 6%;
+  cursor: pointer;
+  color: #6710f4;
+}
+.create-account {
+  cursor: pointer;
+}
+.create-account:hover {
+  text-decoration: underline;
+}
+.icon {
+  font-size: 40px;
+  cursor: pointer;
+}
+.fb {
+  color: #1094f4;
+}
+.google {
+  color: #e13e31;
+}
+.error {
+  max-width: 320px;
+}

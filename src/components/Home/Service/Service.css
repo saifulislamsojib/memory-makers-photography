@@ -1,0 +1,9 @@
+.service {
+  transition: transform 0.9s;
+  overflow: hidden;
+}
+.service:hover {
+  box-shadow: 10px 10px 30px lightgray;
+  transform: scale(1.05);
+  cursor: pointer;
+}
