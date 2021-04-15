@@ -1,18 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { userContext } from '../../../App';
 import Navbar from '../../Shared/Navbar/Navbar';
+import BookForm from '../BookForm/BookForm';
+import BookingTable from '../BookingTable/BookingTable';
+import ProcessPayment from '../ProcessPayment/ProcessPayment';
 
 const Book = () => {
 
     const {id} = useParams();
 
+    const history = useHistory();
+
     const [service, setService] = useState({});
 
     const [loggedInUser] = useContext(userContext);
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [bookingInfo, setBookingInfo] = useState(null);
 
     useEffect(() => {
         fetch(`http://localhost:4000/service/${id}`)
@@ -21,30 +25,31 @@ const Book = () => {
     }, [id]);
 
     const onSubmit = data => {
-        console.log(data);
+        setBookingInfo({...data, service, user: loggedInUser});
+    };
+
+    const handlePaymentCheckout = paymentDetails => {
+        fetch('http://localhost:4000/bookOrder', {
+            method: 'POST',
+            body: JSON.stringify({...bookingInfo, paymentDetails, orderDate: new Date().toDateString(), orderTime: new Date().toTimeString()}),
+            headers: {"Content-Type": "application/json"}
+        })
+        .then(res => res.json())
+        .then(result => {
+            if (result) {
+                history.push('/');
+            }
+        });
     };
 
     return (
         <div className='container'>
             <Navbar />
+            <BookingTable service={service} />
             <h2 className='color-primary mt-5 text-center'>Process Your Booking</h2>
-            <form style={{maxWidth: '600px'}} className="row mx-auto g-3 mt-3" onSubmit={handleSubmit(onSubmit)} >
-                <div className="col-12">
-                    <input defaultValue={loggedInUser.name} type="text" className="form-control" placeholder="Name" {...register("name", { required: true })} />
-                    {errors.name && <span className="text-danger">Name is required</span>}
-                </div>
-                <div className="col-12">
-                    <input defaultValue={loggedInUser.email} type="email" className="form-control"  placeholder="Email" {...register("email", { required: true })} />
-                    {errors.email && <span className="text-danger">Email is required</span>}
-                </div>
-                <div className="col-12">
-                    <input  type="text" className="form-control"  placeholder="Address" {...register("address", { required: true })} />
-                    {errors.address && <span className="text-danger">Email is required</span>}
-                </div>
-                <div className="col">
-                <input className='d-block btn btn-outline-danger ms-auto' type="submit" value="Purchase Now"/>
-                </div>
-            </form>
+            {bookingInfo ?
+                <ProcessPayment handlePaymentCheckout={handlePaymentCheckout} />
+                :<BookForm onSubmit={onSubmit} />}
         </div>
     );
 };
