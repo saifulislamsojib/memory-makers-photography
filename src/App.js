@@ -4,6 +4,7 @@ import {
   Route, Switch
 } from "react-router-dom";
 import './App.css';
+import Book from "./components/Book/Book/Book";
 import Dashboard from "./components/Dashboard/Dashboard/Dashboard";
 import Home from "./components/Home/Home/Home";
 import Login from "./components/Login/Login/Login";
@@ -23,9 +24,9 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/about">
-            
-          </Route>
+          <PrivateRoute path="/book/:id">
+            <Book />
+          </PrivateRoute>
           <PrivateRoute path="/dashboard">
             <Dashboard />
           </PrivateRoute>

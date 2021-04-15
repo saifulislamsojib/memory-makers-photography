@@ -5,6 +5,7 @@ import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useHistory, useLocation } from 'react-router-dom';
 import { userContext } from '../../../App';
+import LoginImg from '../../../images/login.jpg';
 import { createUser, fbSignIn, googleSignIn, signingUser } from './authManager';
 import './Login.css';
 
@@ -68,14 +69,9 @@ const Login = () => {
     }
 
     const handlePasswordType = () => {
-        const {passwordType, passwordIcon} = showPassword;
-        const changedPasswordType = passwordType === 'password' ? 'text' : 'password';
-        const changeIcon = passwordIcon === faEye ? faEyeSlash : faEye;
-        const changedShowPassword = {
-            passwordType: changedPasswordType,
-            passwordIcon: changeIcon
-        }
-        setShowPassword(changedShowPassword);
+        const passwordType = showPassword.passwordType === 'password' ? 'text' : 'password';
+        const passwordIcon = showPassword.passwordIcon === faEye ? faEyeSlash : faEye;
+        setShowPassword({passwordType, passwordIcon});
     };
 
     const {passwordType, passwordIcon} = showPassword;
@@ -119,7 +115,7 @@ const Login = () => {
                                 </div>
                                 { !newUser && <a href="#forgot">Forgot Password</a>}
                             </div>
-                            <input className='input w-100 btn btn-success my-3 p-2' type="submit" value={newUser ? 'Create Account' : 'Login'} />
+                            <input className='input w-100 btn btn-outline-success my-3 p-2' type="submit" value={newUser ? 'Create Account' : 'Login'} />
                             <p className='text-danger text-center py-2 error'>{loginError}</p>
                             <h6 className='text-center'>{newUser ? 'Already' :"Don't"} have an account ? <span onClick={()=> setNewUser(!newUser)} className="text-primary ms-2 create-account">{newUser ? 'Login' : 'Create an account'}</span></h6>
                         </form>
@@ -131,7 +127,7 @@ const Login = () => {
                     </div>
                 </div>
                 <div className='col-lg-6 mb-3 mb-lg-0'>
-                    <img className='img-fluid' src='' alt=""/>
+                    <img className='img-fluid' src={LoginImg} alt=""/>
                 </div>
             </div>
         </div>

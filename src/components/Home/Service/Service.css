@@ -1,7 +1,12 @@
-.service {
-  transition: transform 0.9s;
-  overflow: hidden;
+.service,
+.service-img {
+  transition: transform 0.8s;
 }
+
+.service-img:hover {
+  transform: rotate(360deg);
+}
+
 .service:hover {
   box-shadow: 10px 10px 30px lightgray;
   transform: scale(1.05);
