@@ -25,7 +25,9 @@ const Book = () => {
     }, [id]);
 
     const onSubmit = data => {
-        setBookingInfo({...data, service, user: loggedInUser});
+        const newService = {...service};
+        newService.status = 'Pending';
+        setBookingInfo({...data, service: newService, user: loggedInUser});
     };
 
     const handlePaymentCheckout = paymentDetails => {
@@ -37,7 +39,7 @@ const Book = () => {
         .then(res => res.json())
         .then(result => {
             if (result) {
-                history.push('/');
+                history.push('/dashboard/bookingList');
             }
         });
     };
@@ -48,7 +50,7 @@ const Book = () => {
             <BookingTable service={service} />
             <h2 className='color-primary mt-5 text-center'>Process Your Booking</h2>
             {bookingInfo ?
-                <ProcessPayment handlePaymentCheckout={handlePaymentCheckout} />
+                <ProcessPayment handlePaymentCheckout={handlePaymentCheckout} price={service.price} />
                 :<BookForm onSubmit={onSubmit} />}
         </div>
     );

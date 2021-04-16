@@ -1,7 +1,7 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useState } from 'react';
 
-const CheckoutPaymentForm = ({handlePaymentCheckout}) => {
+const CheckoutPaymentForm = ({handlePaymentCheckout, price}) => {
     const stripe = useStripe();
     const elements = useElements();
 
@@ -55,7 +55,7 @@ const CheckoutPaymentForm = ({handlePaymentCheckout}) => {
                 }}
             />
             <div className='mt-4 d-sm-flex align-items-center'>
-                <h6 className='mt-2'>Your Total Service Charge: $200</h6>
+                <h6 className='mt-2'>Your Total Service Charge: ${price}</h6>
                 <button className="btn btn-outline-danger mt-2 mt-sm-0 ms-auto" type="submit" disabled={!stripe}>
                     Purchase Now
                 </button>
