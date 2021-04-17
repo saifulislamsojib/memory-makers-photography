@@ -1,43 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import Review from '../Review/Review';
 
-const reviews = [
-    {
-        message: '',
-        user:{
-            name: '',
-            image: '',
-            email: ''
-        },
-        ratings: '',
-        _id: '1'
+const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5
     },
-    {
-        message: 'Wedding Photography Bundle',
-        user:{
-            name: '',
-            image: '',
-            email: ''
-        },
-        ratings: '',
-        _id: '1'
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3
     },
-    {
-        message: 'Wedding Photography Bundle',
-        user:{
-            name: '',
-            image: '',
-            email: ''
-        },
-        ratings: '',
-        _id: '1'
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2
     },
-];
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+};
 
 const Reviews = () => {
-    return (
-        <section className='mt-5'>
-            <h1 className='color-primary text-center mb-4'>Our Reviews</h1>
 
+    const [reviews, setReviews] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:4000/reviews')
+        .then(res => res.json())
+        .then(data => setReviews(data));
+    }, []);
+
+    return (
+        <section className='my-5 container'>
+            <h1 className='color-primary text-center mb-4'>Our Reviews</h1>
+            <Carousel 
+                responsive={responsive}
+                autoPlay={true}
+                autoPlaySpeed={1100}
+                keyBoardControl={true}
+                infinite={true}
+                removeArrowOnDeviceType={["tablet", "mobile"]}
+            >
+                {
+                    reviews.map(review => <Review review={review} key={review._id} /> )
+                }
+            </Carousel>
         </section>
     );
 };

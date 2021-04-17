@@ -1,0 +1,20 @@
+.addAdmin,
+.feedback,
+.booking-list {
+  background-color: rgb(245, 245, 245);
+  padding: 30px;
+  min-height: 90vh;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.selected-rating {
+  color: rgb(255, 175, 2);
+}
+.rating1:hover,
+.rating2:hover,
+.rating3:hover,
+.rating4:hover,
+.rating5:hover {
+  color: rgb(255, 175, 2);
+  font-size: 19px;
+}

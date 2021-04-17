@@ -4,3 +4,9 @@
 .color-primary {
   color: rgb(111, 0, 255);
 }
+.link {
+  text-decoration: none;
+}
+.link:hover {
+  text-decoration: underline;
+}

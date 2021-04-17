@@ -4,9 +4,11 @@ import { userContext } from '../../../App';
 
 const PrivateRoute = ({ children, ...rest }) => {
 
-    const [loggedInUser] = useContext(userContext);
+    const [loggedInUser, , loading] = useContext(userContext);
 
     return (
+        <>
+        {!loading ?
         <Route
             {...rest}
             render={({ location }) =>
@@ -21,7 +23,8 @@ const PrivateRoute = ({ children, ...rest }) => {
                 />
                 )
             }
-        />
+        /> : <h1 className='color-primary text-center mt-5'>Loading...</h1> }
+        </>
     );
 };
 

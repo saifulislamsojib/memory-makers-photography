@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useHistory, useLocation } from 'react-router-dom';
 import { userContext } from '../../../App';
 import LoginImg from '../../../images/login.jpg';
-import { createUser, fbSignIn, googleSignIn, signingUser } from './authManager';
+import { createUser, fbSignIn, getToken, googleSignIn, signingUser } from './authManager';
 import './Login.css';
 
 const Login = () => {
@@ -31,9 +31,14 @@ const Login = () => {
 
     const updateState = res => {
         if (res.email) {
-            setLoggedInUser(res);
-            history.replace(from);
             setLoginError('')
+            getToken()
+            .then(result => {
+                if (result) {
+                    setLoggedInUser(res);
+                    history.replace(from);
+                };
+            });
         }
         else{
             setLoginError(res);
@@ -85,27 +90,27 @@ const Login = () => {
                             {newUser && <div className='form-floating my-3'>
                                 <input className='form-control input' type='text' {...register("name", { required: true })} id="name" placeholder="Enter your Name" />
                                 <label className='text-muted' htmlFor="name">Enter your Name</label>
-                                {errors.name && <span className="text-danger">Name is required</span>}
+                                {errors.name && <span className="text-danger d-inline-block mt-2">Name is required</span>}
                             </div>}
 
                             <div className='form-floating my-3'>
                                 <input className='form-control input' type='email' {...register("email", { required: true, pattern: /\S+@\S+\.\S+/ })} id="email" placeholder="Enter your Email" />
                                 <label className='text-muted' htmlFor="email">Enter your Email</label>
-                                {errors.email && <span className="text-danger">Enter is required</span>}
+                                {errors.email && <span className="text-danger d-inline-block mt-2">Enter is required</span>}
                             </div>
                             
                             <div className='password-section form-floating my-3'>
                                 <input className='input form-control' type={passwordType} {...register("password", { required: true, minLength: 6 })} id="password" placeholder="Enter Password" />
                                 <FontAwesomeIcon onClick={handlePasswordType} className='eye' icon={passwordIcon} />
                                 <label className='text-muted' htmlFor="password">Enter Password</label>
-                                {errors.password && <span className="text-danger">Password required Minimum 6 Character</span>}
+                                {errors.password && <span className="text-danger d-inline-block mt-2">Password required Minimum 6 Character</span>}
                             </div>
 
                             { newUser && <div className='password-section form-floating my-3'>
                                 <input className='input form-control' type={passwordType} {...register("confirmPassword", { required: true })} id="ConfirmPassword" placeholder="Confirm Password" />
                                 <FontAwesomeIcon onClick={handlePasswordType} className='eye' icon={passwordIcon} />
                                 <label className='text-muted' htmlFor="confirmPassword">Confirm Password</label>
-                                {errors.confirmPassword && <span className="text-danger">Confirm Password is required</span>}
+                                {errors.confirmPassword && <span className="text-danger d-inline-block mt-2">Confirm Password is required</span>}
                             </div>}
 
                             <div className='d-flex justify-content-between mt-2'>

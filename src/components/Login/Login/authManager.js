@@ -18,32 +18,32 @@ const setUserName = name => {
     });
 };
 
-const setUser = res => {
+const setUser = (res, name) => {
     const {email, displayName, photoURL} = res.user;
     const newUser = {
         email,
-        name: displayName,
+        name: displayName || name,
         photo: photoURL
     };
-    getToken();
     return newUser;
 };
 
-const getToken = () => {
-    firebase.auth().currentUser.getIdToken(true)
-        .then(idToken => {
-            localStorage.setItem('Photography/idToken', `Bearer ${idToken}`);
-        })
-        .catch(err => {
-            console.log(err);
-        });
+export const getToken = () => {
+    return firebase.auth().currentUser.getIdToken(true)
+    .then(idToken => {
+        sessionStorage.setItem('Photography/idToken', `Bearer ${idToken}`);
+        return true;
+    })
+    .catch(err => {
+        console.log(err);
+    });
 };
 
 export const createUser = (email, password, name) => {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((res) => {
         setUserName(name)
-        return setUser(res);
+        return setUser(res, name);
     })
     .catch((err) => {
         return err.message;
@@ -95,4 +95,8 @@ export const userSignOut = () => {
     .catch((err) => {
         console.log(err.message);
     });
+};
+
+export const auth = () => {
+    return firebase.auth();
 };
