@@ -25,7 +25,7 @@ function App() {
     useEffect(() => {
         if (loggedInUser.email) {
           const token = sessionStorage.getItem('Photography/idToken');
-          fetch(`http://localhost:4000/isAdmin?email=${loggedInUser.email}`, {
+          fetch(`https://memory-makers-photography.herokuapp.com/isAdmin?email=${loggedInUser.email}`, {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',

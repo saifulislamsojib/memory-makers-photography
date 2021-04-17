@@ -9,7 +9,7 @@ const AddAdmin = () => {
 
     const onSubmit = data => {
         setIsAdded(false)
-        fetch('http://localhost:4000/addAdmin', {
+        fetch('https://memory-makers-photography.herokuapp.com/addAdmin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(data)

@@ -10,7 +10,7 @@ const BookingList = () => {
 
     useEffect(() => {
         const token = sessionStorage.getItem('Photography/idToken');
-        fetch(`http://localhost:4000/userBookings?email=${loggedInUser.email}`, {
+        fetch(`https://memory-makers-photography.herokuapp.com/userBookings?email=${loggedInUser.email}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

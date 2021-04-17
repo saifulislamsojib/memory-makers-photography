@@ -18,7 +18,7 @@ const Feedback = () => {
         setFeedbackSuccess(false)
         if (ratings) {
             const {email, photo} = loggedInUser;
-            fetch('http://localhost:4000/sendFeedback', {
+            fetch('https://memory-makers-photography.herokuapp.com/sendFeedback', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({...data, email, photo, ratings, feedbackDate: new Date().toDateString()})

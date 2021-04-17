@@ -6,7 +6,7 @@ const Services = () => {
     const [services, setServices] = useState([]);
 
     // const handle = () => {
-    //     fetch('http://localhost:4000/addService', {
+    //     fetch('https://memory-makers-photography.herokuapp.com/addService', {
     //         method: 'POST',
     //         headers: { 'Content-Type': 'application/json'},
     //         body: JSON.stringify(services)
@@ -16,7 +16,7 @@ const Services = () => {
     // };
 
     useEffect(() => {
-        fetch('http://localhost:4000/services')
+        fetch('https://memory-makers-photography.herokuapp.com/services')
         .then(res => res.json())
         .then(data => setServices(data));
     }, []);

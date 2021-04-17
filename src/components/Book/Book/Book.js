@@ -19,7 +19,7 @@ const Book = () => {
     const [bookingInfo, setBookingInfo] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:4000/service/${id}`)
+        fetch(`https://memory-makers-photography.herokuapp.com/service/${id}`)
         .then(res => res.json())
         .then(data => setService(data));
     }, [id]);
@@ -31,7 +31,7 @@ const Book = () => {
     };
 
     const handlePaymentCheckout = paymentDetails => {
-        fetch('http://localhost:4000/bookOrder', {
+        fetch('https://memory-makers-photography.herokuapp.com/bookOrder', {
             method: 'POST',
             body: JSON.stringify({...bookingInfo, paymentDetails, orderDate: new Date().toDateString(), orderTime: new Date().toTimeString()}),
             headers: {"Content-Type": "application/json"}

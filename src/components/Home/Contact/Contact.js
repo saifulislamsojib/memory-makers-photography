@@ -11,7 +11,7 @@ const Contact = () => {
     const [sended, isSended] = useState(false);
 
     const onSubmit = data => {
-        fetch('http://localhost:4000/sendMessage', {
+        fetch('https://memory-makers-photography.herokuapp.com/sendMessage', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(data)
