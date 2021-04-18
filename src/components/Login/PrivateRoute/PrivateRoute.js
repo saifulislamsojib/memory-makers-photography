@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { userContext } from '../../../App';
+import Spinner from '../../Shared/Spinner/Spinner';
 
 const PrivateRoute = ({ children, ...rest }) => {
 
@@ -23,7 +24,7 @@ const PrivateRoute = ({ children, ...rest }) => {
                 />
                 )
             }
-        /> : <h1 className='color-primary text-center mt-5'>Loading...</h1> }
+        /> : <Spinner /> }
         </>
     );
 };

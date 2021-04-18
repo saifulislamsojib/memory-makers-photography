@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { userContext } from '../../../App';
+import NotFound from '../../NotFound/NotFound';
 import Navbar from '../../Shared/Navbar/Navbar';
+import Spinner from '../../Shared/Spinner/Spinner';
 import BookForm from '../BookForm/BookForm';
 import BookingTable from '../BookingTable/BookingTable';
 import ProcessPayment from '../ProcessPayment/ProcessPayment';
@@ -16,24 +18,29 @@ const Book = () => {
 
     const [loggedInUser] = useContext(userContext);
 
+    const [showSpinner, setShowSpinner] = useState(true);
+
     const [bookingInfo, setBookingInfo] = useState(null);
 
     useEffect(() => {
+        setShowSpinner(true);
         fetch(`https://memory-makers-photography.herokuapp.com/service/${id}`)
         .then(res => res.json())
-        .then(data => setService(data));
+        .then(data => {
+            setService(data);
+            setShowSpinner(false);
+        })
+        .catch(err =>setShowSpinner(false));
     }, [id]);
 
     const onSubmit = data => {
-        const newService = {...service};
-        newService.status = 'Pending';
-        setBookingInfo({...data, service: newService, user: loggedInUser});
+        setBookingInfo({...data, service, user: loggedInUser});
     };
 
     const handlePaymentCheckout = paymentDetails => {
         fetch('https://memory-makers-photography.herokuapp.com/bookOrder', {
             method: 'POST',
-            body: JSON.stringify({...bookingInfo, paymentDetails, orderDate: new Date().toDateString(), orderTime: new Date().toTimeString()}),
+            body: JSON.stringify({...bookingInfo, paymentDetails, orderDate: new Date().toDateString(), orderTime: new Date().toTimeString(), status: 'Pending'}),
             headers: {"Content-Type": "application/json"}
         })
         .then(res => res.json())
@@ -47,11 +54,14 @@ const Book = () => {
     return (
         <div className='container'>
             <Navbar />
-            <BookingTable service={service} />
-            <h2 className='color-primary mt-5 text-center'>Process Your Booking</h2>
-            {bookingInfo ?
-                <ProcessPayment handlePaymentCheckout={handlePaymentCheckout} price={service.price} />
+            {service.title ?
+            <>
+                <BookingTable service={service} />
+                <h2 className='color-primary mt-5 text-center'>Process Your Booking</h2>
+                {bookingInfo ?
+                    <ProcessPayment handlePaymentCheckout={handlePaymentCheckout} price={service.price} />
                 :<BookForm onSubmit={onSubmit} />}
+            </>:showSpinner ? <Spinner />:<NotFound />}
         </div>
     );
 };

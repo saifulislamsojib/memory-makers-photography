@@ -1,4 +1,4 @@
-import { faCommentDots, faHome, faSignOutAlt, faSort, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCommentDots, faHome, faPlusCircle, faSignOutAlt, faSort, faThLarge, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
@@ -28,17 +28,32 @@ const Sidebar = ({url, isAdmin}) => {
                         <span className='ms-2'>Booking List</span>
                     </Link>
                 </li>
-                <li className="nav-item mt-2">
+                {!isAdmin &&
+                    <li className="nav-item mt-2">
                     <Link to={`${url}/feedback`} className="nav-link text-white" >
                         <FontAwesomeIcon icon={faCommentDots} />
                         <span className='ms-2'>Feedback</span>
                     </Link>
-                </li>
+                </li>}
                 {isAdmin &&
                 <li className="nav-item mt-2">
                     <Link to={`${url}/addAdmin`} className="nav-link text-white" >
                         <FontAwesomeIcon icon={faUserPlus} />
                         <span className='ms-2'>Add Admin</span>
+                    </Link>
+                </li>}
+                {isAdmin &&
+                <li className="nav-item mt-2">
+                    <Link to={`${url}/addService`} className="nav-link text-white" >
+                        <FontAwesomeIcon icon={faPlusCircle} />
+                        <span className='ms-2'>Add Service</span>
+                    </Link>
+                </li>}
+                {isAdmin &&
+                <li className="nav-item mt-2">
+                    <Link to={`${url}/manageServices`} className="nav-link text-white" >
+                        <FontAwesomeIcon icon={faThLarge} />
+                        <span className='ms-2'>Manage Service</span>
                     </Link>
                 </li>}
                 <li className="nav-item mt-3">

@@ -22,9 +22,11 @@ function App() {
 
   const [isAdmin, setIsAdmin] = useState(false);
 
+  const token = sessionStorage.getItem('Photography/idToken');
+
     useEffect(() => {
-        if (loggedInUser.email) {
-          const token = sessionStorage.getItem('Photography/idToken');
+      setIsAdmin(false);
+        if (loggedInUser.email && token) {
           fetch(`https://memory-makers-photography.herokuapp.com/isAdmin?email=${loggedInUser.email}`, {
               method: 'POST',
               headers: {
@@ -35,7 +37,7 @@ function App() {
           .then(res => res.json())
           .then(data => setIsAdmin(data))
         }
-    }, [loggedInUser])
+    }, [loggedInUser, token])
 
   useEffect(() => {
     auth()
@@ -49,8 +51,12 @@ function App() {
             photo: photoURL
         };
         getToken()
-        .then(res => res && setLoading(false))
-        setLoggedInUser(newUser);
+        .then(res => {
+          if(res) {
+            setLoggedInUser(newUser);
+            setLoading(false);
+          }
+        })
       }
       else {
         setLoading(false);

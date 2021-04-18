@@ -51,6 +51,7 @@ const Feedback = () => {
                         {errors.description && <span className="text-danger d-inline-block mt-2">description is required minimum Length 50</span>}
                     </div>
                     <div className='ratings'>
+                        <label className="me-3">Ratings</label>
                         {
                             ['rating1', 'rating2', 'rating3', 'rating4', 'rating5'].map((rating, i) => <FontAwesomeIcon key={rating}  className={`${rating} ${i<ratings&&'selected-rating'}`} icon={faStar} onClick={()=>setRatings(i+1)} />)
                         }

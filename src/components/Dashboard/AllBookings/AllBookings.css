@@ -1,0 +1,25 @@
+.table-headers {
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+}
+.all-bookings {
+  min-width: 850px;
+}
+
+@media (max-width: 1200px) {
+  .bookings-container {
+    overflow: scroll;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .bookings-container {
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 940px) {
+  .bookings-container {
+    overflow: scroll;
+  }
+}

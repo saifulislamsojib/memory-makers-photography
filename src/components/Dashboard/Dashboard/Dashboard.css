@@ -1,12 +1,18 @@
 .addAdmin,
 .feedback,
-.booking-list {
+.booking-list,
+.services-container {
   background-color: rgb(245, 245, 245);
   padding: 30px;
   min-height: 90vh;
   border-radius: 20px;
   margin-bottom: 10px;
 }
+
+.action-icon {
+  cursor: pointer;
+}
+
 .selected-rating {
   color: rgb(255, 175, 2);
 }

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import AddAdmin from '../AddAdmin/AddAdmin';
+import AddService from '../AddService/AddService';
 import BookingList from '../BookingList/BookingList';
 import Feedback from '../Feedback/Feedback';
+import ManageServices from '../ManageServices/ManageServices';
 import Sidebar from '../Sidebar/Sidebar';
 import './Dashboard.css';
 
@@ -19,19 +21,23 @@ const Dashboard = ({isAdmin}) => {
                 <div className="col-lg-9 col-xl-10">
                     <Switch>
                         <Route exact path={path}>
-                            <BookingList />
+                            <BookingList isAdmin={isAdmin} />
                         </Route>
                         <Route path={`${path}/bookingList`}>
-                            <BookingList />
+                            <BookingList isAdmin={isAdmin}/>
                         </Route>
-                        {!isAdmin &&
                         <Route path={`${path}/feedback`}>
-                            <Feedback />
-                        </Route>}
-                        {isAdmin &&
+                            {!isAdmin && <Feedback />}
+                        </Route>
                         <Route path={`${path}/addAdmin`}>
-                            <AddAdmin />
-                        </Route>}
+                            {isAdmin && <AddAdmin />}
+                        </Route>
+                        <Route path={`${path}/addService`}>
+                            {isAdmin && <AddService />}
+                        </Route>
+                        <Route path={`${path}/manageServices`}>
+                            {isAdmin && <ManageServices />}
+                        </Route>
                     </Switch>
                 </div>
             </div>

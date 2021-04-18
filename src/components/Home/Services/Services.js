@@ -4,17 +4,7 @@ import Service from '../Service/Service';
 const Services = () => {
 
     const [services, setServices] = useState([]);
-
-    // const handle = () => {
-    //     fetch('https://memory-makers-photography.herokuapp.com/addService', {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json'},
-    //         body: JSON.stringify(services)
-    //     })
-    //     .then(res => res.json())
-    //     .then(result => console.log(result));
-    // };
-
+    
     useEffect(() => {
         fetch('https://memory-makers-photography.herokuapp.com/services')
         .then(res => res.json())
