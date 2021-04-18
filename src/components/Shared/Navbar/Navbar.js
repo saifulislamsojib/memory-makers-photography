@@ -23,13 +23,13 @@ const Navbar = ({active}) => {
                             <Link to="/" className={`nav-link ${active?.home}`} aria-current="page">Home</Link>
                         </li>
                         <li className="nav-item mt-2 ms-lg-4 text-center">
-                            <Link to="/services" className={`nav-link ${active?.home && 'text-white'}`}>Services</Link>
+                            <a href='#services' className={`nav-link ${active?.home && 'text-white'}`}>Services</a>
                         </li>
                         <li className="nav-item mt-2 ms-lg-4 text-center">
                             <Link to="/dashboard" className={`nav-link ${active?.home && 'text-white'}`}>Dashboard</Link>
                         </li>
                         <li className="nav-item mt-2 ms-lg-4 text-center">
-                            <Link to="/contact" className={`nav-link ${active?.home && 'text-white'}`}>Contact Us</Link>
+                            <a href="#contacts" className={`nav-link ${active?.home && 'text-white'}`}>Contact Us</a>
                         </li>
                         <li className="nav-item ms-lg-4 text-center">
                             {name ?
