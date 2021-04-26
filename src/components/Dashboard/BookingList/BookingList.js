@@ -15,7 +15,7 @@ const BookingList = ({isAdmin}) => {
     useEffect(() => {
         setShowSpinner(true);
         const token = sessionStorage.getItem('Photography/idToken');
-        fetch(`https://memory-makers-photography.herokuapp.com/allBookings?email=${loggedInUser.email}`, {
+        const unsubscribe = fetch(`https://memory-makers-photography.herokuapp.com/allBookings?email=${loggedInUser.email}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,6 +27,7 @@ const BookingList = ({isAdmin}) => {
             setBookings(data);
             setShowSpinner(false);
         })
+        return unsubscribe;
     }, [loggedInUser]);
 
     const [statusUpdated, setStatusUpdated] = useState(false);

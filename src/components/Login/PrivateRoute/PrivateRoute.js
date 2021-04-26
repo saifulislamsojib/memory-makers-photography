@@ -6,14 +6,15 @@ import Spinner from '../../Shared/Spinner/Spinner';
 const PrivateRoute = ({ children, ...rest }) => {
 
     const [loggedInUser, , loading] = useContext(userContext);
-
+    const {emailVerified}= loggedInUser;
+    
     return (
         <>
         {!loading ?
         <Route
             {...rest}
             render={({ location }) =>
-                loggedInUser.email ? (
+                emailVerified ? (
                 children
                 ) : (
                 <Redirect

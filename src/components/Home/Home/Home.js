@@ -8,6 +8,9 @@ import Reviews from '../Reviews/Reviews';
 import Services from '../Services/Services';
 
 const Home = () => {
+
+    document.title = 'memory-makers - home';
+
     return (
         <div>
             <Header />

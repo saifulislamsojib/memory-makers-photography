@@ -11,6 +11,7 @@ import { auth, getToken } from "./components/Login/Login/authManager";
 import Login from "./components/Login/Login/Login";
 import PrivateRoute from "./components/Login/PrivateRoute/PrivateRoute";
 import NotFound from "./components/NotFound/NotFound";
+import Spinner from "./components/Shared/Spinner/Spinner";
 
 export const userContext = createContext();
 
@@ -20,13 +21,14 @@ function App() {
 
   const [loading, setLoading] = useState(true);
 
+  const [adminLoading, setAdminLoading] = useState(true);
+
   const [isAdmin, setIsAdmin] = useState(false);
-
-  const token = sessionStorage.getItem('Photography/idToken');
-
+  
     useEffect(() => {
       setIsAdmin(false);
-        if (loggedInUser.email && token) {
+        if (loggedInUser.email) {
+          const token = sessionStorage.getItem('Photography/idToken');
           fetch(`https://memory-makers-photography.herokuapp.com/isAdmin?email=${loggedInUser.email}`, {
               method: 'POST',
               headers: {
@@ -35,26 +37,31 @@ function App() {
               }
           })
           .then(res => res.json())
-          .then(data => setIsAdmin(data))
+          .then(data => {
+            setIsAdmin(data);
+            setAdminLoading(false);
+          })
         }
-    }, [loggedInUser, token])
+    }, [loggedInUser])
 
   useEffect(() => {
-    auth()
+    const unsubscribe = auth()
     .onAuthStateChanged(user => {
       if (user) {
-        const {email, displayName, photoURL} = user;
+        const {email, displayName, photoURL, emailVerified} = user;
 
         const newUser = {
             email,
             name: displayName,
-            photo: photoURL
+            photo: photoURL,
+            emailVerified
         };
         getToken()
-        .then(res => {
-          if(res) {
-            setLoggedInUser(newUser);
-            setLoading(false);
+        .then(idToken => {
+          if(idToken) {
+              sessionStorage.setItem('Photography/idToken', `Bearer ${idToken}`);
+              setLoggedInUser(newUser);
+              setLoading(false);
           }
         })
       }
@@ -62,6 +69,7 @@ function App() {
         setLoading(false);
       }
     })
+    return unsubscribe;
   }, []);
   
   return (
@@ -75,7 +83,9 @@ function App() {
             <Book />
           </PrivateRoute>
           <PrivateRoute path="/dashboard">
-            <Dashboard isAdmin={isAdmin} />
+            {adminLoading ? 
+            <Spinner />
+            :<Dashboard isAdmin={isAdmin} />}
           </PrivateRoute>
           <Route path="/login">
             <Login />

@@ -19,11 +19,12 @@ const setUserName = name => {
 };
 
 const setUser = (res, name) => {
-    const {email, displayName, photoURL} = res.user;
+    const {email, displayName, photoURL, emailVerified} = res.user;
     const newUser = {
         email,
         name: displayName || name,
-        photo: photoURL
+        photo: photoURL,
+        emailVerified
     };
     return newUser;
 };
@@ -31,8 +32,7 @@ const setUser = (res, name) => {
 export const getToken = () => {
     return firebase.auth().currentUser.getIdToken(true)
     .then(idToken => {
-        sessionStorage.setItem('Photography/idToken', `Bearer ${idToken}`);
-        return true;
+        return idToken;
     })
     .catch(err => {
         console.log(err);
@@ -41,11 +41,11 @@ export const getToken = () => {
 
 export const createUser = (email, password, name) => {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((res) => {
-        setUserName(name)
+    .then(res => {
+        setUserName(name);
         return setUser(res, name);
     })
-    .catch((err) => {
+    .catch(err => {
         return err.message;
     });
 };
@@ -100,3 +100,19 @@ export const userSignOut = () => {
 export const auth = () => {
     return firebase.auth();
 };
+
+export const sendEmailVerification = path => {
+    const user = firebase.auth().currentUser;
+    const actionCodeSettings = {
+        url: `${window.location.origin}${path}`
+    }
+
+    return user.sendEmailVerification(actionCodeSettings)
+    .then(() => {
+        return true;
+    })
+    .catch(err => {
+        console.log(err);
+        return false;
+    });
+}

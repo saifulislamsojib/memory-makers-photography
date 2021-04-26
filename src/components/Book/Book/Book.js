@@ -10,6 +10,8 @@ import ProcessPayment from '../ProcessPayment/ProcessPayment';
 
 const Book = () => {
 
+    document.title = 'service-booking';
+
     const {id} = useParams();
 
     const history = useHistory();
@@ -23,14 +25,14 @@ const Book = () => {
     const [bookingInfo, setBookingInfo] = useState(null);
 
     useEffect(() => {
-        setShowSpinner(true);
-        fetch(`https://memory-makers-photography.herokuapp.com/service/${id}`)
+        const unsubscribe = fetch(`https://memory-makers-photography.herokuapp.com/service/${id}`)
         .then(res => res.json())
         .then(data => {
             setService(data);
             setShowSpinner(false);
         })
         .catch(err =>setShowSpinner(false));
+        return unsubscribe;
     }, [id]);
 
     const onSubmit = data => {

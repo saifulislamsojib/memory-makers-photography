@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { userContext } from '../../../App';
 import './Navbar.css';
@@ -7,6 +7,8 @@ const Navbar = ({active}) => {
 
     const [loggedInUser] = useContext(userContext);
 
+    const [navbarToggler, setNavbarToggler] = useState(false);
+
     const history = useHistory();
 
     const {name, photo} = loggedInUser;
@@ -14,10 +16,10 @@ const Navbar = ({active}) => {
         <nav className="navbar navbar-expand-lg navbar-light">
             <div className="container">
                 <Link to="/" className={`navbar-brand mt-lg-2 ${active?.home && 'text-white'}`}>Memory Makers Photography</Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
+                <button className="navbar-toggler" type="button" onClick={() => setNavbarToggler(!navbarToggler)}>
+                    <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
+                <div className={`collapse navbar-collapse ${navbarToggler&&'d-block'}`}>
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item mt-lg-2 text-center">
                             <Link to="/" className={`nav-link ${active?.home}`} aria-current="page">Home</Link>

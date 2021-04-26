@@ -1,14 +1,20 @@
 .sidebar {
   background-image: linear-gradient(40deg, #198fd3, #00cdec);
   position: fixed;
-  min-width: 192px;
+  min-width: 201px;
   width: 15%;
   min-height: 100vh;
 }
 
+@media (max-width: 1199.98px) {
+  .sidebar {
+    width: 23%;
+  }
+}
+
 @media (max-width: 991.98px) {
   .sidebar {
-    position: static;
+    position: sticky;
     width: 100%;
     min-height: 0;
     border-radius: 10px;
@@ -19,4 +25,39 @@
 .sidebar li:hover span {
   display: inline-block;
   transform: translate(5px);
+}
+
+.nav-icon {
+  width: 25px;
+  height: 2px;
+  background-color: rgb(68, 67, 67);
+  border-radius: 10px;
+}
+
+.nav-icons {
+  width: 25px;
+  height: 18px;
+  margin: auto;
+}
+
+.nav-icon1 {
+  transform: rotate(-45deg);
+  top: 35px;
+  transition: all 0.3s;
+}
+
+.nav-icon2,
+.nav-icon3 {
+  transform: rotate(45deg);
+  transform-origin: 50% 50%;
+  top: 35px;
+  transition: all 0.3s;
+}
+
+.nav-icon23 {
+  margin-top: 6px;
+}
+
+.toggler-btn {
+  padding: 10px;
 }

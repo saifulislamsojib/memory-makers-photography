@@ -1,6 +1,6 @@
 import { faCommentDots, faHome, faPlusCircle, faSignOutAlt, faSort, faThLarge, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { userContext } from '../../../App';
 import { userSignOut } from '../../Login/Login/authManager';
@@ -10,6 +10,10 @@ const Sidebar = ({url, isAdmin}) => {
 
     const [, setLoggedInUser] = useContext(userContext);
 
+    const [navbarToggler, setNavbarToggler] = useState(false);
+
+    const [leave, setLeave] = useState(false);
+
     const handleSignOut = () => {
         userSignOut()
         .then(() => {
@@ -18,9 +22,21 @@ const Sidebar = ({url, isAdmin}) => {
         })
     };
 
+    const handleNavbar = ()=> setNavbarToggler(!navbarToggler);
+
     return (
-        <nav className="sidebar py-5 px-4">
-            <h4 className='text-white ms-2'>Dashboard</h4>
+        <nav onBlur={()=> leave&& setNavbarToggler(false)} className="sidebar py-lg-5 py-3 px-2 navbar-expand-lg navbar-light">
+            <div className='d-flex align-items-center justify-content-between'>
+            <h4 className='text-white ms-2 mt-2 mt-lg-0'>Dashboard</h4>
+            <button className="navbar-toggler toggler-btn me-2" type="button" onClick={handleNavbar}>
+                <div className='positive-relative nav-icons'>
+                    <div className={`nav-icon ${navbarToggler&&"nav-icon1 position-absolute"}`}></div>
+                    <div className={`nav-icon ${navbarToggler?"nav-icon2 position-absolute": "nav-icon23"}`}></div>
+                    <div className={`nav-icon ${navbarToggler?"nav-icon3 position-absolute": "nav-icon23"}`}></div>
+                </div>
+            </button>
+            </div>
+            <div onMouseLeave={()=>setLeave(true)} onMouseEnter={()=>setLeave(false)} className={`collapse navbar-collapse ${navbarToggler&&'d-block'}`}>
             <ul className="nav flex-column">
                 <li className="nav-item mt-2">
                     <Link to={`${url}/bookingList`} className="nav-link text-white" >
@@ -67,6 +83,7 @@ const Sidebar = ({url, isAdmin}) => {
                     <span className='ms-2'>Logout</span>
                 </li>
             </ul>
+            </div>
         </nav>
     );
 };

@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import { useHistory, useLocation } from 'react-router-dom';
 import { userContext } from '../../../App';
 import LoginImg from '../../../images/login.jpg';
-import { createUser, fbSignIn, getToken, googleSignIn, signingUser } from './authManager';
+import Spinner from '../../Shared/Spinner/Spinner';
+import { createUser, fbSignIn, getToken, googleSignIn, sendEmailVerification, signingUser } from './authManager';
 import './Login.css';
 
 const Login = () => {
@@ -20,21 +21,37 @@ const Login = () => {
 
     const [newUser, setNewUser] = useState(false);
 
-    const [, setLoggedInUser] = useContext(userContext);
+    const [loggedInUser, setLoggedInUser, loading] = useContext(userContext);
 
     const [loginError, setLoginError] =useState('');
+
+    const [emailVerification, setEmailVerification] = useState('');
 
     const history = useHistory();
     const location = useLocation();
 
     const { from } = location.state || { from: { pathname: "/" } };
 
+    const sendMail= () => {
+        setEmailVerification('')
+        sendEmailVerification(from.pathname)
+        .then(res => {
+            if (res){
+                setEmailVerification('Verify Your Email Address');
+            }
+        })
+    }
+    
     const updateState = res => {
         if (res.email) {
             setLoginError('')
+            if (!res.emailVerified) {
+                sendMail();
+            }
             getToken()
-            .then(result => {
-                if (result) {
+            .then(idToken => {
+                if (idToken) {
+                    sessionStorage.setItem('Photography/idToken', `Bearer ${idToken}`);
                     setLoggedInUser(res);
                     history.replace(from);
                 };
@@ -82,8 +99,15 @@ const Login = () => {
     const {passwordType, passwordIcon} = showPassword;
     return (
         <div className="container">
-            <div className="login row">
+            {loading ? <Spinner /> :
+                <div className="login row">
                 <div className='col-lg-6 mb-4 mb-lg-0'>
+                    {emailVerification || loggedInUser.emailVerified ===false ?
+                    <div className='alert-warning text-center p-4 radius'>
+                        <h3>{emailVerification || 'Verify Your Email Address'}</h3>
+                        <small className='d-block'>you received a email at: {loggedInUser.email}</small>
+                        <button onClick={sendMail} className='mt-2 btn btn-outline-success'>Resend Email</button>
+                    </div>:
                     <div className="my-4 mx-auto mx-lg-0 login-inner">
                         <form className="email-password-login" onSubmit={handleSubmit(onSubmit)}>
                             <h2 className='mb-5'>{newUser ? "Create an account" : 'Login'}</h2>
@@ -129,12 +153,12 @@ const Login = () => {
                             <FontAwesomeIcon onClick={() =>SignInWithProvider(fbSignIn)} className='icon fb mx-2' icon={faFacebook} />
                             <FontAwesomeIcon onClick={() =>SignInWithProvider(googleSignIn)} className='icon google mx-2' icon={faGoogle} />
                         </div>
-                    </div>
+                    </div>}
                 </div>
                 <div className='col-lg-6 mb-3 mb-lg-0'>
                     <img className='img-fluid' src={LoginImg} alt=""/>
                 </div>
-            </div>
+            </div>}
         </div>
     );
 };

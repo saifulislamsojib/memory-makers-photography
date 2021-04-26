@@ -11,6 +11,8 @@ import './Dashboard.css';
 const Dashboard = ({isAdmin}) => {
 
     let { path, url } = useRouteMatch();
+
+    document.title = 'memory-makers - Dashboard';
     
     return (
         <div className='container-fluid'>

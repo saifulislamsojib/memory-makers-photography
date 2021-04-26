@@ -7,7 +7,7 @@ const AllBookingTable = ({booking, handleStatusUpdate, index}) => {
         <div  className='row mb-4 border-bottom pb-2'>
             <h6 className='col-2'>{name}</h6>
             <h6 className='col-3'>{email}</h6>
-            <h6 className='col-2 text-center'>{paymentDetails.brand}</h6>
+            <h6 className='col-2 text-center ps-4'>{paymentDetails.brand}</h6>
             <h6 className='col-3'>{service.title}</h6>
             <h6 className='col-2 text-end'>
             <select onChange={(e)=>handleStatusUpdate(e, _id, index)} defaultValue={status} className={`form-select ${status==='Pending'?'text-danger': status==='Done' ? 'text-success' : 'text-warning'}`} aria-label="Default select example">

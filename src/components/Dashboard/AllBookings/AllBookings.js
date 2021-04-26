@@ -11,7 +11,7 @@ const AllBookings = ({bookings, handleStatusUpdate, statusUpdated}) => {
                 <div className='row mb-3 pb-2 pt-3 table-headers border-bottom'>
                     <h6 className='col-2 text-muted'>name</h6>
                     <h6 className='col-3 text-muted'>Email</h6>
-                    <h6 className='col-2 text-muted text-center'>Payment</h6>
+                    <h6 className='col-2 text-muted text-center ps-3'>Payment</h6>
                     <h6 className='col-3 text-muted'>Service</h6>
                     <h6 className='col-2 text-muted text-end'>Status</h6>
                 </div>
