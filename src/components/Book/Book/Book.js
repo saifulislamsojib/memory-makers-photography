@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { userContext } from '../../../App';
 import NotFound from '../../NotFound/NotFound';
+import Footer from '../../Shared/Footer/Footer';
 import Navbar from '../../Shared/Navbar/Navbar';
 import Spinner from '../../Shared/Spinner/Spinner';
 import BookForm from '../BookForm/BookForm';
@@ -54,17 +55,20 @@ const Book = () => {
     };
 
     return (
-        <div className='container'>
-            <Navbar />
-            {service.title ?
-            <>
-                <BookingTable service={service} />
-                <h2 className='color-primary mt-5 text-center'>Process Your Booking</h2>
-                {bookingInfo ?
-                    <ProcessPayment handlePaymentCheckout={handlePaymentCheckout} price={service.price} />
-                :<BookForm onSubmit={onSubmit} />}
-            </>:showSpinner ? <Spinner />:<NotFound />}
-        </div>
+        <>
+            <div style={{minHeight: '64.5vh'}} className='container'>
+                <Navbar />
+                {service.title ?
+                <>
+                    <BookingTable service={service} />
+                    <h2 className='color-primary mt-5 text-center'>Process Your Booking</h2>
+                    {bookingInfo ?
+                        <ProcessPayment handlePaymentCheckout={handlePaymentCheckout} price={service.price} />
+                    :<BookForm onSubmit={onSubmit} />}
+                </>:showSpinner ? <Spinner />:<NotFound />}
+            </div>
+            <Footer />
+        </>
     );
 };
 

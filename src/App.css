@@ -10,3 +10,44 @@
 .link:hover {
   text-decoration: underline;
 }
+
+.nav-icon {
+  width: 25px;
+  height: 2px;
+  background-color: rgb(112, 46, 46);
+  border-radius: 10px;
+}
+
+.nav-icons {
+  width: 25px;
+  height: 18px;
+  margin: auto;
+}
+
+.nav-icon1 {
+  transform: rotate(-45deg);
+  transition: all 0.3s;
+}
+
+.nav-icon2,
+.nav-icon3 {
+  transform: rotate(45deg);
+  transform-origin: 50% 50%;
+  transition: all 0.3s;
+}
+
+.home-common {
+  top: 31px;
+}
+
+.dashboard-common {
+  top: 35px;
+}
+
+.nav-icon23 {
+  margin-top: 6px;
+}
+
+.toggler-btn {
+  padding: 10px;
+}

@@ -26,38 +26,3 @@
   display: inline-block;
   transform: translate(5px);
 }
-
-.nav-icon {
-  width: 25px;
-  height: 2px;
-  background-color: rgb(68, 67, 67);
-  border-radius: 10px;
-}
-
-.nav-icons {
-  width: 25px;
-  height: 18px;
-  margin: auto;
-}
-
-.nav-icon1 {
-  transform: rotate(-45deg);
-  top: 35px;
-  transition: all 0.3s;
-}
-
-.nav-icon2,
-.nav-icon3 {
-  transform: rotate(45deg);
-  transform-origin: 50% 50%;
-  top: 35px;
-  transition: all 0.3s;
-}
-
-.nav-icon23 {
-  margin-top: 6px;
-}
-
-.toggler-btn {
-  padding: 10px;
-}

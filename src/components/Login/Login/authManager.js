@@ -112,7 +112,6 @@ export const sendEmailVerification = path => {
         return true;
     })
     .catch(err => {
-        console.log(err);
         return false;
     });
 }

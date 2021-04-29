@@ -16,9 +16,13 @@ const Navbar = ({active}) => {
         <nav className="navbar navbar-expand-lg navbar-light">
             <div className="container">
                 <Link to="/" className={`navbar-brand mt-lg-2 ${active?.home && 'text-white'}`}>Memory Makers Photography</Link>
-                <button className="navbar-toggler" type="button" onClick={() => setNavbarToggler(!navbarToggler)}>
-                    <span className="navbar-toggler-icon"></span>
-                </button>
+                    <button className="navbar-toggler toggler-btn me-2" type="button" onClick={()=> setNavbarToggler(!navbarToggler)}>
+                        <div className='positive-relative nav-icons'>
+                            <div className={`nav-icon ${navbarToggler&&"nav-icon1 home-common position-absolute"}`}></div>
+                            <div className={`nav-icon ${navbarToggler?"nav-icon2 home-common position-absolute": "nav-icon23"}`}></div>
+                            <div className={`nav-icon ${navbarToggler?"nav-icon3 home-common position-absolute": "nav-icon23"}`}></div>
+                        </div>
+                    </button>
                 <div className={`collapse navbar-collapse ${navbarToggler&&'d-block'}`}>
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item mt-lg-2 text-center">

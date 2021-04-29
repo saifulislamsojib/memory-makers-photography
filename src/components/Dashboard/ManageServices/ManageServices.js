@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Spinner from '../../Shared/Spinner/Spinner';
+import AddService from '../AddService/AddService';
 import ManageService from '../ManageService/ManageService';
 
 const ManageServices = () => {
@@ -7,6 +8,8 @@ const ManageServices = () => {
     const [services, setServices] = useState([]);
 
     const [isDeleted, setIsDeleted] = useState(false);
+
+    const [updates, setUpdates] = useState({});
     
     useEffect(() => {
         const unsubscribe = fetch('https://memory-makers-photography.herokuapp.com/services')
@@ -32,7 +35,7 @@ const ManageServices = () => {
     return (
         <div className='mt-4'>
             <h1 className='color-primary'>Manage Services</h1>
-            {services.length ?
+            {!updates._id && services.length ?
             <div className='all-services'>
                 <div className='services-container'>
                     <div className='row mb-3 pb-2 pt-3 table-headers border-bottom'>
@@ -42,13 +45,16 @@ const ManageServices = () => {
                         <h6 className='col-4 text-muted text-end'>Actions</h6>
                     </div>
                     {
-                        services.map((service, index) => <ManageService index={index} key={service._id} handleServiceDelete={handleServiceDelete} service={service} />)
+                        services.map((service, index) => <ManageService index={index} setUpdates={setUpdates} key={service._id} handleServiceDelete={handleServiceDelete} service={service} />)
                     }
                     {
                         isDeleted && <h5 className="text-success text-center mt-5">Service Deleted Successfully</h5>
                     }
                 </div>
-            </div>:<Spinner />}
+            </div>: !updates._id && <Spinner />}
+            {
+                updates._id&&<AddService updates={updates} />
+            }
         </div>
     );
 };

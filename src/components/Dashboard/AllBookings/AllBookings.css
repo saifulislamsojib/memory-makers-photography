@@ -3,7 +3,7 @@
   border-radius: 10px;
 }
 .all-bookings {
-  min-width: 792px;
+  min-width: 730px;
 }
 
 .bookings-container {
@@ -13,13 +13,7 @@
 @media (max-width: 1200px) {
   .all-bookings h6,
   .all-bookings select {
-    font-size: 15px;
-  }
-}
-
-@media (max-width: 940px) {
-  .all-bookings h6,
-  .all-bookings select {
     font-size: 14px;
+    font-weight: normal;
   }
 }

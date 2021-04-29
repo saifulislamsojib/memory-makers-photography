@@ -30,13 +30,14 @@
 }
 
 .services-container {
-  min-width: 480px;
+  min-width: 450px;
 }
 
 @media (max-width: 767.98px) {
   .services-container h6,
   .services-container select {
     font-size: 15px;
+    font-weight: normal;
   }
 }
 

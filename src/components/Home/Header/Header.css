@@ -1,7 +1,8 @@
 .header {
   background-image: url(../../../images/photographerBg1.jpg);
-  min-height: 800px;
+  min-height: 90vh;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  background-attachment: fixed;
 }

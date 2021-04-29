@@ -7,7 +7,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { userContext } from '../../../App';
 import LoginImg from '../../../images/login.jpg';
 import Spinner from '../../Shared/Spinner/Spinner';
-import { createUser, fbSignIn, getToken, googleSignIn, sendEmailVerification, signingUser } from './authManager';
+import { createUser, fbSignIn, getToken, googleSignIn, sendEmailVerification, signingUser, userSignOut } from './authManager';
 import './Login.css';
 
 const Login = () => {
@@ -96,6 +96,14 @@ const Login = () => {
         setShowPassword({passwordType, passwordIcon});
     };
 
+    const handleSignOut = () => {
+        userSignOut()
+        .then(() => {
+            setLoggedInUser({})
+            sessionStorage.removeItem('Photography/idToken');
+        })
+    };
+
     const {passwordType, passwordIcon} = showPassword;
     return (
         <div className="container">
@@ -107,6 +115,7 @@ const Login = () => {
                         <h3>{emailVerification || 'Verify Your Email Address'}</h3>
                         <small className='d-block'>you received a email at: {loggedInUser.email}</small>
                         <button onClick={sendMail} className='mt-2 btn btn-outline-success'>Resend Email</button>
+                        <button onClick={handleSignOut} className='mt-2 btn btn-outline-danger d-block mx-auto'>Log Out</button>
                     </div>:
                     <div className="my-4 mx-auto mx-lg-0 login-inner">
                         <form className="email-password-login" onSubmit={handleSubmit(onSubmit)}>
