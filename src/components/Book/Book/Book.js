@@ -3,7 +3,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import { userContext } from '../../../App';
 import NotFound from '../../NotFound/NotFound';
 import Footer from '../../Shared/Footer/Footer';
-import Navbar from '../../Shared/Navbar/Navbar';
 import Spinner from '../../Shared/Spinner/Spinner';
 import BookForm from '../BookForm/BookForm';
 import BookingTable from '../BookingTable/BookingTable';
@@ -57,7 +56,6 @@ const Book = () => {
     return (
         <>
             <div style={{minHeight: '64.5vh'}} className='container'>
-                <Navbar />
                 {service.title ?
                 <>
                     <BookingTable service={service} />

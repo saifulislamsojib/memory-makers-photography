@@ -14,3 +14,7 @@
 .dashboard-common {
   top: 35px;
 }
+
+.muted-text {
+  color: #cccccc;
+}

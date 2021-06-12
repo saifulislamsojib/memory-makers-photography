@@ -23,7 +23,7 @@ const Footer = () => {
                 <div className="col-md-3 mt-3 mt-md-0 col-sm-6">
                     <h4>Quick Links</h4>
                     <div className="list-group mt-3">
-                        <Link to='/' className="text-white link">Home</Link>
+                        <Link to='/' onClick={()=> window.scrollTo(0, 0)} className="text-white link">Home</Link>
                         <Link to='/dashboard' className="text-white mt-2 link" >Dashboard</Link>
                         <a className="text-white mt-2 link" href="#services">services</a>
                         <a className="text-white mt-2 link" href="#contacts">Contact</a>

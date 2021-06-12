@@ -1,22 +1,71 @@
 .navbar-brand {
-  font-family: "Oswald", sans-serif;
-  font-size: 25px;
-  font-weight: 500;
+  font-family: "Titillium Web", sans-serif;
+  font-size: calc(0.98rem + 0.25vw);
+  font-weight: 600;
+  color: #0f0097 !important;
 }
-.navbar .active {
+.nav-link.active,
+.nav-item:hover .nav-link {
   color: #bd00bd !important;
+  position: relative;
+  transition: 0.5s;
 }
+
+.navbar-bg {
+  background-color: #fafafa;
+  height: 3.5rem;
+}
+
+.navbar-transparent {
+  background-color: transparent;
+  height: 5rem;
+}
+
+.nav-link.active::after,
+.nav-item:hover .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 7px;
+  background-color: #bd00bd;
+  height: 2px;
+  width: 47px;
+  border-radius: 50px;
+  margin: 0 auto;
+  animation: navbar-Animated 0.5s ease-in-out;
+}
+
+@keyframes navbar-Animated {
+  0% {
+    width: 5px;
+  }
+  100% {
+    width: 47px;
+  }
+}
+
+.navbar a {
+  color: #111111;
+}
+
 .navbar img {
-  width: 45px;
-  height: 45px;
+  width: 43px;
+  height: 43px;
   border-radius: 50%;
   cursor: pointer;
+  transform: translateY(-3px);
+}
+
+.navbar {
+  z-index: 100;
+  transition: 0.5s;
 }
 
 .toggler-icon {
   position: relative;
-  width: 43px;
-  height: 37px;
+  width: 40px;
+  height: 35px;
   background-color: #39b0ff;
   display: flex;
   align-items: center;
@@ -67,7 +116,7 @@
 @media (max-width: 991.98px) {
   .navbar-nav {
     width: 105.44%;
-    background-color: #ffffff;
+    background-color: #fafafa;
     position: absolute;
     left: -130%;
     transition: all 0.5s;
@@ -79,5 +128,8 @@
     top: 8px;
     left: 50% !important;
     transform: translateX(-50%);
+  }
+  .navbar img {
+    transform: translateY(0);
   }
 }

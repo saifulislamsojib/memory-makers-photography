@@ -1,0 +1,20 @@
+#contacts {
+  background-image: url("https://cdn.searchenginejournal.com/wp-content/uploads/2018/06/best-contact-us-pages.png");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: #fff;
+}
+
+.error {
+  position: relative;
+  color: rgb(255, 50, 50);
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.contact-inner {
+  background-color: rgba(0, 0, 0, 0.55);
+}

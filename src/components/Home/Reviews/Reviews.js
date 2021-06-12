@@ -37,7 +37,7 @@ const Reviews = () => {
     }, []);
 
     return (
-        <section className='my-5 container'>
+        <section id="reviews" className='my-5 pt-5 container'>
             <h1 className='color-primary text-center mb-4'>Our Reviews</h1>
             <Carousel 
               responsive={responsive}
