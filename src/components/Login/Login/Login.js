@@ -121,26 +121,26 @@ const Login = () => {
                         <form className="email-password-login" onSubmit={handleSubmit(onSubmit)}>
                             <h2 className='mb-5'>{newUser ? "Create an account" : 'Login'}</h2>
                             {newUser && <div className='form-floating my-3'>
-                                <input className='form-control input' type='text' {...register("name", { required: true })} id="name" placeholder="Enter your Name" />
+                                <input autoComplete="username" className='form-control input' type='text' {...register("name", { required: true })} id="name" placeholder="Enter your Name" />
                                 <label className='text-muted' htmlFor="name">Enter your Name</label>
                                 {errors.name && <span className="text-danger d-inline-block mt-2">Name is required</span>}
                             </div>}
 
                             <div className='form-floating my-3'>
-                                <input className='form-control input' type='email' {...register("email", { required: true, pattern: /\S+@\S+\.\S+/ })} id="email" placeholder="Enter your Email" />
+                                <input autoComplete="username" className='form-control input' type='email' {...register("email", { required: true, pattern: /\S+@\S+\.\S+/ })} id="email" placeholder="Enter your Email" />
                                 <label className='text-muted' htmlFor="email">Enter your Email</label>
                                 {errors.email && <span className="text-danger d-inline-block mt-2">Enter is required</span>}
                             </div>
                             
                             <div className='password-section form-floating my-3'>
-                                <input className='input form-control' type={passwordType} {...register("password", { required: true, minLength: 6 })} id="password" placeholder="Enter Password" />
+                                <input autoComplete="current-password" className='input form-control' type={passwordType} {...register("password", { required: true, minLength: 6 })} id="password" placeholder="Enter Password" />
                                 <FontAwesomeIcon onClick={handlePasswordType} className='eye' icon={passwordIcon} />
                                 <label className='text-muted' htmlFor="password">Enter Password</label>
                                 {errors.password && <span className="text-danger d-inline-block mt-2">Password required Minimum 6 Character</span>}
                             </div>
 
                             { newUser && <div className='password-section form-floating my-3'>
-                                <input className='input form-control' type={passwordType} {...register("confirmPassword", { required: true })} id="ConfirmPassword" placeholder="Confirm Password" />
+                                <input autoComplete="current-password" className='input form-control' type={passwordType} {...register("confirmPassword", { required: true })} id="ConfirmPassword" placeholder="Confirm Password" />
                                 <FontAwesomeIcon onClick={handlePasswordType} className='eye' icon={passwordIcon} />
                                 <label className='text-muted' htmlFor="confirmPassword">Confirm Password</label>
                                 {errors.confirmPassword && <span className="text-danger d-inline-block mt-2">Confirm Password is required</span>}

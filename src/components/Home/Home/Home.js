@@ -1,5 +1,6 @@
 import React from 'react';
 import Footer from '../../Shared/Footer/Footer';
+import Navbar from '../../Shared/Navbar/Navbar';
 import BestPhotography from '../BestPhotography/BestPhotography';
 import Contact from '../Contact/Contact';
 import Header from '../Header/Header';
@@ -13,6 +14,7 @@ const Home = () => {
 
     return (
         <div>
+            <Navbar />
             <Header />
             <Photographs />
             <Services />

@@ -6,10 +6,11 @@ const Services = () => {
     const [services, setServices] = useState([]);
     
     useEffect(() => {
-        const unsubscribe = fetch('https://memory-makers-photography.herokuapp.com/services')
+        let unsubscribe = true;
+        fetch('https://memory-makers-photography.herokuapp.com/services')
         .then(res => res.json())
-        .then(data => setServices(data));
-        return unsubscribe;
+        .then(data => unsubscribe&&setServices(data));
+        return () => unsubscribe = false;
     }, []);
 
     return (

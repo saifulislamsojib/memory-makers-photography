@@ -12,3 +12,72 @@
   border-radius: 50%;
   cursor: pointer;
 }
+
+.toggler-icon {
+  position: relative;
+  width: 43px;
+  height: 37px;
+  background-color: #39b0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  border-radius: 3px;
+}
+.toggler-icon::before {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 2px;
+  background-color: #fff;
+  transition: 0.3s;
+  transform: translateY(-10px);
+  box-shadow: 0 10px 0 #fff;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus {
+  border: none;
+}
+
+.toggler-icon::after {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 2px;
+  background-color: #fff;
+  transition: 0.3s;
+  transform: translateY(10px);
+}
+
+.navbar-toggler .toggler-active {
+  background-color: #ff1f69;
+}
+.navbar-toggler .toggler-active::before {
+  transform: translateY(0) rotate(45deg);
+  box-shadow: 0 0 0 #fff;
+}
+.navbar-toggler .toggler-active::after {
+  transform: translateY(0) rotate(-45deg);
+}
+
+@media (max-width: 991.98px) {
+  .navbar-nav {
+    width: 105.44%;
+    background-color: #ffffff;
+    position: absolute;
+    left: -130%;
+    transition: all 0.5s;
+  }
+  .navbar-nav-dark {
+    background-color: #3a3a3a !important;
+  }
+  .mobile {
+    top: 8px;
+    left: 50% !important;
+    transform: translateX(-50%);
+  }
+}
