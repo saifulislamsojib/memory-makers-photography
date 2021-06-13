@@ -1,3 +1,5 @@
+import AOS from 'aos';
+import "aos/dist/aos.css";
 import { createContext, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
@@ -24,6 +26,13 @@ function App() {
   const [adminLoading, setAdminLoading] = useState(true);
 
   const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    AOS.init({
+      duration : 2000
+    });
+    AOS.refresh();
+  }, []);
   
     useEffect(() => {
       setIsAdmin(false);

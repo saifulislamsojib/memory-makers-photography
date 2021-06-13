@@ -10,11 +10,11 @@ const AllBookingTable = ({booking, handleStatusUpdate, index}) => {
             <h6 className='col-2 text-center ps-4'>{paymentDetails.brand}</h6>
             <h6 className='col-3'>{service.title}</h6>
             <h6 className='col-2 text-end'>
-            <select onChange={(e)=>handleStatusUpdate(e, _id, index)} defaultValue={status} className={`form-select ${status==='Pending'?'text-danger': status==='Done' ? 'text-success' : 'text-warning'}`} aria-label="Default select example">
+            <select onChange={(e)=>handleStatusUpdate(e, _id, index)} defaultValue={status} className={`form-select alert-${status==='Pending'?'danger': status==='Done' ? 'success' : 'warning'}`} aria-label="Default select example">
                 <option>{status}</option>
-                {status!=='Pending'&&<option className='text-danger'>Pending</option>}
-                {status!=='Ongoing'&&<option className="text-warning">Ongoing</option>}
-                {status!=='Done'&&<option className='text-success'>Done</option>}
+                {status!=='Pending'&&<option className='alert-danger'>Pending</option>}
+                {status!=='Ongoing'&&<option className="alert-warning">Ongoing</option>}
+                {status!=='Done'&&<option className='alert-success'>Done</option>}
             </select>
             </h6>
         </div>

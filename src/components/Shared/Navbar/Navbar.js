@@ -50,8 +50,8 @@ const Navbar = () => {
                                 <li key={path} className="nav-item mt-2 mt-lg-0 text-center me-lg-3">
                                     {
                                         path.startsWith('/')
-                                        ?<NavLink exact={true} activeClassName={location.hash?'':'active'} to={path} className="nav-link" onClick={handleLink}>{name}</NavLink>
-                                        : <a href={path} className={location.hash===path?'nav-link active':'nav-link'} onClick={()=> setNavbarToggler(!navbarToggler)}>{name}</a>
+                                        ?<NavLink exact={true} activeClassName={location.hash?'':'active'} to={path} className="nav-link home-nav-link" onClick={handleLink}>{name}</NavLink>
+                                        : <a href={path} className={location.hash===path?'nav-link home-nav-link active':'nav-link home-nav-link'} onClick={()=> setNavbarToggler(!navbarToggler)}>{name}</a>
                                     }
                                 </li>
                             ))
@@ -59,8 +59,8 @@ const Navbar = () => {
                         <li className="nav-item ms-lg-3 text-center">
                             {
                                 name ?
-                                photo ? <img onClick={()=> history.push('/dashboard')} className="mt-2 mt-lg-0 mb-3 mb-lg-0" src={photo} alt=""/>
-                                :<h6 onClick={()=> history.push('/dashboard')} className={`text-primary mt-2 ${navbarBg?'mt-lg-1':'mt-lg-0'} mb-3 mb-lg-1`}>{name}</h6>
+                                photo ? <img onClick={()=> history.push('/dashboard')} className="mt-2 mt-lg-0 mb-3 mb-lg-0 user-logo" src={photo} alt=""/>
+                                :<h6 onClick={()=> history.push('/dashboard')} className={`mt-2 ${navbarBg?'mt-lg-1 text-primary':'mt-lg-0 name'} mb-3 mb-lg-1`}>{name}</h6>
                                 :<button onClick={()=> history.push('/login')} className="btn btn-outline-success mt-2 mt-lg-0 mb-3 mb-lg-0 px-4">Login</button>
                             }
                         </li>

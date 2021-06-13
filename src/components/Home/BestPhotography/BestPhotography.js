@@ -1,6 +1,5 @@
 import React from 'react';
 import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 
 const responsive = {
     superLargeDesktop: {
@@ -34,18 +33,20 @@ const BestPhotography = () => {
     return (
         <section className='container mb-3 mt-5'>
             <h1 className='mb-4 color-primary text-center'>Our Best Photography</h1>
-            <Carousel 
-                responsive={responsive}
-                autoPlay={true}
-                autoPlaySpeed={1100}
-                keyBoardControl={true}
-                infinite={true}
-                removeArrowOnDeviceType={["tablet", "mobile"]}
-            >
-                {
-                    images.map(image => <img key={image} className='img-fluid p-2' src={image} alt=""/>)
-                }
-            </Carousel>
+            <div >
+              <Carousel 
+                  responsive={responsive}
+                  autoPlay={true}
+                  autoPlaySpeed={1500}
+                  keyBoardControl={true}
+                  infinite={true}
+                  removeArrowOnDeviceType={["tablet", "mobile"]}
+              >
+                  {
+                      images.map(image => <img data-aos="fade-up" data-aos-easing="ease-in-out" key={image} className='img-fluid p-2' src={image} alt=""/>)
+                  }
+              </Carousel>
+            </div>
         </section>
     );
 };

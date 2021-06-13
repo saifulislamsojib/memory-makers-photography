@@ -1,10 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { userContext } from '../../../App';
 import Spinner from '../../Shared/Spinner/Spinner';
 import AllBookings from '../AllBookings/AllBookings';
 import Booking from '../Booking/Booking';
 
 const BookingList = ({isAdmin}) => {
+
+    useEffect(() => {
+        document.title = 'booking-list';
+    }, [])
 
     const [bookings, setBookings] = useState([]);
 
@@ -13,8 +18,6 @@ const BookingList = ({isAdmin}) => {
     const [showSpinner, setShowSpinner] = useState(true);
 
     useEffect(() => {
-        let unsubscribe = true;
-        setShowSpinner(true);
         const token = sessionStorage.getItem('Photography/idToken');
         fetch(`https://memory-makers-photography.herokuapp.com/allBookings?email=${loggedInUser.email}`, {
             method: 'POST',
@@ -25,41 +28,43 @@ const BookingList = ({isAdmin}) => {
         })
         .then(res => res.json())
         .then(data => {
-            unsubscribe&&setBookings(data);
-            unsubscribe&&setShowSpinner(false);
+            setBookings([...data].reverse());
+            setShowSpinner(false);
         })
-        return () => unsubscribe = false;
     }, [loggedInUser]);
 
-    const [statusUpdated, setStatusUpdated] = useState(false);
-
     const handleStatusUpdate = (e, _id, index) => {
-        setStatusUpdated(false);
         const updateStatus = { status: e.target.value }
-        fetch(`https://memory-makers-photography.herokuapp.com/updateBooking/${_id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify(updateStatus)
-        })
-        .then(res => res.json())
-        .then(result => {
-            if (result) {
-                const newBookings = [...bookings];
-                newBookings[index].status = e.target.value;
-                setBookings(newBookings);
-                setStatusUpdated(true);
-            };
-        });
+        toast.promise(
+            fetch(`https://memory-makers-photography.herokuapp.com/updateBooking/${_id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify(updateStatus)
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result) {
+                    const newBookings = [...bookings];
+                    newBookings[index].status = e.target.value;
+                    setBookings(newBookings);
+                };
+            }),
+            {
+            loading: 'Updating...',
+            success: <b>Updated Successfully!</b>,
+            error: <b>Could not update.</b>,
+            }
+        );
     };
 
     return (
         <section className='mt-4'>
-            <h1 className='color-primary'>Booking List</h1>
+             <Toaster />
             <div className='pt-5 booking-list'>
                 {bookings.length > 0 ?
                 <div className='row'>
                     {isAdmin ?
-                    <AllBookings bookings={bookings} handleStatusUpdate={handleStatusUpdate} statusUpdated={statusUpdated} />
+                    <AllBookings bookings={bookings} handleStatusUpdate={handleStatusUpdate} />
                         :bookings.map(booking => <Booking key={booking._id} booking={booking} />)
                     }
                 </div>:showSpinner ? <Spinner />:

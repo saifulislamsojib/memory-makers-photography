@@ -1,5 +1,5 @@
 .radius {
-  border-radius: 10px;
+  border-radius: 10px !important;
 }
 .color-primary {
   color: rgb(111, 0, 255);

@@ -2,7 +2,7 @@ import React from 'react';
 import AllBookingTable from '../AllBookingTable/AllBookingTable';
 import './AllBookings.css';
 
-const AllBookings = ({bookings, handleStatusUpdate, statusUpdated}) => {
+const AllBookings = ({bookings, handleStatusUpdate}) => {
 
 
     return (
@@ -19,9 +19,6 @@ const AllBookings = ({bookings, handleStatusUpdate, statusUpdated}) => {
                     bookings.map((booking, index) => <AllBookingTable index={index} key={booking._id} handleStatusUpdate={handleStatusUpdate} booking={booking} />)
                 }
             </div>
-            {
-                statusUpdated && <h5 className="text-success text-center mt-3">Status Updated Successfully</h5>
-            }
         </div>
     );
 };

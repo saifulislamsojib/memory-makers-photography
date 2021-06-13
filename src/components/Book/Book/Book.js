@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { userContext } from '../../../App';
-import NotFound from '../../NotFound/NotFound';
-import Footer from '../../Shared/Footer/Footer';
+import Services from '../../Home/Services/Services';
 import Spinner from '../../Shared/Spinner/Spinner';
 import BookForm from '../BookForm/BookForm';
 import BookingTable from '../BookingTable/BookingTable';
@@ -10,7 +9,9 @@ import ProcessPayment from '../ProcessPayment/ProcessPayment';
 
 const Book = () => {
 
-    document.title = 'service-booking';
+    useEffect(() => {
+        document.title = 'service-booking';
+    }, [])
 
     const {id} = useParams();
 
@@ -25,14 +26,13 @@ const Book = () => {
     const [bookingInfo, setBookingInfo] = useState(null);
 
     useEffect(() => {
-        const unsubscribe = fetch(`https://memory-makers-photography.herokuapp.com/service/${id}`)
+        fetch(`https://memory-makers-photography.herokuapp.com/service/${id}`)
         .then(res => res.json())
         .then(data => {
             setService(data);
             setShowSpinner(false);
         })
-        .catch(err =>setShowSpinner(false));
-        return unsubscribe;
+        .catch(err => setShowSpinner(false));
     }, [id]);
 
     const onSubmit = data => {
@@ -54,19 +54,16 @@ const Book = () => {
     };
 
     return (
-        <>
-            <div style={{minHeight: '64.5vh'}} className='container'>
-                {service.title ?
-                <>
-                    <BookingTable service={service} />
-                    <h2 className='color-primary mt-5 text-center'>Process Your Booking</h2>
-                    {bookingInfo ?
-                        <ProcessPayment handlePaymentCheckout={handlePaymentCheckout} price={service.price} />
-                    :<BookForm onSubmit={onSubmit} />}
-                </>:showSpinner ? <Spinner />:<NotFound />}
-            </div>
-            <Footer />
-        </>
+        <div style={{minHeight: '64.5vh'}}>
+            {service.title ?
+            <>
+                <BookingTable service={service} />
+                <h2 className='color-primary mt-5 text-center'>Process Your Booking</h2>
+                {bookingInfo ?
+                    <ProcessPayment handlePaymentCheckout={handlePaymentCheckout} price={service.price} />
+                :<BookForm onSubmit={onSubmit} />}
+            </>:showSpinner ? <Spinner />:<Services />}
+        </div>
     );
 };
 

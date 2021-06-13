@@ -19,8 +19,7 @@ const AddAdmin = () => {
     };
 
     return (
-        <div className='mt-4'>
-            <h1 className='color-primary'>Add A Admin</h1>
+        <div className='mt-3'>
             <form className="row g-3 mt-2 addAdmin" onSubmit={handleSubmit(onSubmit)} >
                 <div style={{maxWidth: '650px'}} className='mx-auto'>
                     <div className="col-12">

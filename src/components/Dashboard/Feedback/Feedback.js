@@ -1,6 +1,6 @@
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { userContext } from '../../../App';
 
@@ -13,6 +13,12 @@ const Feedback = () => {
     const [feedbackSuccess, setFeedbackSuccess] = useState(false);
 
     const [ratings, setRatings] = useState(0);
+
+    const [hoverRatings, setHoverRatings] = useState(0);
+
+    useEffect(() => {
+        
+    }, [])
 
     const onSubmit = data => {
         setFeedbackSuccess(false)
@@ -34,33 +40,34 @@ const Feedback = () => {
     };
     
     return (
-        <section className='mt-4'>
-            <h1 className='color-primary'>Feedback</h1>
+        <section className='mt-3'>
             <div className='feedback'>
-                <form style={{maxWidth: '650px'}} className="row g-3 mt-3" onSubmit={handleSubmit(onSubmit)} >
-                    <div className="col-12">
-                        <input defaultValue={loggedInUser.name} type="text" className="form-control" placeholder="Name" {...register("name", { required: true })} />
-                        {errors.name && <span className="text-danger d-inline-block mt-2">Name is required</span>}
-                    </div>
-                    <div className="col-12">
-                        <input type="text" className="form-control" placeholder="Company Name" {...register("company", { required: true })} />
-                        {errors.company && <span className="text-danger d-inline-block mt-2">Company Name is required</span>}
-                    </div>
-                    <div className="col-12">
-                        <textarea style={{height: '200px'}} className="form-control"  placeholder="description" {...register("description", { required: true, minLength: 50 })} />
-                        {errors.description && <span className="text-danger d-inline-block mt-2">description is required minimum Length 50</span>}
-                    </div>
-                    <div className='ratings'>
-                        <label className="me-3">Ratings</label>
-                        {
-                            ['rating1', 'rating2', 'rating3', 'rating4', 'rating5'].map((rating, i) => <FontAwesomeIcon key={rating}  className={`${rating} ${i<ratings&&'selected-rating'}`} icon={faStar} onClick={()=>setRatings(i+1)} />)
-                        }
-                    </div>
-                    <div className="col">
-                        <input className='d-block btn btn-outline-danger ms-auto' type="submit" value="send"/>
-                    </div>
-                    {feedbackSuccess && <h5 className="text-success text-center mt-5">Feedback successfully submitted</h5>}
-                </form>
+                {
+                    <form style={{maxWidth: '650px'}} className="row g-3 mt-3" onSubmit={handleSubmit(onSubmit)} >
+                        <div className="col-12">
+                            <input defaultValue={loggedInUser.name} type="text" className="form-control" placeholder="Name" {...register("name", { required: true })} />
+                            {errors.name && <span className="text-danger d-inline-block mt-2">Name is required</span>}
+                        </div>
+                        <div className="col-12">
+                            <input type="text" className="form-control" placeholder="Company Name" {...register("company", { required: true })} />
+                            {errors.company && <span className="text-danger d-inline-block mt-2">Company Name is required</span>}
+                        </div>
+                        <div className="col-12">
+                            <textarea style={{height: '200px'}} className="form-control"  placeholder="description" {...register("description", { required: true, minLength: 50 })} />
+                            {errors.description && <span className="text-danger d-inline-block mt-2">description is required minimum Length 50</span>}
+                        </div>
+                        <div className='ratings'>
+                            <label className="me-3">Ratings</label>
+                            {
+                                ['rating1', 'rating2', 'rating3', 'rating4', 'rating5'].map((rating, i) => <FontAwesomeIcon key={rating}  className={`${rating} ${i<hoverRatings&&'selected-rating'} ${i<ratings&&hoverRatings===0&&'selected-rating'}`} icon={faStar} onClick={()=>setRatings(i+1)} onMouseEnter={()=> setHoverRatings(i+1)} onMouseLeave={()=> setHoverRatings(0)} />)
+                            }
+                        </div>
+                        <div className="col">
+                            <input className='d-block btn btn-outline-danger ms-auto' type="submit" value="send"/>
+                        </div>
+                        {feedbackSuccess && <h5 className="text-success text-center mt-5">Feedback successfully submitted</h5>}
+                    </form>
+                }
             </div>
         </section>
     );

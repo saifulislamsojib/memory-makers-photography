@@ -8,7 +8,7 @@ const Booking = ({booking}) => {
             <div className='p-4 radius h-100 shadow bg-white'>
                 <div className='d-flex align-items-center justify-content-between mb-3'>
                     <img className='img-fluid' style={{height: '100px'}} src={image} alt=""/>
-                    <h6 className={`text-${status==="Pending"?'danger':'success'}`}>{status}</h6>
+                    <h6 className={`alert-${status==="Pending"?'danger':status==="Ongoing"?'warning':'success'} px-3 py-2 rounded`}>{status}</h6>
                 </div>
                 <h5>{title}</h5>
                 <h6 className='color-primary my-2'>${price}</h6>

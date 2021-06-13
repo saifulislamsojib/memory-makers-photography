@@ -30,7 +30,7 @@ const Contact = () => {
                 <div className="container">
                     <h1 className='text-center mb-3'>Contact Us</h1>
                     <div className="row pt-3 d-flex align-items-center">
-                        <div className="col-lg-6">
+                        <div data-aos="flip-down" className="col-lg-6">
                             <form className="row g-3 mt-3" onSubmit={handleSubmit(onSubmit)} ref={fromRef} >
                                 <div className="col-md-6">
                                     <label className='mb-2 ms-2' htmlFor="">Name</label>
@@ -61,7 +61,7 @@ const Contact = () => {
                                 </div>
                             </form>
                         </div>
-                        <div className="col-lg-6 mt-3 mt-md-0">
+                        <div data-aos="flip-up" className="col-lg-6 mt-3 mt-md-0">
                             <iframe
                                 title='google map'
                                 src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.1435090089553!2d90.42196781429821!3d23.813495392281492!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c62fb95f16c1%3A0xb333248370356dee!2sJamuna%20Future%20Park!5e0!3m2!1sen!2sbd!4v1622272644774!5m2!1sen!2sbd'

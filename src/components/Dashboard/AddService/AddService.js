@@ -51,8 +51,7 @@ const AddService = ({updates}) => {
     const arrFeatures = updates?.features.join(', ');
 
     return (
-        <div className='container mt-4'>
-            <h1 className='mb-4 color-primary'>{updates?'Update Service':'Add Service'}</h1>
+        <div className='container mt-3'>
             <form className='row add-service-form' onSubmit={handleSubmit(onSubmit)}>
                 <div className='mb-3 col-md-6'>
                     <label className='mb-2'>Service title</label>

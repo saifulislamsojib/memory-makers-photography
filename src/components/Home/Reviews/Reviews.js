@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 import Review from '../Review/Review';
 
 const responsive = {
@@ -25,32 +24,30 @@ const responsive = {
 const Reviews = () => {
 
     const [reviews, setReviews] = useState([]);
-
-    const unsubscribe = useRef(false);
     
     useEffect(() => {
-      unsubscribe.current = true;
       fetch('https://memory-makers-photography.herokuapp.com/reviews')
       .then(res => res.json())
-      .then(data => unsubscribe.current&&setReviews(data));
-      return ()=> unsubscribe.current = false;
+      .then(data => setReviews(data));
     }, []);
 
     return (
         <section id="reviews" className='my-5 pt-5 container'>
             <h1 className='color-primary text-center mb-4'>Our Reviews</h1>
-            <Carousel 
-              responsive={responsive}
-              autoPlay={true}
-              autoPlaySpeed={1100}
-              keyBoardControl={true}
-              infinite={true}
-              removeArrowOnDeviceType={["tablet", "mobile"]}
-            >
-            {
-              reviews.map(review => <Review review={review} key={review._id} /> )
-            }
-            </Carousel>
+            <div data-aos="fade-up" data-aos-easing="ease-in-sine">
+              <Carousel 
+                responsive={responsive}
+                autoPlay={true}
+                autoPlaySpeed={1500}
+                keyBoardControl={true}
+                infinite={true}
+                removeArrowOnDeviceType={["tablet", "mobile"]}
+              >
+              {
+                reviews.map(review => <Review review={review} key={review._id} /> )
+              }
+              </Carousel>
+            </div>
         </section>
     );
 };

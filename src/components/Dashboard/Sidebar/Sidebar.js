@@ -1,4 +1,4 @@
-import { faCommentDots, faHome, faPlusCircle, faSignOutAlt, faSort, faThLarge, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCommentDots, faHome, faPlusCircle, faShoppingBasket, faSignOutAlt, faSort, faThLarge, faUserCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -36,6 +36,18 @@ const Sidebar = ({url, isAdmin}) => {
             </div>
             <div className={`collapse navbar-collapse ${navbarToggler&&'d-block'}`}>
             <ul className="nav flex-column">
+                <li className="nav-item mt-2">
+                    <Link to={`${url}`} className="nav-link text-white" >
+                        <FontAwesomeIcon icon={faUserCircle} />
+                        <span className='ms-2'>Profile</span>
+                    </Link>
+                </li>
+                <li className="nav-item mt-2">
+                    <Link to={`${url}/book`} className="nav-link text-white" >
+                        <FontAwesomeIcon icon={faShoppingBasket} />
+                        <span className='ms-2'>Book</span>
+                    </Link>
+                </li>
                 <li className="nav-item mt-2">
                     <Link to={`${url}/bookingList`} className="nav-link text-white" >
                         <FontAwesomeIcon icon={faSort} />

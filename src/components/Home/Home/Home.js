@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import "react-multi-carousel/lib/styles.css";
 import Footer from '../../Shared/Footer/Footer';
 import Navbar from '../../Shared/Navbar/Navbar';
 import BestPhotography from '../BestPhotography/BestPhotography';
@@ -10,7 +11,9 @@ import Services from '../Services/Services';
 
 const Home = () => {
 
-    document.title = 'memory-makers - home';
+    useEffect(() => {
+        document.title = 'memory-makers - home';
+    })
 
     return (
         <div>

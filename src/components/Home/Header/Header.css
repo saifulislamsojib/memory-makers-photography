@@ -1,8 +1,30 @@
+.header-container {
+  overflow: hidden;
+}
+
 .header {
-  background-image: url(../../../images/photographerBg1.jpg);
-  min-height: 90vh;
+  background-image: url("../../../images/header-bg.svg");
+  min-height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
+  background-position: right;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.header img {
+  width: 80%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+@media (max-width: 991.98px) {
+  .header {
+    min-height: 50vh;
+  }
+  .header img {
+    width: 95%;
+  }
 }

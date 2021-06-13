@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import swal from 'sweetalert';
 import Spinner from '../../Shared/Spinner/Spinner';
 import AddService from '../AddService/AddService';
 import ManageService from '../ManageService/ManageService';
@@ -7,34 +8,47 @@ const ManageServices = () => {
 
     const [services, setServices] = useState([]);
 
-    const [isDeleted, setIsDeleted] = useState(false);
-
     const [updates, setUpdates] = useState({});
     
     useEffect(() => {
-        const unsubscribe = fetch('https://memory-makers-photography.herokuapp.com/services')
+        fetch('https://memory-makers-photography.herokuapp.com/services')
         .then(res => res.json())
         .then(data => setServices(data));
-        return unsubscribe;
     }, []);
 
     const handleServiceDelete = _id =>{
-        setIsDeleted(false)
-        fetch(`https://memory-makers-photography.herokuapp.com/deleteService/${_id}`, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json'}
-        })
-        .then(res=>res.json())
-        .then(result=>{
-            const newServices = services.filter(service=> service._id!== _id)
-            setServices(newServices);
-            setIsDeleted(result);
-        });
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this service",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                fetch(`https://memory-makers-photography.herokuapp.com/deleteService/${_id}`, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json'}
+                })
+                .then(res=>res.json())
+                .then(result=>{
+                    if(result){
+                        const newServices = services.filter(service=> service._id!== _id)
+                        setServices(newServices);
+                        swal("Service Deleted Successfully!", {
+                            icon: "success",
+                        });
+                    }
+                    else {
+                        swal("Service Not Deleted!", {icon: "error"});
+                    }
+                })
+                .catch(err => swal("Service Not Deleted!", {icon: "error"}));
+            }
+          });
     }
-
     return (
-        <div className='mt-4'>
-            <h1 className='color-primary'>Manage Services</h1>
+        <div className='mt-3'>
             {!updates._id && services.length ?
             <div className='all-services'>
                 <div className='services-container'>
@@ -46,9 +60,6 @@ const ManageServices = () => {
                     </div>
                     {
                         services.map((service, index) => <ManageService index={index} setUpdates={setUpdates} key={service._id} handleServiceDelete={handleServiceDelete} service={service} />)
-                    }
-                    {
-                        isDeleted && <h5 className="text-success text-center mt-5">Service Deleted Successfully</h5>
                     }
                 </div>
             </div>: !updates._id && <Spinner />}
