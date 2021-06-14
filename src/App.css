@@ -18,3 +18,7 @@
 .muted-text {
   color: #cccccc;
 }
+
+.home-container {
+  overflow: hidden;
+}

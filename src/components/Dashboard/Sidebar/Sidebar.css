@@ -6,6 +6,22 @@
   min-height: 100vh;
 }
 
+.sidebar-active {
+  background-color: #2b40ff;
+  border-radius: 5px;
+  position: relative;
+}
+
+.sidebar-active::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 100%;
+  content: "";
+  background-color: rgb(88, 255, 177);
+}
+
 @media (max-width: 1199.98px) {
   .sidebar {
     width: 23%;
@@ -14,11 +30,13 @@
 
 @media (max-width: 991.98px) {
   .sidebar {
-    position: sticky;
-    width: 100%;
-    min-height: 0;
-    border-radius: 10px;
-    margin-top: 10px;
+    z-index: 10000;
+    top: 0;
+    left: -100%;
+    transition: 0.5s;
+  }
+  .sidebar.active {
+    left: 0;
   }
 }
 

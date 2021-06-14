@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
 import { userContext } from '../../../App';
 import Book from '../../Book/Book/Book';
-import AddAdmin from '../AddAdmin/AddAdmin';
 import AddService from '../AddService/AddService';
 import BookingList from '../BookingList/BookingList';
 import Feedback from '../Feedback/Feedback';
+import ManageAdmin from '../ManageAdmin/ManageAdmin';
 import ManageServices from '../ManageServices/ManageServices';
 import Profile from '../Profile/Profile';
 import Sidebar from '../Sidebar/Sidebar';
@@ -19,6 +19,8 @@ const Dashboard = ({isAdmin}) => {
 
     const [loggedInUser] = useContext(userContext);
 
+    const [navbarToggler, setNavbarToggler] = useState(false);
+
     const { photo } = loggedInUser;
 
     useEffect(() => {
@@ -28,11 +30,14 @@ const Dashboard = ({isAdmin}) => {
     return (
         <div className='container-fluid'>
             <div className='row'>
-                <div className="col-lg-3 col-xl-2">
-                    <Sidebar isAdmin={isAdmin} url={url} />
+                <div className="col-lg-3 col-xl-2 position-relative">
+                    <Sidebar isAdmin={isAdmin} navbarToggler={navbarToggler} url={url} setNavbarToggler={setNavbarToggler} />
                 </div>
                 <div className="col-lg-9 col-xl-10">
                     <div className="top-bar d-flex align-items-center justify-content-between py-2 px-3 mt-3 radius sticky-top bg-white">
+                    <div onClick={() => setNavbarToggler(!navbarToggler)} className="navbar-toggler d-lg-none" type="button">
+                        <div className={navbarToggler ? 'toggler-icon toggler-active' : 'toggler-icon'} />
+                    </div>
                         <h2>
                             {pathname?.split('/')[2]?.split(/(?=[A-Z])/)?.join(' ').toUpperCase()||'PROFILE'}
                         </h2>
@@ -57,8 +62,8 @@ const Dashboard = ({isAdmin}) => {
                         <Route path={`${path}/feedback`}>
                             {!isAdmin && <Feedback />}
                         </Route>
-                        <Route path={`${path}/addAdmin`}>
-                            {isAdmin && <AddAdmin />}
+                        <Route path={`${path}/manageAdmin`}>
+                            {isAdmin && <ManageAdmin />}
                         </Route>
                         <Route path={`${path}/addService`}>
                             {isAdmin && <AddService />}
