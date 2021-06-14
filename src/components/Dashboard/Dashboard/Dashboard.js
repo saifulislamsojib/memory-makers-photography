@@ -38,9 +38,9 @@ const Dashboard = ({isAdmin}) => {
                     <div onClick={() => setNavbarToggler(!navbarToggler)} className="navbar-toggler d-lg-none" type="button">
                         <div className={navbarToggler ? 'toggler-icon toggler-active' : 'toggler-icon'} />
                     </div>
-                        <h2>
+                        <h3 className='mt-1'>
                             {pathname?.split('/')[2]?.split(/(?=[A-Z])/)?.join(' ').toUpperCase()||'PROFILE'}
-                        </h2>
+                        </h3>
                         
                        {
                         <img src={photo || 'https://uxwing.com/wp-content/themes/uxwing/download/12-people-gesture/avatar.png'} className="user-logo" alt="" />

@@ -1,3 +1,50 @@
 .admin-table {
   overflow-x: scroll !important;
 }
+
+.form-modal {
+  min-width: 650px;
+}
+
+.ReactModal__Content {
+  animation: modal 0.3s ease-in-out;
+}
+
+@keyframes modal {
+  0% {
+    top: 20%;
+  }
+  100% {
+    top: 50%;
+  }
+}
+
+@media (max-width: 700px) {
+  .form-modal {
+    min-width: 600px;
+  }
+}
+
+@media (max-width: 650px) {
+  .form-modal {
+    min-width: 550px;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-modal {
+    min-width: 500px;
+  }
+}
+
+@media (max-width: 550px) {
+  .form-modal {
+    min-width: 450px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-modal {
+    min-width: 300px;
+  }
+}

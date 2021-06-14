@@ -2,6 +2,7 @@ import { faCommentDots, faHome, faPlusCircle, faShoppingBasket, faSignOutAlt, fa
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import swal from 'sweetalert';
 import { userContext } from '../../../App';
 import { userSignOut } from '../../Login/Login/authManager';
 import './Sidebar.css';
@@ -11,11 +12,25 @@ const Sidebar = ({url, isAdmin, navbarToggler, setNavbarToggler}) => {
     const [, setLoggedInUser] = useContext(userContext);
 
     const handleSignOut = () => {
-        userSignOut()
-        .then(() => {
-            setLoggedInUser({})
-            sessionStorage.removeItem('Photography/idToken');
-        })
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure that you logging out",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                userSignOut()
+                .then(() => {
+                    setLoggedInUser({})
+                    sessionStorage.removeItem('Photography/idToken');
+                    swal("Logged Out Successfully!", {
+                        icon: "success",
+                    });
+                })
+            }
+          });
     };
 
     const handleHome = () => {
@@ -79,15 +94,15 @@ const Sidebar = ({url, isAdmin, navbarToggler, setNavbarToggler}) => {
                         <span className='ms-2'>Manage Service</span>
                     </NavLink>
                 </li>}
-                <li className="nav-item">
-                    <Link to='/' className="nav-link text-white" onClick={handleHome}>
-                        <FontAwesomeIcon icon={faHome} />
-                        <span className='ms-2'>Home</span>
-                    </Link>
-                </li>
                 <li onClick={handleSignOut} className="nav-item mt-2 text-white px-3 form-control-color d-flex align-items-center">
                     <FontAwesomeIcon icon={faSignOutAlt} />
                     <span className='ms-2'>Logout</span>
+                </li>
+                <li className="nav-item position-absolute bottom btn">
+                    <Link to='/' className="nav-link text-white" onClick={handleHome}>
+                        <FontAwesomeIcon icon={faHome} />
+                        <span className='ms-2'>Go To Home</span>
+                    </Link>
                 </li>
             </ul>
             </div>

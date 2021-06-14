@@ -12,7 +12,15 @@
   position: relative;
 }
 
-.sidebar-active::after {
+.bottom {
+  bottom: 8%;
+  width: 92%;
+  margin: 0 auto;
+  background-color: #2b40ff;
+}
+
+.sidebar-active::after,
+.bottom::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -38,6 +46,10 @@
   .sidebar.active {
     left: 0;
   }
+}
+
+.sidebar li span {
+  transition: 0.3s;
 }
 
 .sidebar li:hover span {
