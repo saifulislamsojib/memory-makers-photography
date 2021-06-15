@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
-import { userContext } from '../../../App';
+import { Route, Switch, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { context } from '../../../App';
 import Book from '../../Book/Book/Book';
 import AddService from '../AddService/AddService';
 import BookingList from '../BookingList/BookingList';
@@ -17,9 +17,13 @@ const Dashboard = ({isAdmin}) => {
 
     const {pathname} = useLocation();
 
-    const [loggedInUser] = useContext(userContext);
+    const { loggedInUser } = useContext(context);
+
+    const history = useHistory();
 
     const [navbarToggler, setNavbarToggler] = useState(false);
+
+    const [bookings, setBookings] = useState([]);
 
     const { photo } = loggedInUser;
 
@@ -43,7 +47,7 @@ const Dashboard = ({isAdmin}) => {
                         </h3>
                         
                        {
-                        <img src={photo || 'https://uxwing.com/wp-content/themes/uxwing/download/12-people-gesture/avatar.png'} className="user-logo" alt="" />
+                        <img onClick={()=> history.push('/dashboard')} src={photo || 'https://uxwing.com/wp-content/themes/uxwing/download/12-people-gesture/avatar.png'} className="user-logo" alt="" />
                        }
                     </div>
                     <Switch>
@@ -51,13 +55,13 @@ const Dashboard = ({isAdmin}) => {
                             <Profile />
                         </Route>
                         <Route path={`${path}/book/:id`}>
-                            <Book />
+                            <Book setBookings={setBookings} />
                         </Route>
                         <Route path={`${path}/book`}>
-                            <Book />
+                            <Book setBookings={setBookings} />
                         </Route>
                         <Route path={`${path}/bookingList`}>
-                            <BookingList isAdmin={isAdmin}/>
+                            <BookingList isAdmin={isAdmin} bookings={bookings} setBookings={setBookings} />
                         </Route>
                         <Route path={`${path}/feedback`}>
                             {!isAdmin && <Feedback />}

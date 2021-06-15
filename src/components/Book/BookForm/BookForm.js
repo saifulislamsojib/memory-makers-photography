@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { userContext } from '../../../App';
+import { context } from '../../../App';
 
 const BookForm = ({onSubmit}) => {
 
-    const [loggedInUser] = useContext(userContext);
+    const { loggedInUser } = useContext(context);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 

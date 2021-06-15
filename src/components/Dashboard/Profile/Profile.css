@@ -6,8 +6,38 @@
   width: 500px;
 }
 
+.upload-image {
+  position: relative;
+  width: 100px;
+  margin: 0 auto;
+}
+
+.upload-btn {
+  opacity: 0.5;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: rgb(231, 231, 231);
+  padding: 3px 7px;
+  cursor: pointer;
+  border-radius: 3px;
+  box-shadow: 0 0 10px lightgrey;
+}
+
+.upload-btn:hover {
+  box-shadow: none;
+  opacity: 1;
+  color: rgb(231, 231, 231);
+  background-color: rgb(117, 117, 117);
+}
+
+.upload-image::after:focus {
+  background-color: rgb(12, 46, 117);
+}
+
 @media (max-width: 560px) {
   .profile {
-    width: 97%;
+    width: 98%;
   }
 }

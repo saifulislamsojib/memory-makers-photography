@@ -21,9 +21,11 @@ const AddAdmin = () => {
     }
 
     useEffect(() => {
+        let unsubscribe = true;
         fetch('https://memory-makers-photography.herokuapp.com/admins')
         .then(res => res.json())
-        .then(data => setAdmins(data))
+        .then(data => unsubscribe&&setAdmins(data));
+        return () => unsubscribe = false;
     }, [])
 
     const onSubmit = data => {
@@ -106,8 +108,8 @@ const AddAdmin = () => {
                     </div>
                 </form>
             </ReactModal>
-            <div className='admin-table mt-3'>
-                {admins.length>0?
+            {admins.length>0?
+                <div className='admin-table mt-3'>
                     <table className="table table-hover">
                         <thead>
                             <tr>
@@ -132,9 +134,8 @@ const AddAdmin = () => {
                             }
                         </tbody>
                     </table>
-                :<Spinner />
-                }
-            </div>
+                </div>
+            :<Spinner />}
         </div>
     );
 };

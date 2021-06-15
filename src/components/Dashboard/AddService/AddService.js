@@ -1,58 +1,94 @@
 import { faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast, { Toaster } from 'react-hot-toast';
+import swal from 'sweetalert';
+import { context } from '../../../App';
 import './AddService.css';
 
-const AddService = ({updates}) => {
+const AddService = ({ updates, setIsOpen }) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+    const { setServices } = useContext(context);
+
     const [image, setImage] = useState(updates?.image||'');
 
-    const [showImageError, setImageError] = useState(false);
+    const fromRef = useRef(null);
 
-    const [isServiceAdded, setIsServiceAdded] = useState(false);
     const onSubmit = data => {
-        setIsServiceAdded(false);
         if (image) {
             const {allFeatures, ...other} = data;
             const features = allFeatures.split(', ');
-            const services ={features, image, ...other};
+            const serviceData ={features, image, ...other};
             const path = updates?`updateService/${updates._id}`:'addService';
-            fetch(`https://memory-makers-photography.herokuapp.com/${path}`, {
-                method: 'POST',
+            const method = updates?'PATCH':'POST';
+            toast.promise(
+                fetch(`https://memory-makers-photography.herokuapp.com/${path}`, {
+                method,
                 headers: { 'Content-Type': 'application/json'},
-                body: JSON.stringify(services)
-            })
-            .then(res => res.json())
-            .then(result => setIsServiceAdded(result));
+                body: JSON.stringify(serviceData)
+                })
+                .then(res => res.json())
+                .then(({inserted, _id}) => {
+                    if(inserted){
+                        swal(`${updates?'Updated':'Added'} Successfully!`, `Service ${updates?'Updated':'Added'} Successfully!`, "success");
+                        fromRef.current.reset();
+                        if(updates){
+                            setServices(preServices => {
+                                const index = preServices.findIndex(service => service._id===updates._id);
+                                const newServices = [...preServices];
+                                const newService = {...newServices[index]};
+                                newServices[index] = {...newService, ...serviceData};
+                                return newServices;
+                            })
+                            setIsOpen(false);
+                        }
+                        else{
+                            setServices(preServices => preServices.length?[...preServices, {...serviceData, _id}]:preServices);
+                        }
+                    }
+                }),
+                {
+                    loading: updates?'Updating...':'Adding..',
+                    success: <b>{updates?'Updated Successfully!':'Added Successfully'}</b>,
+                    error: <b>Could not {updates?'updated':'Added'}.</b>,
+                }
+            )
         }
         else {
-            setImageError(true);
+            swal('Image is required', "Image is required", "error");
         }
     };
 
     const handleImageUpload = e => {
         setImage('');
-        setImageError(false);
         const imageData = new FormData();
         imageData.set('key', process.env.REACT_APP_IMAGE_KEY)
         imageData.append('image', e.target.files[0]);
-
-        fetch('https://api.imgbb.com/1/upload',{
-            method: 'POST',
-            body: imageData,
-        })
-        .then(res => res.json())
-        .then(result => setImage(result.data.display_url));
+        toast.promise(
+            fetch('https://api.imgbb.com/1/upload',{
+                method: 'POST',
+                body: imageData,
+            })
+            .then(res => res.json())
+            .then(result => setImage(result.data.display_url)),
+            {
+                loading: 'Uploading...',
+                success: <b>Uploaded Successfully!</b>,
+                error: <b>Could not uploaded.</b>,
+            }
+        )
     };
 
     const arrFeatures = updates?.features.join(', ');
 
     return (
-        <div className='container mt-3'>
-            <form className='row add-service-form' onSubmit={handleSubmit(onSubmit)}>
+        <>
+        {!updates&&<Toaster />}
+        <div className='container mt-5'>
+            <form ref={fromRef} className={updates?'row':'row add-service-form'} onSubmit={handleSubmit(onSubmit)}>
                 <div className='mb-3 col-md-6'>
                     <label className='mb-2'>Service title</label>
                     <input defaultValue={updates?.title}  type="text" className='form-control' {...register("title", { required: true })} placeholder="Service title" />
@@ -71,15 +107,14 @@ const AddService = ({updates}) => {
                 <div className='mb-3 col-md-6'>
                     <label className='d-block mb-2'>Upload Photo</label>
                     <label className='btn btn-outline-success px-4' htmlFor='imageUpload'><FontAwesomeIcon icon={faCloudUploadAlt} /> Upload Photo</label>
-                    {showImageError && <span className="text-danger">Image is required</span>}
                     <input type="file" onChange={handleImageUpload} id="imageUpload" className="d-none" />
                 </div>
                 <div>
                     <button disabled={image===''}  type="submit" className='d-block btn btn-success mt-3 ms-auto'>Save</button>
                 </div>
-                {isServiceAdded && <h3 className='text-center text-success my-3'>Service {updates?'Updated':'Added'} Successfully</h3>}
             </form>
         </div>
+        </>
     );
 };
 

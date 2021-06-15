@@ -15,7 +15,7 @@ import PrivateRoute from "./components/Login/PrivateRoute/PrivateRoute";
 import NotFound from "./components/NotFound/NotFound";
 import Spinner from "./components/Shared/Spinner/Spinner";
 
-export const userContext = createContext();
+export const context = createContext();
 
 function App() {
 
@@ -26,6 +26,8 @@ function App() {
   const [adminLoading, setAdminLoading] = useState(true);
 
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const [services, setServices] = useState([]);
 
   useEffect(() => {
     AOS.init({
@@ -80,9 +82,17 @@ function App() {
     })
     return unsubscribe;
   }, []);
+
+    const contextValue = {
+      loggedInUser,
+      setLoggedInUser,
+      loading,
+      services,
+      setServices
+    };
   
   return (
-    <userContext.Provider value={[loggedInUser, setLoggedInUser, loading]}>
+    <context.Provider value={contextValue}>
       <Router>
         <Switch>
           <Route exact path="/">
@@ -104,7 +114,7 @@ function App() {
           </Route>
         </Switch>
       </Router>
-    </userContext.Provider>
+    </context.Provider>
   );
 };
 

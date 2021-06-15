@@ -1,37 +1,41 @@
 import React, { useContext, useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { userContext } from '../../../App';
+import { context } from '../../../App';
 import Spinner from '../../Shared/Spinner/Spinner';
 import AllBookings from '../AllBookings/AllBookings';
 import Booking from '../Booking/Booking';
 
-const BookingList = ({isAdmin}) => {
+const BookingList = ({isAdmin, bookings, setBookings}) => {
 
     useEffect(() => {
         document.title = 'booking-list';
     }, [])
 
-    const [bookings, setBookings] = useState([]);
-
-    const [loggedInUser] = useContext(userContext);
+    const { loggedInUser } = useContext(context);
 
     const [showSpinner, setShowSpinner] = useState(true);
 
     useEffect(() => {
-        const token = sessionStorage.getItem('Photography/idToken');
-        fetch(`https://memory-makers-photography.herokuapp.com/allBookings?email=${loggedInUser.email}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                authorization: token
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
-            setBookings([...data].reverse());
-            setShowSpinner(false);
-        })
-    }, [loggedInUser]);
+        let unsubscribe = true;
+        if (!bookings.length){
+            const token = sessionStorage.getItem('Photography/idToken');
+            fetch(`https://memory-makers-photography.herokuapp.com/allBookings?email=${loggedInUser.email}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: token
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (unsubscribe) {
+                    setBookings([...data].reverse());
+                    setShowSpinner(false);
+                }
+            })
+        }
+        return () => unsubscribe = false;
+    }, [loggedInUser, setBookings, bookings]);
 
     const handleStatusUpdate = (e, _id, index) => {
         const updateStatus = { status: e.target.value }

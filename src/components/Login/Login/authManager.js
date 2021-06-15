@@ -18,6 +18,18 @@ const setUserName = name => {
     });
 };
 
+export const updateProfile = (name, photo) => {
+    const user = firebase.auth().currentUser;
+
+    return user.updateProfile({
+    displayName: name,
+    photoURL: photo
+    })
+    .then(() => {
+        return true;
+    })
+};
+
 const setUser = (res, name) => {
     const {email, displayName, photoURL, emailVerified} = res.user;
     const newUser = {

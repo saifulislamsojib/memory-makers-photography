@@ -1,20 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import swal from 'sweetalert';
+import { context } from '../../../App';
 import Spinner from '../../Shared/Spinner/Spinner';
 import AddService from '../AddService/AddService';
 import ManageService from '../ManageService/ManageService';
+import ReactModal from '../Modal/Modal';
 
 const ManageServices = () => {
 
-    const [services, setServices] = useState([]);
+    const { services, setServices } = useContext(context);
 
     const [updates, setUpdates] = useState({});
+
+    const [modalIsOpen,setIsOpen] = useState(false);
     
     useEffect(() => {
-        fetch('https://memory-makers-photography.herokuapp.com/services')
-        .then(res => res.json())
-        .then(data => setServices(data));
-    }, []);
+        let unsubscribe = true;
+        if (!services.length){
+            fetch('https://memory-makers-photography.herokuapp.com/services')
+            .then(res => res.json())
+            .then(data => unsubscribe&&setServices(data));
+        }
+        return () => unsubscribe = false;
+    }, [setServices, services]);
 
     const handleServiceDelete = _id =>{
         swal({
@@ -49,7 +58,8 @@ const ManageServices = () => {
     }
     return (
         <div className='mt-3'>
-            {!updates._id && services.length ?
+            <Toaster />
+            {services.length ?
             <div className='all-services'>
                 <div className='services-container'>
                     <div className='row mb-3 pb-2 pt-3 table-headers border-bottom'>
@@ -59,13 +69,13 @@ const ManageServices = () => {
                         <h6 className='col-4 text-muted text-end'>Actions</h6>
                     </div>
                     {
-                        services.map((service, index) => <ManageService index={index} setUpdates={setUpdates} key={service._id} handleServiceDelete={handleServiceDelete} service={service} />)
+                        services.map((service, index) => <ManageService index={index} setUpdates={setUpdates} key={service._id} handleServiceDelete={handleServiceDelete} service={service} setIsOpen={setIsOpen} />)
                     }
                 </div>
-            </div>: !updates._id && <Spinner />}
-            {
-                updates._id&&<AddService updates={updates} />
-            }
+            </div>: <Spinner />}
+            <ReactModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen}>
+                <AddService updates={updates} setIsOpen={setIsOpen} />
+            </ReactModal>
         </div>
     );
 };

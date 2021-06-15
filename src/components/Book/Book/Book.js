@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import { userContext } from '../../../App';
+import { useParams } from 'react-router-dom';
+import swal from 'sweetalert';
+import { context } from '../../../App';
 import Services from '../../Home/Services/Services';
 import Spinner from '../../Shared/Spinner/Spinner';
 import BookForm from '../BookForm/BookForm';
 import BookingTable from '../BookingTable/BookingTable';
 import ProcessPayment from '../ProcessPayment/ProcessPayment';
 
-const Book = () => {
+const Book = ({setBookings}) => {
 
     useEffect(() => {
         document.title = 'service-booking';
@@ -15,26 +16,27 @@ const Book = () => {
 
     const {id} = useParams();
 
-    const history = useHistory();
-
     const [service, setService] = useState({});
 
-    const [loggedInUser] = useContext(userContext);
+    const { loggedInUser } = useContext(context);
 
     const [showSpinner, setShowSpinner] = useState(true);
 
     const [bookingInfo, setBookingInfo] = useState(null);
 
     useEffect(() => {
-        const unsubscribe = id!==undefined?fetch(`https://memory-makers-photography.herokuapp.com/service/${id}`)
+        let unsubscribe = true;
+        id!==undefined?fetch(`https://memory-makers-photography.herokuapp.com/service/${id}`)
         .then(res => res.json())
         .then(data => {
-            setService(data);
-            setShowSpinner(false);
+            if (unsubscribe){
+                setService(data);
+                setShowSpinner(false);
+            }
         })
         .catch(err => setShowSpinner(false))
         : setShowSpinner(false);
-        return unsubscribe;
+        return ()=> unsubscribe = false;
     }, [id]);
 
     const onSubmit = data => {
@@ -42,15 +44,17 @@ const Book = () => {
     };
 
     const handlePaymentCheckout = paymentDetails => {
+        const bookingData = {...bookingInfo, paymentDetails, orderDate: new Date().toDateString(), orderTime: new Date().toTimeString(), status: 'Pending'};
         fetch('https://memory-makers-photography.herokuapp.com/bookOrder', {
             method: 'POST',
-            body: JSON.stringify({...bookingInfo, paymentDetails, orderDate: new Date().toDateString(), orderTime: new Date().toTimeString(), status: 'Pending'}),
+            body: JSON.stringify(bookingData),
             headers: {"Content-Type": "application/json"}
         })
         .then(res => res.json())
-        .then(result => {
-            if (result) {
-                history.push('/dashboard/bookingList');
+        .then(({inserted, _id}) => {
+            if (inserted) {
+                setBookings(preBookings=> [{...bookingData, _id}, ...preBookings]);
+                swal('Booking Successfully!','Your booking successfully done!', "success");
             }
         });
     };

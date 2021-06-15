@@ -3,13 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import swal from 'sweetalert';
-import { userContext } from '../../../App';
+import { context } from '../../../App';
 import { userSignOut } from '../../Login/Login/authManager';
 import './Sidebar.css';
 
 const Sidebar = ({url, isAdmin, navbarToggler, setNavbarToggler}) => {
 
-    const [, setLoggedInUser] = useContext(userContext);
+    const { setLoggedInUser } = useContext(context);
 
     const handleSignOut = () => {
         swal({

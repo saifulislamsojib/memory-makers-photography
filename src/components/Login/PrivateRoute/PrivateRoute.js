@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { userContext } from '../../../App';
+import { context } from '../../../App';
 import Spinner from '../../Shared/Spinner/Spinner';
 
 const PrivateRoute = ({ children, ...rest }) => {
 
-    const [loggedInUser, , loading] = useContext(userContext);
-    const {emailVerified}= loggedInUser;
+    const { loggedInUser, loading } = useContext(context);
+    const { emailVerified }= loggedInUser;
     
     return (
         <>

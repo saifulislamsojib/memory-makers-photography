@@ -2,12 +2,12 @@ import emailjs from 'emailjs-com';
 import React, { useContext, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import swal from 'sweetalert';
-import { userContext } from '../../../App';
+import { context } from '../../../App';
 import './Contact.css';
 
 const Contact = () => {
 
-    const [loggedInUser] = useContext(userContext);
+    const { loggedInUser } = useContext(context);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 

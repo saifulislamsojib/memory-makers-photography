@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { context } from '../../../App';
 import Service from '../Service/Service';
 
 const Services = () => {
 
-    const [services, setServices] = useState([]);
-    
+    const { services, setServices } = useContext(context);
+
     useEffect(() => {
         let unsubscribe = true;
-        fetch('https://memory-makers-photography.herokuapp.com/services')
-        .then(res => res.json())
-        .then(data => unsubscribe&&setServices(data));
+        if (!services.length){
+            fetch('https://memory-makers-photography.herokuapp.com/services')
+            .then(res => res.json())
+            .then(data => unsubscribe&&setServices(data));
+        }
         return () => unsubscribe = false;
-    }, []);
+    }, [setServices, services]);
 
     return (
         <section id="services" className='mt-5 pt-5 container'>

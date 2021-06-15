@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, NavLink, useHistory, useLocation } from 'react-router-dom';
-import { userContext } from '../../../App';
+import { context } from '../../../App';
 import './Navbar.css';
 import navData from './navData';
 
 const Navbar = () => {
 
-    const [loggedInUser] = useContext(userContext);
+    const { loggedInUser } = useContext(context);
 
     const [navbarToggler, setNavbarToggler] = useState(false);
 

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useHistory, useLocation } from 'react-router-dom';
-import { userContext } from '../../../App';
+import { context } from '../../../App';
 import LoginImg from '../../../images/login.jpg';
 import Spinner from '../../Shared/Spinner/Spinner';
 import { createUser, fbSignIn, getToken, googleSignIn, sendEmailVerification, signingUser, userSignOut } from './authManager';
@@ -21,7 +21,7 @@ const Login = () => {
 
     const [newUser, setNewUser] = useState(false);
 
-    const [loggedInUser, setLoggedInUser, loading] = useContext(userContext);
+    const { loggedInUser, setLoggedInUser, loading } = useContext(context);
 
     const [loginError, setLoginError] =useState('');
 

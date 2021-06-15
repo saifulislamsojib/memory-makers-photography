@@ -2,11 +2,11 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { userContext } from '../../../App';
+import { context } from '../../../App';
 
 const Feedback = () => {
 
-    const [loggedInUser] = useContext(userContext);
+    const { loggedInUser } = useContext(context);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
