@@ -21,7 +21,7 @@ const Login = () => {
 
     const [newUser, setNewUser] = useState(false);
 
-    const { loggedInUser, setLoggedInUser, loading } = useContext(context);
+    const { loggedInUser, setLoggedInUser, loading, setAdminLoaded } = useContext(context);
 
     const [loginError, setLoginError] =useState('');
 
@@ -53,6 +53,7 @@ const Login = () => {
                 if (idToken) {
                     sessionStorage.setItem('Photography/idToken', `Bearer ${idToken}`);
                     setLoggedInUser(res);
+                    setAdminLoaded(false);
                     history.replace(from);
                 };
             });

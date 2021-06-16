@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Route, Switch, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import { context } from '../../../App';
 import Book from '../../Book/Book/Book';
+import Spinner from '../../Shared/Spinner/Spinner';
 import AddService from '../AddService/AddService';
 import BookingList from '../BookingList/BookingList';
 import Feedback from '../Feedback/Feedback';
@@ -11,13 +12,13 @@ import Profile from '../Profile/Profile';
 import Sidebar from '../Sidebar/Sidebar';
 import './Dashboard.css';
 
-const Dashboard = ({isAdmin}) => {
+const Dashboard = () => {
 
     const { path, url } = useRouteMatch();
 
     const {pathname} = useLocation();
 
-    const { loggedInUser } = useContext(context);
+    const { loggedInUser, isAdmin, setIsAdmin, adminLoaded, setAdminLoaded } = useContext(context);
 
     const history = useHistory();
 
@@ -27,12 +28,40 @@ const Dashboard = ({isAdmin}) => {
 
     const { photo } = loggedInUser;
 
+    const [adminLoading, setAdminLoading] = useState(true);
+
     useEffect(() => {
         document.title = 'memory-makers - Dashboard';
     }, [])
+
+    useEffect(() => {
+        if (!adminLoaded) {
+            setIsAdmin(false);
+            const token = sessionStorage.getItem('Photography/idToken');
+            fetch(`https://memory-makers-photography.herokuapp.com/isAdmin?email=${loggedInUser.email}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: token
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                setIsAdmin(data);
+                setAdminLoading(false);
+                setAdminLoaded(true);
+            })
+        }
+        else{
+            setAdminLoading(false);
+        }
+      }, [loggedInUser, setAdminLoaded, setAdminLoading, setIsAdmin, adminLoaded])
     
     return (
-        <div className='container-fluid'>
+        <>
+        {adminLoading ? 
+            <Spinner />
+        :<div className='container-fluid'>
             <div className='row'>
                 <div className="col-lg-3 col-xl-2 position-relative">
                     <Sidebar isAdmin={isAdmin} navbarToggler={navbarToggler} url={url} setNavbarToggler={setNavbarToggler} />
@@ -64,7 +93,7 @@ const Dashboard = ({isAdmin}) => {
                             <BookingList isAdmin={isAdmin} bookings={bookings} setBookings={setBookings} />
                         </Route>
                         <Route path={`${path}/feedback`}>
-                            {!isAdmin && <Feedback />}
+                            <Feedback />
                         </Route>
                         <Route path={`${path}/manageAdmin`}>
                             {isAdmin && <ManageAdmin />}
@@ -78,7 +107,8 @@ const Dashboard = ({isAdmin}) => {
                     </Switch>
                 </div>
             </div>
-        </div>
+        </div>}
+        </>
     );
 };
 

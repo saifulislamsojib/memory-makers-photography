@@ -1,14 +1,16 @@
+import { css } from "@emotion/react";
 import React from 'react';
+import SyncLoader from "react-spinners/SyncLoader";
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+`;
 
 const Spinner = () => {
     return (
-        <div>
-            <h3 className='color-primary text-center mt-5'>Loading...</h3>
-            <div className="d-flex justify-content-center mt-3">
-                <div className="spinner-border text-primary" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                </div>
-            </div>
+        <div className="d-flex align-items-center mt-5">
+            <SyncLoader color='#6f00ff' loading={true} css={override} size={20} />
         </div>
     );
 };

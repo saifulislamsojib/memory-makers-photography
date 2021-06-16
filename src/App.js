@@ -13,7 +13,6 @@ import { auth, getToken } from "./components/Login/Login/authManager";
 import Login from "./components/Login/Login/Login";
 import PrivateRoute from "./components/Login/PrivateRoute/PrivateRoute";
 import NotFound from "./components/NotFound/NotFound";
-import Spinner from "./components/Shared/Spinner/Spinner";
 
 export const context = createContext();
 
@@ -23,9 +22,9 @@ function App() {
 
   const [loading, setLoading] = useState(true);
 
-  const [adminLoading, setAdminLoading] = useState(true);
-
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const [adminLoaded, setAdminLoaded] = useState(false);
 
   const [services, setServices] = useState([]);
 
@@ -35,25 +34,6 @@ function App() {
     });
     AOS.refresh();
   }, []);
-  
-    useEffect(() => {
-      setIsAdmin(false);
-        if (loggedInUser.email) {
-          const token = sessionStorage.getItem('Photography/idToken');
-          fetch(`https://memory-makers-photography.herokuapp.com/isAdmin?email=${loggedInUser.email}`, {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  authorization: token
-              }
-          })
-          .then(res => res.json())
-          .then(data => {
-            setIsAdmin(data);
-            setAdminLoading(false);
-          })
-        }
-    }, [loggedInUser])
 
   useEffect(() => {
     const unsubscribe = auth()
@@ -88,7 +68,11 @@ function App() {
       setLoggedInUser,
       loading,
       services,
-      setServices
+      setServices,
+      isAdmin,
+      setIsAdmin,
+      adminLoaded,
+      setAdminLoaded
     };
   
   return (
@@ -102,9 +86,7 @@ function App() {
             <Book />
           </PrivateRoute>
           <PrivateRoute path="/dashboard">
-            {adminLoading ? 
-            <Spinner />
-            :<Dashboard isAdmin={isAdmin} />}
+            <Dashboard />
           </PrivateRoute>
           <Route path="/login">
             <Login />

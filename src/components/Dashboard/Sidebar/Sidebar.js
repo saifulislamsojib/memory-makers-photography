@@ -66,13 +66,12 @@ const Sidebar = ({url, isAdmin, navbarToggler, setNavbarToggler}) => {
                         <span className='ms-2'>Booking List</span>
                     </NavLink>
                 </li>
-                {!isAdmin &&
-                    <li className="nav-item mt-2">
+                <li className="nav-item mt-2">
                     <NavLink exact={true} activeClassName='sidebar-active' to={`${url}/feedback`} className="nav-link text-white" onClick={() => setNavbarToggler(false)}>
                         <FontAwesomeIcon icon={faCommentDots} />
                         <span className='ms-2'>Feedback</span>
                     </NavLink>
-                </li>}
+                </li>
                 {isAdmin &&
                 <li className="nav-item mt-2">
                     <NavLink exact={true} activeClassName='sidebar-active' to={`${url}/manageAdmin`} className="nav-link text-white" onClick={() => setNavbarToggler(false)}>

@@ -18,7 +18,7 @@ const Navbar = () => {
 
     const handleLink = () => {
         window.scrollTo(0, 0);
-        setNavbarToggler(!navbarToggler);
+        setNavbarToggler(false);
     }
 
     const handleScroll = () => {
@@ -51,7 +51,7 @@ const Navbar = () => {
                                     {
                                         path.startsWith('/')
                                         ?<NavLink exact={true} activeClassName={location.hash?'':'active'} to={path} className="nav-link home-nav-link" onClick={handleLink}>{name}</NavLink>
-                                        : <a href={path} className={location.hash===path?'nav-link home-nav-link active':'nav-link home-nav-link'} onClick={()=> setNavbarToggler(!navbarToggler)}>{name}</a>
+                                        : <a href={path} className={location.hash===path?'nav-link home-nav-link active':'nav-link home-nav-link'} onClick={()=> setNavbarToggler(false)}>{name}</a>
                                     }
                                 </li>
                             ))

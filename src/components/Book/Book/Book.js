@@ -53,7 +53,7 @@ const Book = ({setBookings}) => {
         .then(res => res.json())
         .then(({inserted, _id}) => {
             if (inserted) {
-                setBookings(preBookings=> [{...bookingData, _id}, ...preBookings]);
+                setBookings(preBookings=> preBookings.length?[{...bookingData, _id}, ...preBookings]:preBookings);
                 swal('Booking Successfully!','Your booking successfully done!', "success");
             }
         });
