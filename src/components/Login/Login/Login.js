@@ -1,23 +1,20 @@
 import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useHistory, useLocation } from 'react-router-dom';
 import { context } from '../../../App';
 import LoginImg from '../../../images/login.jpg';
 import Spinner from '../../Shared/Spinner/Spinner';
-import { createUser, fbSignIn, getToken, googleSignIn, sendEmailVerification, signingUser, userSignOut } from './authManager';
+import { createUser, deleteUser, fbSignIn, getToken, googleSignIn, sendEmailVerification, signingUser } from './authManager';
 import './Login.css';
 
 const Login = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const [showPassword, setShowPassword] = useState({
-        passwordType: 'password',
-        passwordIcon: faEyeSlash
-    });
+    const [showPassword, setShowPassword] = useState(false);
 
     const [newUser, setNewUser] = useState(false);
 
@@ -32,12 +29,19 @@ const Login = () => {
 
     const { from } = location.state || { from: { pathname: "/" } };
 
+    useEffect(() => {
+        document.title = 'memory-makers-login';
+    }, [])
+
     const sendMail= () => {
         setEmailVerification('')
         sendEmailVerification(from.pathname)
         .then(res => {
             if (res){
                 setEmailVerification('Verify Your Email Address');
+            }
+            else{
+                console.log('npt');
             }
         })
     }
@@ -91,21 +95,14 @@ const Login = () => {
         })
     }
 
-    const handlePasswordType = () => {
-        const passwordType = showPassword.passwordType === 'password' ? 'text' : 'password';
-        const passwordIcon = showPassword.passwordIcon === faEye ? faEyeSlash : faEye;
-        setShowPassword({passwordType, passwordIcon});
-    };
-
     const handleSignOut = () => {
-        userSignOut()
+        deleteUser()
         .then(() => {
-            setLoggedInUser({})
+            setLoggedInUser({});
             sessionStorage.removeItem('Photography/idToken');
         })
     };
 
-    const {passwordType, passwordIcon} = showPassword;
     return (
         <div className="container">
             {loading ? <Spinner /> :
@@ -134,15 +131,15 @@ const Login = () => {
                             </div>
                             
                             <div className='password-section form-floating my-3'>
-                                <input autoComplete="current-password" className='input form-control' type={passwordType} {...register("password", { required: true, minLength: 6 })} id="password" placeholder="Enter Password" />
-                                <FontAwesomeIcon onClick={handlePasswordType} className='eye' icon={passwordIcon} />
+                                <input autoComplete="current-password" className='input form-control' type={showPassword?'text':'password'} {...register("password", { required: true, minLength: 6 })} id="password" placeholder="Enter Password" />
+                                <FontAwesomeIcon onClick={()=>setShowPassword(!showPassword)} className='eye' icon={showPassword?faEyeSlash:faEye} />
                                 <label className='text-muted' htmlFor="password">Enter Password</label>
                                 {errors.password && <span className="text-danger d-inline-block mt-2">Password required Minimum 6 Character</span>}
                             </div>
 
                             { newUser && <div className='password-section form-floating my-3'>
-                                <input autoComplete="current-password" className='input form-control' type={passwordType} {...register("confirmPassword", { required: true })} id="ConfirmPassword" placeholder="Confirm Password" />
-                                <FontAwesomeIcon onClick={handlePasswordType} className='eye' icon={passwordIcon} />
+                                <input autoComplete="current-password" className='input form-control' type={showPassword?'text':'password'} {...register("confirmPassword", { required: true })} id="ConfirmPassword" placeholder="Confirm Password" />
+                                <FontAwesomeIcon onClick={()=>setShowPassword(!showPassword)} className='eye' icon={showPassword?faEyeSlash:faEye} />
                                 <label className='text-muted' htmlFor="confirmPassword">Confirm Password</label>
                                 {errors.confirmPassword && <span className="text-danger d-inline-block mt-2">Confirm Password is required</span>}
                             </div>}

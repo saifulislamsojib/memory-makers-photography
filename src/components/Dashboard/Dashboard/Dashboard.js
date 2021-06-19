@@ -26,6 +26,8 @@ const Dashboard = () => {
 
     const [bookings, setBookings] = useState([]);
 
+    const [feedbackData, setFeedbackData] = useState({});
+
     const { photo } = loggedInUser;
 
     const [adminLoading, setAdminLoading] = useState(true);
@@ -64,7 +66,7 @@ const Dashboard = () => {
         :<div className='container-fluid'>
             <div className='row'>
                 <div className="col-lg-3 col-xl-2 position-relative">
-                    <Sidebar isAdmin={isAdmin} navbarToggler={navbarToggler} url={url} setNavbarToggler={setNavbarToggler} />
+                    <Sidebar navbarToggler={navbarToggler} url={url} setNavbarToggler={setNavbarToggler} />
                 </div>
                 <div className="col-lg-9 col-xl-10">
                     <div className="top-bar d-flex align-items-center justify-content-between py-2 px-3 mt-3 radius sticky-top bg-white">
@@ -93,7 +95,7 @@ const Dashboard = () => {
                             <BookingList isAdmin={isAdmin} bookings={bookings} setBookings={setBookings} />
                         </Route>
                         <Route path={`${path}/feedback`}>
-                            <Feedback />
+                            <Feedback feedbackData={feedbackData} setFeedbackData={setFeedbackData} />
                         </Route>
                         <Route path={`${path}/manageAdmin`}>
                             {isAdmin && <ManageAdmin />}

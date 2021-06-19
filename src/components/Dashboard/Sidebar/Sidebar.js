@@ -7,9 +7,9 @@ import { context } from '../../../App';
 import { userSignOut } from '../../Login/Login/authManager';
 import './Sidebar.css';
 
-const Sidebar = ({url, isAdmin, navbarToggler, setNavbarToggler}) => {
+const Sidebar = ({url, navbarToggler, setNavbarToggler}) => {
 
-    const { setLoggedInUser } = useContext(context);
+    const { isAdmin, setLoggedInUser } = useContext(context);
 
     const handleSignOut = () => {
         swal({
@@ -48,7 +48,7 @@ const Sidebar = ({url, isAdmin, navbarToggler, setNavbarToggler}) => {
             </div>
             <div className="navbar-collapse">
             <ul className="nav flex-column">
-                <li className="nav-item mt-2">
+                <li className={isAdmin?"nav-item mt-2":"nav-item mt-2 side-item"}>
                     <NavLink exact={true} activeClassName='sidebar-active' to={`${url}`} className="nav-link text-white" onClick={() => setNavbarToggler(false)}>
                         <FontAwesomeIcon icon={faUserCircle} />
                         <span className='ms-2'>Profile</span>
@@ -64,12 +64,6 @@ const Sidebar = ({url, isAdmin, navbarToggler, setNavbarToggler}) => {
                     <NavLink exact={true} activeClassName='sidebar-active' to={`${url}/bookingList`} className="nav-link text-white" onClick={() => setNavbarToggler(false)}>
                         <FontAwesomeIcon icon={faSort} />
                         <span className='ms-2'>Booking List</span>
-                    </NavLink>
-                </li>
-                <li className="nav-item mt-2">
-                    <NavLink exact={true} activeClassName='sidebar-active' to={`${url}/feedback`} className="nav-link text-white" onClick={() => setNavbarToggler(false)}>
-                        <FontAwesomeIcon icon={faCommentDots} />
-                        <span className='ms-2'>Feedback</span>
                     </NavLink>
                 </li>
                 {isAdmin &&
@@ -93,6 +87,12 @@ const Sidebar = ({url, isAdmin, navbarToggler, setNavbarToggler}) => {
                         <span className='ms-2'>Manage Service</span>
                     </NavLink>
                 </li>}
+                <li className="nav-item mt-2">
+                    <NavLink exact={true} activeClassName='sidebar-active' to={`${url}/feedback`} className="nav-link text-white" onClick={() => setNavbarToggler(false)}>
+                        <FontAwesomeIcon icon={faCommentDots} />
+                        <span className='ms-2'>Feedback</span>
+                    </NavLink>
+                </li>
                 <li onClick={handleSignOut} className="nav-item mt-2 text-white px-3 form-control-color d-flex align-items-center">
                     <FontAwesomeIcon icon={faSignOutAlt} />
                     <span className='ms-2'>Logout</span>

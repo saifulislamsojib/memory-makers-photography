@@ -68,7 +68,7 @@ const Book = ({setBookings}) => {
                 {bookingInfo ?
                     <ProcessPayment handlePaymentCheckout={handlePaymentCheckout} price={service.price} />
                 :<BookForm onSubmit={onSubmit} />}
-            </>:showSpinner ? <Spinner />:<Services />}
+            </>:showSpinner ? <Spinner />:<Services book />}
         </div>
     );
 };

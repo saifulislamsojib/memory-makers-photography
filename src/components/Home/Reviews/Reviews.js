@@ -26,9 +26,11 @@ const Reviews = () => {
     const [reviews, setReviews] = useState([]);
     
     useEffect(() => {
+      let unsubscribe = true;
       fetch('https://memory-makers-photography.herokuapp.com/reviews')
       .then(res => res.json())
-      .then(data => setReviews(data));
+      .then(data => unsubscribe&&setReviews(data));
+      return () => unsubscribe = false;
     }, []);
 
     return (

@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { context } from '../../../App';
 import Service from '../Service/Service';
 
-const Services = () => {
+const Services = ({book}) => {
 
     const { services, setServices } = useContext(context);
 
@@ -17,7 +17,7 @@ const Services = () => {
     }, [setServices, services]);
 
     return (
-        <section id="services" className='mt-5 pt-5 container'>
+        <section id="services" className={book?'mt-3 maxWidth mx-auto':'mt-5 pt-5 container'}>
             <h1 className='mb-4 text-center color-primary'>Our Spacial Services</h1>
            <div className='row'>
                 {

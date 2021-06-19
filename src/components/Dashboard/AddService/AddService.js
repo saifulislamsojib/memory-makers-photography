@@ -1,6 +1,6 @@
 import { faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 import swal from 'sweetalert';
@@ -16,6 +16,10 @@ const AddService = ({ updates, setIsOpen }) => {
     const [image, setImage] = useState(updates?.image||'');
 
     const fromRef = useRef(null);
+
+    useEffect(() => {
+        document.title = 'add-services';
+    }, [])
 
     const onSubmit = data => {
         if (image) {

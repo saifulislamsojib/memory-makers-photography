@@ -9,7 +9,7 @@ import './App.css';
 import Book from "./components/Book/Book/Book";
 import Dashboard from "./components/Dashboard/Dashboard/Dashboard";
 import Home from "./components/Home/Home/Home";
-import { auth, getToken } from "./components/Login/Login/authManager";
+import { auth, getToken, setUser } from "./components/Login/Login/authManager";
 import Login from "./components/Login/Login/Login";
 import PrivateRoute from "./components/Login/PrivateRoute/PrivateRoute";
 import NotFound from "./components/NotFound/NotFound";
@@ -28,6 +28,8 @@ function App() {
 
   const [services, setServices] = useState([]);
 
+  const [userCalled, setUserCalled] = useState(false);
+
   useEffect(() => {
     AOS.init({
       duration : 2000
@@ -36,32 +38,30 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const unsubscribe = auth()
-    .onAuthStateChanged(user => {
-      if (user) {
-        const {email, displayName, photoURL, emailVerified} = user;
-
-        const newUser = {
-            email,
-            name: displayName,
-            photo: photoURL,
-            emailVerified
-        };
-        getToken()
-        .then(idToken => {
-          if(idToken) {
-              sessionStorage.setItem('Photography/idToken', `Bearer ${idToken}`);
-              setLoggedInUser(newUser);
-              setLoading(false);
-          }
-        })
-      }
-      else {
-        setLoading(false);
-      }
-    })
+    let unsubscribe;
+    if (!userCalled){
+      unsubscribe = auth()
+      .onAuthStateChanged(user => {
+        if (user) {
+          const newUser = setUser(user);
+          getToken()
+          .then(idToken => {
+            if(idToken) {
+                sessionStorage.setItem('Photography/idToken', `Bearer ${idToken}`);
+                setLoggedInUser(newUser);
+                setLoading(false);
+                setUserCalled(true);
+            }
+          })
+        }
+        else {
+          setLoading(false);
+          setUserCalled(true);
+        }
+      })
+    }
     return unsubscribe;
-  }, []);
+  }, [userCalled]);
 
     const contextValue = {
       loggedInUser,

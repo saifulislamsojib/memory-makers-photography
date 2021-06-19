@@ -1,6 +1,6 @@
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 import swal from 'sweetalert';
@@ -13,12 +13,16 @@ const Profile = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const { loggedInUser, setLoggedInUser } = useContext(context);
+    const { loggedInUser, setLoggedInUser, isAdmin } = useContext(context);
     const { name, email, photo } = loggedInUser;
 
     const [modalIsOpen,setIsOpen] = useState(false);
 
     const [imageUrl, setImageUrl] = useState(photo);
+
+    useEffect(() => {
+        document.title = isAdmin?'Admin profile':'User profile';
+    }, [isAdmin])
 
     const handelChange = e => {
         setImageUrl('');
@@ -52,6 +56,9 @@ const Profile = () => {
                         swal("Updated Successfully!", "Your Information Updated Successfully!", "success");
                         setIsOpen(false);
                     }
+                    else{
+                        swal("Not Updated!", "Your Information Not Updated!", "error");
+                    }
                 }),
                 {
                 loading: 'Updating...',
@@ -62,7 +69,7 @@ const Profile = () => {
             
         }
         else{
-            swal("Upload An Image", "Please upload an image!", "error");
+            swal("Upload An Image", "Please upload an image!", "warning");
         }
     };
 

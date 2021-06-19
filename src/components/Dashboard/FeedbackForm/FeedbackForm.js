@@ -30,14 +30,15 @@ const FeedbackForm = ({feedbackData, setFeedbackData, setIsOpen}) => {
                     body: JSON.stringify(allData)
                 })
                 .then(res => res.json())
-                .then(result=> {
-                    if (result){
+                .then(({inserted, _id})=> {
+                    if (inserted){
                         if (feedbackData) {
                             setFeedbackData(preData => ({...preData, ...data, ratings}));
                             swal('Feedback Updated Successfully!','Your feedback updated successfully done!', "success");
                             setIsOpen(false);
                         }
                         else {
+                            setFeedbackData({...allData, _id})
                             swal('Feedback Submitted Successfully!','Your feedback submitted successfully done!', "success");
                         }
                     }
@@ -74,7 +75,7 @@ const FeedbackForm = ({feedbackData, setFeedbackData, setIsOpen}) => {
             <div className='ratings'>
                 <label className="me-3">Ratings</label>
                 {
-                    ['rating1', 'rating2', 'rating3', 'rating4', 'rating5'].map((rating, i) => <FontAwesomeIcon key={rating}  className={`${rating} ${i<hoverRatings&&'selected-rating'} ${i<ratings&&hoverRatings===0&&'selected-rating'}`} icon={faStar} onClick={()=>setRatings(i+1)} onMouseEnter={()=> setHoverRatings(i+1)} onMouseLeave={()=> setHoverRatings(0)} />)
+                    ['rating1', 'rating2', 'rating3', 'rating4', 'rating5'].map((rating, i) => <FontAwesomeIcon key={rating}  className={`${rating} ${i<hoverRatings?'selected-rating':''} ${i<ratings&&hoverRatings===0?'selected-rating':''}`} icon={faStar} onClick={()=>setRatings(i+1)} onMouseEnter={()=> setHoverRatings(i+1)} onMouseLeave={()=> setHoverRatings(0)} />)
                 }
             </div>
             <div className="col">

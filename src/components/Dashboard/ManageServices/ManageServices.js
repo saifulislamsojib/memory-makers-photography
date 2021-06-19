@@ -14,6 +14,10 @@ const ManageServices = () => {
     const [updates, setUpdates] = useState({});
 
     const [modalIsOpen,setIsOpen] = useState(false);
+
+    useEffect(() => {
+        document.title = 'manage-services';
+    }, [])
     
     useEffect(() => {
         let unsubscribe = true;

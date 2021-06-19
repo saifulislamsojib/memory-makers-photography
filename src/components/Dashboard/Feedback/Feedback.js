@@ -8,24 +8,32 @@ import Spinner from '../../Shared/Spinner/Spinner';
 import FeedbackForm from '../FeedbackForm/FeedbackForm';
 import ReactModal from '../Modal/Modal';
 
-const Feedback = () => {
+const Feedback = ({feedbackData, setFeedbackData}) => {
 
     const { loggedInUser } = useContext(context);
-
-    const [feedbackData, setFeedbackData] = useState({});
 
     const [loading, setLoading] = useState(true);
 
     const [modalIsOpen,setIsOpen] = useState(false);
 
     useEffect(() => {
-        fetch(`https://memory-makers-photography.herokuapp.com/review?email=${loggedInUser.email}`)
-        .then(res => res.json())
-        .then(data => {
-            setFeedbackData(data);
+        document.title = 'feedback';
+    }, [])
+
+    useEffect(() => {
+        if (!feedbackData.email){
+            fetch(`https://memory-makers-photography.herokuapp.com/review?email=${loggedInUser.email}`)
+            .then(res => res.json())
+            .then(data => {
+                setFeedbackData(data);
+                setLoading(false);
+            })
+            .catch(() => setLoading(false))
+        }
+        else {
             setLoading(false);
-        })
-    }, [loggedInUser.email])
+        }
+    }, [loggedInUser.email, setFeedbackData, feedbackData])
     
     return (
         <section className='mt-3'>
@@ -37,7 +45,7 @@ const Feedback = () => {
                     <Review review={feedbackData} feedback>
                         <button onClick={() => setIsOpen(true)} className="mt-3 btn btn-primary">Edit <FontAwesomeIcon icon={faEdit} className="ms-2" /></button>
                     </Review>
-                    :<FeedbackForm />
+                    :<FeedbackForm setFeedbackData={setFeedbackData} />
                 }
                 <ReactModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen}>
                     <FeedbackForm feedbackData={feedbackData} setFeedbackData={setFeedbackData} setIsOpen={setIsOpen} />

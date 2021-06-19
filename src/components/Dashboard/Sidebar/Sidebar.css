@@ -30,6 +30,10 @@
   background-color: rgb(88, 255, 177);
 }
 
+.side-item {
+  width: 125%;
+}
+
 @media (max-width: 1199.98px) {
   .sidebar {
     width: 23%;
@@ -37,6 +41,9 @@
 }
 
 @media (max-width: 991.98px) {
+  .side-item {
+    width: 100%;
+  }
   .sidebar {
     z-index: 10000;
     top: 0;

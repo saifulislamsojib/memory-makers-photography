@@ -6,32 +6,22 @@ if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 
-const setUserName = name => {
-    const user = firebase.auth().currentUser;
+export const auth = firebase.auth;
 
-    user.updateProfile({
-    displayName: name
-    }).then(() => {
+export const updateProfile = (displayName, photoURL) => {
+    const user = auth().currentUser;
+    let profile = { displayName };
+    if (photoURL) {
+        profile.photoURL = photoURL;
+    }
 
-    }).catch(err => {
-
-    });
+    return user.updateProfile(profile)
+    .then(() => true)
+    .catch(()=> false);
 };
 
-export const updateProfile = (name, photo) => {
-    const user = firebase.auth().currentUser;
-
-    return user.updateProfile({
-    displayName: name,
-    photoURL: photo
-    })
-    .then(() => {
-        return true;
-    })
-};
-
-const setUser = (res, name) => {
-    const {email, displayName, photoURL, emailVerified} = res.user;
+export const setUser = (user, name) => {
+    const {email, displayName, photoURL, emailVerified} = user;
     const newUser = {
         email,
         name: displayName || name,
@@ -42,88 +32,66 @@ const setUser = (res, name) => {
 };
 
 export const getToken = () => {
-    return firebase.auth().currentUser.getIdToken(true)
-    .then(idToken => {
-        return idToken;
-    })
-    .catch(err => {
-        console.log(err);
-    });
+    return auth().currentUser.getIdToken(true)
+    .then(idToken => idToken)
+    .catch(err => false);
 };
 
 export const createUser = (email, password, name) => {
-    return firebase.auth().createUserWithEmailAndPassword(email, password)
+    return auth().createUserWithEmailAndPassword(email, password)
     .then(res => {
-        setUserName(name);
-        return setUser(res, name);
+        updateProfile(name);
+        return setUser(res.user, name);
     })
-    .catch(err => {
-        return err.message;
-    });
+    .catch(err => err.message);
 };
 
 export const signingUser = (email, password) => {
-    return firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(res => {
-        return setUser(res);
-    })
-    .catch(err => {
-        return err.message;
-    });
+    return auth().signInWithEmailAndPassword(email, password)
+    .then(res => setUser(res.user))
+    .catch(err => err.message);
 };
 
 export const googleSignIn = ()=> {
-    const provider = new firebase.auth.GoogleAuthProvider();
+    const provider = new auth.GoogleAuthProvider();
 
-    return firebase.auth()
+    return auth()
     .signInWithPopup(provider)
-    .then(res => {
-        return setUser(res);
-    })
-    .catch(err => {
-        return err.message;
-    });
+    .then(res => setUser(res.user))
+    .catch(err => err.message);
 };
 
 export const fbSignIn = () => {
-    const provider = new firebase.auth.FacebookAuthProvider();
+    const provider = new auth.FacebookAuthProvider();
     
-    return firebase.auth()
+    return auth()
     .signInWithPopup(provider)
-    .then(res => {
-        return setUser(res);
-    })
-    .catch(err => {
-        return err.message;
-    });
+    .then(res => setUser(res.user))
+    .catch(err => err.message);
 };
 
 export const userSignOut = () => {
-    return firebase.auth()
+    return auth()
     .signOut()
-    .then(() => {
-
-    })
-    .catch((err) => {
-        console.log(err.message);
-    });
-};
-
-export const auth = () => {
-    return firebase.auth();
+    .then(() => true)
+    .catch(err => false);
 };
 
 export const sendEmailVerification = path => {
-    const user = firebase.auth().currentUser;
+    const user = auth().currentUser;
     const actionCodeSettings = {
         url: `${window.location.origin}${path}`
     }
 
     return user.sendEmailVerification(actionCodeSettings)
-    .then(() => {
-        return true;
-    })
-    .catch(err => {
-        return false;
-    });
+    .then(() => true)
+    .catch(err => false);
+}
+
+export const deleteUser = ()=> {
+    const user = auth().currentUser;
+
+    user.delete()
+    .then(() => true)
+    .catch(() => false);
 }

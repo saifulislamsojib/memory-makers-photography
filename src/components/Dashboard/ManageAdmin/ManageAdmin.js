@@ -16,6 +16,10 @@ const AddAdmin = () => {
 
     const [modalIsOpen,setIsOpen] = useState(false);
 
+    useEffect(() => {
+        document.title = 'manage-admin';
+    }, [])
+
     function openModal() {
         setIsOpen(true);
     }
