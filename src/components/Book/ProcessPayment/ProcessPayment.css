@@ -1,0 +1,40 @@
+.payment-form label {
+  color: #2860af;
+  letter-spacing: 0.025em;
+  font-weight: 500;
+  margin-left: 7px;
+}
+
+.StripeElement {
+  box-shadow: 2px 2px 8px #cecece;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.payment-form {
+  min-width: 650px;
+}
+
+@media (max-width: 767px) {
+  .payment-form {
+    min-width: 500px;
+  }
+}
+
+@media (max-width: 550px) {
+  .payment-form {
+    min-width: 430px;
+  }
+}
+
+@media (max-width: 490px) {
+  .payment-form {
+    min-width: 85vw;
+  }
+}
+
+@media (max-width: 390px) {
+  .payment-form {
+    min-width: 83vw;
+  }
+}

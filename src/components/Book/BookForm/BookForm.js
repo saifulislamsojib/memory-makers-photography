@@ -20,7 +20,7 @@ const BookForm = ({onSubmit}) => {
             </div>
             <div className="col-12">
                 <input  type="text" className="form-control"  placeholder="Address" {...register("address", { required: true })} />
-                {errors.address && <span className="text-danger d-inline-block mt-2">Email is required</span>}
+                {errors.address && <span className="text-danger d-inline-block mt-2">Address is required</span>}
             </div>
             <div className="col">
                 <input className='d-block btn btn-outline-danger ms-auto' type="submit" value="Book Continue"/>

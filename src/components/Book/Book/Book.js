@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import swal from 'sweetalert';
 import { context } from '../../../App';
+import ReactModal from '../../Dashboard/Modal/Modal';
 import Services from '../../Home/Services/Services';
 import Spinner from '../../Shared/Spinner/Spinner';
 import BookForm from '../BookForm/BookForm';
@@ -24,6 +26,8 @@ const Book = ({setBookings}) => {
 
     const [bookingInfo, setBookingInfo] = useState(null);
 
+    const [modalIsOpen, setIsOpen] = useState(false);
+
     useEffect(() => {
         let unsubscribe = true;
         id!==undefined?fetch(`https://memory-makers-photography.herokuapp.com/service/${id}`)
@@ -41,10 +45,12 @@ const Book = ({setBookings}) => {
 
     const onSubmit = data => {
         setBookingInfo({...data, service, user: loggedInUser});
+        setIsOpen(true);
     };
 
     const handlePaymentCheckout = paymentDetails => {
         const bookingData = {...bookingInfo, paymentDetails, orderDate: new Date().toDateString(), orderTime: new Date().toTimeString(), status: 'Pending'};
+        toast.promise(
         fetch('https://memory-makers-photography.herokuapp.com/bookOrder', {
             method: 'POST',
             body: JSON.stringify(bookingData),
@@ -55,20 +61,27 @@ const Book = ({setBookings}) => {
             if (inserted) {
                 setBookings(preBookings=> preBookings.length?[{...bookingData, _id}, ...preBookings]:preBookings);
                 swal('Booking Successfully!','Your booking successfully done!', "success");
+                setIsOpen(false);
             }
-        });
+        }), {
+            loading: 'Booking...',
+            success: <b>Booking Successfully!</b>,
+            error: <b>Could not Book.</b>,
+        })
     };
 
     return (
-        <div style={{minHeight: '64.5vh'}}>
+        <div>
+            <Toaster />
             {service.title ?
             <>
                 <BookingTable service={service} />
                 <h2 className='color-primary mt-5 text-center'>Process Your Booking</h2>
-                {bookingInfo ?
-                    <ProcessPayment handlePaymentCheckout={handlePaymentCheckout} price={service.price} />
-                :<BookForm onSubmit={onSubmit} />}
+                <BookForm onSubmit={onSubmit} />
             </>:showSpinner ? <Spinner />:<Services book />}
+            <ReactModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen}>
+                <ProcessPayment handlePaymentCheckout={handlePaymentCheckout} />
+            </ReactModal>
         </div>
     );
 };

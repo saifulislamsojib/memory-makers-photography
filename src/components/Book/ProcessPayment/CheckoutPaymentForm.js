@@ -1,71 +1,83 @@
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import React, { useState } from 'react';
+import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import React, { useMemo, useState } from 'react';
 
-const CheckoutPaymentForm = ({handlePaymentCheckout, price}) => {
+const useOptions = () => {
+    const options = useMemo(() => ({
+        style: {
+          base: {
+            letterSpacing: '2px',
+            fontSize: '18px',
+            color: '#424770',
+            '::placeholder': {
+              color: '#aab7c4',
+            },
+          },
+          invalid: {
+            color: '#9e2146',
+          },
+        },
+    }), []);
+
+    return options;
+};
+
+const CheckoutPaymentForm = ({handlePaymentCheckout}) => {
     const stripe = useStripe();
     const elements = useElements();
+    const options = useOptions();
 
-    const [paymentError, setPaymentError] = useState('');
+    const [error, seError] = useState('');
 
-    const [paymentSuccess, setPaymentSuccess] = useState('');
+    const handleSubmit = async e => {
+        e.preventDefault();
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+        if (!stripe || !elements) return;
 
-        if (!stripe || !elements) {
-        return;
-        }
+        
 
-        const cardElement = elements.getElement(CardElement);
-
-        const {error, paymentMethod} = await stripe.createPaymentMethod({
-        type: 'card',
-        card: cardElement,
-        });
+        const { paymentMethod, error } = await stripe.createPaymentMethod({
+            type: "card",
+            card: elements.getElement(CardNumberElement)
+          });
 
         if (error) {
-            setPaymentError(error.message);
-            setPaymentSuccess('');
+            seError(error.message);
         } else {
             const {brand, exp_month, exp_year, last4} = paymentMethod.card;
             const paymentDetails = {paymentId: paymentMethod.id, brand, exp_month, exp_year, last4};
             handlePaymentCheckout(paymentDetails);
-            setPaymentSuccess(paymentMethod.id);
-            setPaymentError('');
+            seError('');
         }
     };
 
     return (
-        <form style={{maxWidth: '700px'}} className="mx-auto mt-5" onSubmit={handleSubmit}>
-            <CardElement
-                options={{
-                    style: {
-                      base: {
-                        letterSpacing: '2px',
-                        fontSize: '18px',
-                        color: '#424770',
-                        '::placeholder': {
-                          color: '#aab7c4',
-                        },
-                      },
-                      invalid: {
-                        color: '#9e2146',
-                      },
-                    },
-                }}
+        <form className="mx-auto payment-form" onSubmit={handleSubmit}>
+            <div className="">
+                <label className="my-2">
+                    Card Number
+                </label>
+                <CardNumberElement
+                    options={options}
+                />
+            </div>
+            <label className="my-2">
+                Expiration date
+            </label>
+            <CardExpiryElement
+                options={options}
             />
-            <div className='mt-4 d-sm-flex align-items-center'>
-                <h6 className='mt-2'>Your Total Service Charge: ${price}</h6>
-                <button className="btn btn-outline-danger mt-2 mt-sm-0 ms-auto" type="submit" disabled={!stripe}>
+            <label className="my-2">
+                CVC
+            </label>
+            <CardCvcElement
+                options={options}
+            />
+            <div className="mt-3">
+                <button className="d-block btn btn-outline-danger mt-sm-0 ms-auto" type="submit" disabled={!stripe}>
                     Purchase Now
                 </button>
             </div>
-            {
-                paymentError && <p className="text-danger text-center mt-3">{paymentError}</p>
-            }
-            {
-                paymentSuccess && <p className="text-success text-center mt-3">Your payment has been successfully completed</p>
-            }
+            <p className="text-danger text-center mt-3">{error}</p>
         </form>
     );
 };

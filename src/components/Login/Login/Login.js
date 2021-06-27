@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useHistory, useLocation } from 'react-router-dom';
 import { context } from '../../../App';
-import LoginImg from '../../../images/login.jpg';
+import LoginImg from '../../../images/login-bg.jpg';
 import Spinner from '../../Shared/Spinner/Spinner';
 import { createUser, deleteUser, fbSignIn, getToken, googleSignIn, sendEmailVerification, signingUser } from './authManager';
 import './Login.css';
@@ -106,8 +106,8 @@ const Login = () => {
     return (
         <div className="container">
             {loading ? <Spinner /> :
-                <div className="login row">
-                <div className='col-lg-6 mb-4 mb-lg-0'>
+            <div className={newUser?"login row position-relative":'login row'}>
+                <div className='col-lg-6 mb-4 mb-lg-0 loggedInContainer'>
                     {emailVerification || loggedInUser.emailVerified ===false ?
                     <div className='alert-warning text-center p-4 radius'>
                         <h3>{emailVerification || 'Verify Your Email Address'}</h3>
@@ -121,27 +121,27 @@ const Login = () => {
                             {newUser && <div className='form-floating my-3'>
                                 <input autoComplete="username" className='form-control input' type='text' {...register("name", { required: true })} id="name" placeholder="Enter your Name" />
                                 <label className='text-muted' htmlFor="name">Enter your Name</label>
-                                {errors.name && <span className="text-danger d-inline-block mt-2">Name is required</span>}
+                                {errors.name && <span className="text-danger d-inline-block mt-2 ms-2">Name is required</span>}
                             </div>}
 
                             <div className='form-floating my-3'>
                                 <input autoComplete="username" className='form-control input' type='email' {...register("email", { required: true, pattern: /\S+@\S+\.\S+/ })} id="email" placeholder="Enter your Email" />
                                 <label className='text-muted' htmlFor="email">Enter your Email</label>
-                                {errors.email && <span className="text-danger d-inline-block mt-2">Enter is required</span>}
+                                {errors.email && <span className="text-danger d-inline-block mt-2 ms-2">Valid Email is required</span>}
                             </div>
                             
                             <div className='password-section form-floating my-3'>
                                 <input autoComplete="current-password" className='input form-control' type={showPassword?'text':'password'} {...register("password", { required: true, minLength: 6 })} id="password" placeholder="Enter Password" />
                                 <FontAwesomeIcon onClick={()=>setShowPassword(!showPassword)} className='eye' icon={showPassword?faEyeSlash:faEye} />
                                 <label className='text-muted' htmlFor="password">Enter Password</label>
-                                {errors.password && <span className="text-danger d-inline-block mt-2">Password required Minimum 6 Character</span>}
+                                {errors.password && <span className="text-danger d-inline-block mt-2 ms-2">Password required Minimum 6 Character</span>}
                             </div>
 
                             { newUser && <div className='password-section form-floating my-3'>
                                 <input autoComplete="current-password" className='input form-control' type={showPassword?'text':'password'} {...register("confirmPassword", { required: true })} id="ConfirmPassword" placeholder="Confirm Password" />
                                 <FontAwesomeIcon onClick={()=>setShowPassword(!showPassword)} className='eye' icon={showPassword?faEyeSlash:faEye} />
                                 <label className='text-muted' htmlFor="confirmPassword">Confirm Password</label>
-                                {errors.confirmPassword && <span className="text-danger d-inline-block mt-2">Confirm Password is required</span>}
+                                {errors.confirmPassword && <span className="text-danger d-inline-block mt-2 ms-2">Confirm Password is required</span>}
                             </div>}
 
                             <div className='d-flex justify-content-between mt-2'>
@@ -162,7 +162,7 @@ const Login = () => {
                         </div>
                     </div>}
                 </div>
-                <div className='col-lg-6 mb-3 mb-lg-0'>
+                <div className='col-lg-6 mb-3 mb-lg-0 image-container'>
                     <img className='img-fluid' src={LoginImg} alt=""/>
                 </div>
             </div>}
