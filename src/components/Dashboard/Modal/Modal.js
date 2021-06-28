@@ -12,7 +12,6 @@ const customStyles = {
       marginRight           : '-50%',
       transform             : 'translate(-50%, -50%)',
       border                : 'none',
-      boxShadow             : '5px 5px 20px lightgray',
       borderRadius          : '10px'
     }
 };

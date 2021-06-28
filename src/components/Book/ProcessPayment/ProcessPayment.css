@@ -5,10 +5,18 @@
   margin-left: 7px;
 }
 
+.dark-mode .payment-form label {
+  color: #3e8fff;
+}
+
 .StripeElement {
   box-shadow: 2px 2px 8px #cecece;
   padding: 10px;
   border-radius: 5px;
+}
+
+.dark-mode .StripeElement {
+  box-shadow: 2px 2px 8px #141414;
 }
 
 .payment-form {

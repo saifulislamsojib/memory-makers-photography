@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useHistory, useLocation } from 'react-router-dom';
 import { context } from '../../../App';
-import LoginImg from '../../../images/login-bg.jpg';
+import LoginImg from '../../../images/login-bg.png';
 import Spinner from '../../Shared/Spinner/Spinner';
 import { createUser, deleteUser, fbSignIn, getToken, googleSignIn, sendEmailVerification, signingUser } from './authManager';
 import './Login.css';

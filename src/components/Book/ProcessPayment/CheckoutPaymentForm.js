@@ -1,30 +1,31 @@
 import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
+import { context } from '../../../App';
 
-const useOptions = () => {
+const useOptions = (isDarkMode) => {
     const options = useMemo(() => ({
         style: {
           base: {
             letterSpacing: '2px',
             fontSize: '18px',
-            color: '#424770',
+            color: isDarkMode?'#ebebeb':'#424770',
             '::placeholder': {
               color: '#aab7c4',
             },
-          },
-          invalid: {
-            color: '#9e2146',
-          },
+          }
         },
-    }), []);
+    }), [isDarkMode]);
 
     return options;
 };
 
 const CheckoutPaymentForm = ({handlePaymentCheckout}) => {
+
+    const { isDarkMode } = useContext(context);
+
     const stripe = useStripe();
     const elements = useElements();
-    const options = useOptions();
+    const options = useOptions(isDarkMode);
 
     const [error, seError] = useState('');
 

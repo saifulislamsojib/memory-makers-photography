@@ -7,6 +7,14 @@
   min-height: 88vh;
   border-radius: 20px;
   margin-bottom: 10px;
+  transition: 0.5s;
+}
+
+.dark-mode .addAdmin,
+.dark-mode .feedback,
+.dark-mode .booking-list,
+.dark-mode .services-container {
+  background-color: #4d4d4d;
 }
 
 .action-icon {
@@ -35,6 +43,13 @@
 
 .top-bar {
   box-shadow: 5px 5px 20px lightgray;
+  background-color: #fff;
+  transition: 0.5s;
+}
+
+.dark-mode .top-bar {
+  background-color: #4d4d4d;
+  box-shadow: 3px 3px 10px rgb(34, 34, 34);
 }
 
 @media (max-width: 767.98px) {
@@ -42,6 +57,12 @@
   .services-container select {
     font-size: 15px;
     font-weight: normal;
+  }
+  .addAdmin,
+  .feedback,
+  .booking-list,
+  .services-container {
+    padding: 15px;
   }
 }
 

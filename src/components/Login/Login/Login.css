@@ -27,6 +27,11 @@
   box-shadow: 10px 10px 30px lightgray;
   max-width: 500px;
 }
+
+.dark-mode .login-inner {
+  box-shadow: 2px 2px 20px rgb(26, 26, 26);
+}
+
 .input {
   font-size: 16px;
   display: block;
@@ -44,6 +49,11 @@
   padding: 5%;
   border-radius: 7px;
 }
+
+.dark-mode .email-password-login {
+  border-color: #525252;
+}
+
 .password-section {
   position: relative;
 }
@@ -71,6 +81,7 @@
 .google {
   color: #e13e31;
 }
-.error {
+.login-inner .error {
   max-width: 320px;
+  background-color: unset;
 }

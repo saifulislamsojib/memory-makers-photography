@@ -9,7 +9,7 @@ import './Sidebar.css';
 
 const Sidebar = ({url, navbarToggler, setNavbarToggler}) => {
 
-    const { isAdmin, setLoggedInUser } = useContext(context);
+    const { isAdmin, setLoggedInUser, setDarkMode, isDarkMode } = useContext(context);
 
     const handleSignOut = () => {
         swal({
@@ -102,6 +102,11 @@ const Sidebar = ({url, navbarToggler, setNavbarToggler}) => {
                         <FontAwesomeIcon icon={faHome} />
                         <span className='ms-2'>Go To Home</span>
                     </Link>
+                </li>
+                <li className="nav-item mt-3 ms-3">
+                    <div onClick={setDarkMode} className={isDarkMode?"dark-mode-toggler dark-active":"dark-mode-toggler"}>
+                        <div className="toggler-btn" />
+                    </div>
                 </li>
             </ul>
             </div>

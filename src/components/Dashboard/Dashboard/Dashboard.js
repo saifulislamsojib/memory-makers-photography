@@ -69,17 +69,14 @@ const Dashboard = () => {
                     <Sidebar navbarToggler={navbarToggler} url={url} setNavbarToggler={setNavbarToggler} />
                 </div>
                 <div className="col-lg-9 col-xl-10">
-                    <div className="top-bar d-flex align-items-center justify-content-between py-2 px-3 mt-3 radius sticky-top bg-white">
-                    <div onClick={() => setNavbarToggler(!navbarToggler)} className="navbar-toggler d-lg-none" type="button">
-                        <div className={navbarToggler ? 'toggler-icon toggler-active' : 'toggler-icon'} />
-                    </div>
-                        <h3 className='mt-1'>
+                    <div className="top-bar d-flex align-items-center justify-content-between py-2 pe-3 mt-3 radius sticky-top">
+                        <div onClick={() => setNavbarToggler(!navbarToggler)} className="navbar-toggler d-lg-none" type="button">
+                            <div className={navbarToggler ? 'toggler-icon toggler-active' : 'toggler-icon'} />
+                        </div>
+                        <h3 className='mt-1 ps-lg-3'>
                             {pathname?.split('/')[2]?.split(/(?=[A-Z])/)?.join(' ').toUpperCase()||'PROFILE'}
                         </h3>
-                        
-                       {
                         <img onClick={()=> history.push('/dashboard')} src={photo || 'https://uxwing.com/wp-content/themes/uxwing/download/12-people-gesture/avatar.png'} className="user-logo" alt="" />
-                       }
                     </div>
                     <Switch>
                         <Route exact path={path}>

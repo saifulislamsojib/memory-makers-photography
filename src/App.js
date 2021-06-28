@@ -1,4 +1,4 @@
-import AOS from 'aos';
+import AOS from "aos";
 import "aos/dist/aos.css";
 import { createContext, useEffect, useState } from "react";
 import {
@@ -29,6 +29,18 @@ function App() {
   const [services, setServices] = useState([]);
 
   const [userCalled, setUserCalled] = useState(false);
+
+  const [isDarkMode, setIsDarkMode] = useState(JSON.parse(localStorage.getItem("dark-mode"))||false);
+
+  const setDarkMode = () => {
+    setIsDarkMode(preValue => !preValue);
+    localStorage.setItem("dark-mode", !isDarkMode);
+  };
+
+  useEffect(() => {
+    const className = isDarkMode?"dark-mode":"";
+    window.document.body.className = className;
+  }, [isDarkMode]);
 
   useEffect(() => {
     AOS.init({
@@ -72,7 +84,9 @@ function App() {
       isAdmin,
       setIsAdmin,
       adminLoaded,
-      setAdminLoaded
+      setAdminLoaded,
+      setDarkMode,
+      isDarkMode
     };
   
   return (

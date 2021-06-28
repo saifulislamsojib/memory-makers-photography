@@ -13,7 +13,7 @@ const Home = () => {
 
     useEffect(() => {
         document.title = 'memory-makers - home';
-    })
+    }, [])
 
     return (
         <div className="home-container">

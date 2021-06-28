@@ -16,6 +16,23 @@
   height: 3.5rem;
 }
 
+body.dark-mode .navbar-bg {
+  background-color: #4d4d4d;
+}
+
+body.dark-mode .navbar-brand {
+  color: #f6f6f6 !important;
+}
+
+body.dark-mode .home-nav-link {
+  color: #fafafa;
+}
+
+body.dark-mode .navbar-bg .home-nav-link.active,
+body.dark-mode .navbar-bg .home-nav-link:hover {
+  color: #00eeff !important;
+}
+
 .navbar-transparent {
   background-color: transparent;
   height: 5rem;
@@ -27,7 +44,7 @@
 
 .navbar-transparent .home-nav-link.active,
 .navbar-transparent .nav-item:hover .home-nav-link {
-  color: #001c79 !important;
+  color: #00eeff !important;
 }
 
 .home-nav-link.active::after,
@@ -45,9 +62,14 @@
   animation: navbar-Animated 0.5s ease-in-out;
 }
 
+body.dark-mode .home-nav-link.active::after,
+body.dark-mode .nav-item:hover .home-nav-link::after {
+  background-color: #00eeff;
+}
+
 .navbar-transparent .home-nav-link.active::after,
 .navbar-transparent .nav-item:hover .home-nav-link::after {
-  background-color: #001c79;
+  background-color: #00eeff;
 }
 
 @keyframes navbar-Animated {
@@ -130,6 +152,44 @@
   color: #ffffff;
 }
 
+.dark-mode-toggler {
+  width: 85px;
+  height: 35px;
+  border-radius: 160px;
+  background-color: #6a67ff;
+  cursor: pointer;
+  position: relative;
+  box-shadow: inset 0 2px 60px rgba(0, 0, 0, 0.1),
+    inset 0 2px 8px rgba(0, 0, 0, 0.1), inset 0 -4px 16px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.5s;
+}
+
+.dark-mode-toggler .toggler-btn {
+  transition: 0.5s;
+  height: 35px;
+  border-radius: 50%;
+  width: 35px;
+  background: linear-gradient(to bottom, #dddddd, #ffffff);
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: scale(0.88);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5),
+    inset 0 4px 4px rgba(255, 255, 255, 0.2),
+    inset 0 -4px 4px rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode-toggler.dark-active {
+  background-color: #2c2c2c;
+  box-shadow: inset 0 8px 60px rgba(0, 0, 0, 0.1),
+    inset 0 8px 8px rgba(0, 0, 0, 0.1), inset 0 -4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode-toggler.dark-active .toggler-btn {
+  left: 50px;
+  background: linear-gradient(to bottom, #666, #222);
+}
+
 @media (max-width: 991.98px) {
   .navbar-nav {
     width: 105.44%;
@@ -137,6 +197,9 @@
     position: absolute;
     left: -130%;
     transition: all 0.5s;
+  }
+  body.dark-mode .navbar-nav {
+    background-color: #4d4d4d;
   }
   .name {
     color: #0d6efd;
@@ -154,7 +217,7 @@
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 500px) {
   .navbar-transparent .navbar-brand {
     color: #f3f3f3 !important;
   }

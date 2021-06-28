@@ -4,6 +4,21 @@
 .color-primary {
   color: rgb(111, 0, 255);
 }
+
+.dark-mode .color-primary {
+  color: #ebebeb;
+}
+
+.form-control {
+  transition: 0.5s;
+}
+
+.dark-mode.dark-mode .form-control {
+  background-color: #383838;
+  color: #ebebeb;
+  border-color: #555555;
+}
+
 .link {
   text-decoration: none;
 }
@@ -21,4 +36,66 @@
 
 .home-container {
   overflow: hidden;
+}
+
+.footer {
+  background: linear-gradient(to right, #4112ff, #2478ff);
+}
+
+.dark-mode .footer {
+  background: #4d4d4d;
+}
+
+.dark-mode .bg-white {
+  background-color: unset !important;
+}
+
+.dark-mode .shadow {
+  box-shadow: 0px 0px 15px #181818 !important;
+}
+
+.table {
+  color: unset;
+}
+
+.dark-mode .table,
+.dark-mode tr,
+.dark-mode td,
+.dark-mode th {
+  border-bottom: 1px solid #6e6e6e !important;
+}
+
+.ReactModal__Content {
+  box-shadow: 5px 5px 20px lightgray;
+}
+
+.dark-mode .ReactModal__Content {
+  background-color: #2c2c2c !important;
+  box-shadow: 0px 0px 15px #111111;
+}
+
+.dark-mode .ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark-mode .swal-modal {
+  background-color: #2c2c2c;
+  box-shadow: 0px 0px 15px #111111;
+}
+
+.dark-mode .swal-icon::after,
+.dark-mode .swal-icon::before,
+.dark-mode .swal-icon--success__hide-corners {
+  background-color: #2c2c2c !important;
+}
+
+.dark-mode .swal-title,
+.dark-mode .swal-text {
+  color: #ebebeb;
+}
+
+@media (max-width: 700px) {
+  .ReactModal__Content {
+    width: 96%;
+  }
 }

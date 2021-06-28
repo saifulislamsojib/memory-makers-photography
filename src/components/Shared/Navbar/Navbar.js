@@ -6,7 +6,7 @@ import navData from './navData';
 
 const Navbar = () => {
 
-    const { loggedInUser } = useContext(context);
+    const { loggedInUser, isDarkMode, setDarkMode } = useContext(context);
 
     const [navbarToggler, setNavbarToggler] = useState(false);
 
@@ -47,7 +47,7 @@ const Navbar = () => {
                     <ul className={`navbar-nav ms-auto text-center d-flex align-items-center ${navbarToggler && 'mobile'}`}>
                         {
                             navData.map(({name, path}) => (
-                                <li key={path} className="nav-item mt-2 mt-lg-0 text-center me-lg-3">
+                                <li key={path} className="nav-item mt-2 mt-lg-0 text-center me-lg-2 ms-xl-3">
                                     {
                                         path.startsWith('/')
                                         ?<NavLink exact={true} activeClassName={location.hash?'':'active'} to={path} className="nav-link home-nav-link" onClick={handleLink}>{name}</NavLink>
@@ -56,13 +56,18 @@ const Navbar = () => {
                                 </li>
                             ))
                         }
-                        <li className="nav-item ms-lg-3 text-center">
+                        <li className="nav-item ms-lg-1 ms-xl-3 text-center">
                             {
                                 name ?
                                 photo ? <img onClick={()=> history.push('/dashboard')} className="mt-2 mt-lg-0 mb-3 mb-lg-0 user-logo" src={photo} alt=""/>
                                 :<h6 onClick={()=> history.push('/dashboard')} className={`mt-2 ${navbarBg?'mt-lg-1 text-primary':'mt-lg-0 name'} mb-3 mb-lg-1`}>{name}</h6>
-                                :<button onClick={()=> history.push('/login')} className="btn btn-outline-success mt-2 mt-lg-0 mb-3 mb-lg-0 px-4">Login</button>
+                                :<button onClick={()=> history.push('/login')} className={`btn ${navbarBg?"btn-outline-success":"btn-success"} mt-2 mt-lg-0 mb-3 mb-lg-0 px-4 px-lg-3 px-xl-4`}>Login</button>
                             }
+                        </li>
+                        <li className="nav-item ms-lg-3 ms-xl-4 text-center mb-3 mb-lg-0">
+                            <div onClick={setDarkMode} className={isDarkMode?"dark-mode-toggler dark-active":"dark-mode-toggler"}>
+                                <div className="toggler-btn" />
+                            </div>
                         </li>
                     </ul>
                 </div>

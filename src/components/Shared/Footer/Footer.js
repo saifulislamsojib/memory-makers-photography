@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
-        <section style={{backgroundImage: 'linear-gradient(to right, #4112ff, #2478ff)'}} className="bgc-primary text-white pt-5 pb-2 mt-5">
+        <section className="text-white pt-5 pb-2 mt-5 footer">
             <div className="container">
             <div className="row g-4">
                 <div className="col-md-3 col-sm-6">
@@ -26,6 +26,7 @@ const Footer = () => {
                         <Link to='/' onClick={()=> window.scrollTo(0, 0)} className="text-white link">Home</Link>
                         <Link to='/dashboard' className="text-white mt-2 link" >Dashboard</Link>
                         <a className="text-white mt-2 link" href="#services">services</a>
+                        <a className="text-white mt-2 link" href="#reviews">Reviews</a>
                         <a className="text-white mt-2 link" href="#contacts">Contact</a>
                     </div>
                 </div>

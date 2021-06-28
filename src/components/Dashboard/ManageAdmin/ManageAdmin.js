@@ -114,7 +114,7 @@ const AddAdmin = () => {
             </ReactModal>
             {admins.length>0?
                 <div className='admin-table mt-3'>
-                    <table className="table table-hover">
+                    <table className="table">
                         <thead>
                             <tr>
                             <th scope="col"></th>

@@ -3,3 +3,7 @@
   padding: 30px;
   border-radius: 10px;
 }
+
+.dark-mode .add-service-form {
+  box-shadow: 2px 2px 20px #161616;
+}
