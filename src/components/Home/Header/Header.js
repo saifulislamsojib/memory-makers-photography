@@ -29,13 +29,11 @@ const Header = () => {
                         </a>
                     </div>
                 </div>
-                <div className="col-md-8">
-                    <div className="bottom-side">
-                        <img data-aos="fade-down"
-                            className="img-fluid"
-                            src={image} alt=""
-                        />
-                    </div>
+                <div className="col-md-8 bottom-side">
+                    <img data-aos="fade-down"
+                        className="img-fluid"
+                        src={image} alt=""
+                    />
                 </div>
             </div>
         </header>

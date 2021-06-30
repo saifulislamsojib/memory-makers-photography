@@ -6,7 +6,7 @@
 }
 
 .dark-mode .color-primary {
-  color: #ebebeb;
+  color: #00a2ff;
 }
 
 .form-control {
@@ -43,7 +43,7 @@
 }
 
 .dark-mode .footer {
-  background: #4d4d4d;
+  background: #3b3b3b;
 }
 
 .dark-mode .bg-white {
@@ -65,12 +65,16 @@
   border-bottom: 1px solid #6e6e6e !important;
 }
 
+.ReactModal__Overlay {
+  z-index: 10000;
+}
+
 .ReactModal__Content {
   box-shadow: 5px 5px 20px lightgray;
 }
 
 .dark-mode .ReactModal__Content {
-  background-color: #2c2c2c !important;
+  background-color: #222222 !important;
   box-shadow: 0px 0px 15px #111111;
 }
 
@@ -79,14 +83,14 @@
 }
 
 .dark-mode .swal-modal {
-  background-color: #2c2c2c;
+  background-color: #222222;
   box-shadow: 0px 0px 15px #111111;
 }
 
 .dark-mode .swal-icon::after,
 .dark-mode .swal-icon::before,
 .dark-mode .swal-icon--success__hide-corners {
-  background-color: #2c2c2c !important;
+  background-color: #222222 !important;
 }
 
 .dark-mode .swal-title,

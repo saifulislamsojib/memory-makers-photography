@@ -29,6 +29,7 @@ const Book = ({setBookings}) => {
     const [modalIsOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
+        setShowSpinner(true);
         let unsubscribe = true;
         id!==undefined?fetch(`https://memory-makers-photography.herokuapp.com/service/${id}`)
         .then(res => res.json())

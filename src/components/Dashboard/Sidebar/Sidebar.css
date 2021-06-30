@@ -7,7 +7,7 @@
 }
 
 .dark-mode .sidebar {
-  background-image: linear-gradient(to bottom, #4d4d4d, #6e6e6e);
+  background-image: linear-gradient(to bottom, #3b3b3b, #585858);
 }
 
 .sidebar-active {
@@ -21,6 +21,11 @@
   width: 92%;
   margin: 0 auto;
   background-color: #2b40ff;
+}
+
+.dark-mode .sidebar-active,
+.dark-mode .bottom {
+  background-color: #161941;
 }
 
 .sidebar-active::after,

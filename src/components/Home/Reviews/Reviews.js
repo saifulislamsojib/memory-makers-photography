@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Carousel from "react-multi-carousel";
+import Spinner from '../../Shared/Spinner/Spinner';
 import Review from '../Review/Review';
 
 const responsive = {
@@ -36,6 +37,7 @@ const Reviews = () => {
     return (
         <section id="reviews" className='my-5 pt-5 container'>
             <h1 className='color-primary text-center mb-4'>Our Reviews</h1>
+            {reviews.length>0?
             <div data-aos="fade-up" data-aos-easing="ease-in-sine">
               <Carousel 
                 responsive={responsive}
@@ -50,6 +52,7 @@ const Reviews = () => {
               }
               </Carousel>
             </div>
+            : <Spinner />}
         </section>
     );
 };

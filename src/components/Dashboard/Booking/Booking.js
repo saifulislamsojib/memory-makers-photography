@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Booking = ({booking}) => {
-    const {title, price, image, features} = booking.service;
-    const {status} = booking;
+const Booking = ({booking={}}) => {
+    const { title, price, image, features } = booking.service || {};
+    const { status } = booking;
     return (
         <div className='col-xl-4 col-md-6 mb-3' style={{maxHeight: '500px'}} >
             <div className='p-4 radius h-100 shadow bg-white'>

@@ -14,7 +14,7 @@
 .dark-mode .feedback,
 .dark-mode .booking-list,
 .dark-mode .services-container {
-  background-color: #4d4d4d;
+  background-color: #3b3b3b;
 }
 
 .action-icon {
@@ -48,8 +48,8 @@
 }
 
 .dark-mode .top-bar {
-  background-color: #4d4d4d;
-  box-shadow: 3px 3px 10px rgb(34, 34, 34);
+  background-color: #3b3b3b;
+  box-shadow: 3px 3px 10px rgb(16, 16, 16);
 }
 
 @media (max-width: 767.98px) {

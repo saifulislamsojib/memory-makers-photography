@@ -1,13 +1,13 @@
 import { faCommentDots, faHome, faPlusCircle, faShoppingBasket, faSignOutAlt, faSort, faThLarge, faUserCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext } from 'react';
+import React, { forwardRef, useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import swal from 'sweetalert';
 import { context } from '../../../App';
 import { userSignOut } from '../../Login/Login/authManager';
 import './Sidebar.css';
 
-const Sidebar = ({url, navbarToggler, setNavbarToggler}) => {
+const Sidebar = ({url, navbarToggler, setNavbarToggler}, ref) => {
 
     const { isAdmin, setLoggedInUser, setDarkMode, isDarkMode } = useContext(context);
 
@@ -34,12 +34,11 @@ const Sidebar = ({url, navbarToggler, setNavbarToggler}) => {
     };
 
     const handleHome = () => {
-        setNavbarToggler(false);
         window.scrollTo(0, 0);
     }
 
     return (
-        <nav className={`sidebar ${navbarToggler?'active':''} py-4 px-2 navbar-expand-lg navbar-light`}>
+        <nav ref={ref} id='sidebar' className={`sidebar ${navbarToggler?'active':''} py-4 px-2 navbar-expand-lg navbar-light`}>
             <div className='d-flex align-items-center justify-content-between'>
                 <h4 className='text-white ms-2 mt-2 mt-lg-0'>Dashboard</h4>
                 <div onClick={() => setNavbarToggler(!navbarToggler)} className="navbar-toggler d-lg-none" type="button">
@@ -49,46 +48,46 @@ const Sidebar = ({url, navbarToggler, setNavbarToggler}) => {
             <div className="navbar-collapse">
             <ul className="nav flex-column">
                 <li className={isAdmin?"nav-item mt-2":"nav-item mt-2 side-item"}>
-                    <NavLink exact={true} activeClassName='sidebar-active' to={`${url}`} className="nav-link text-white" onClick={() => setNavbarToggler(false)}>
+                    <NavLink exact={true} activeClassName='sidebar-active' to={url} className="nav-link text-white">
                         <FontAwesomeIcon icon={faUserCircle} />
                         <span className='ms-2'>Profile</span>
                     </NavLink>
                 </li>
                 <li className="nav-item mt-2">
-                    <NavLink activeClassName='sidebar-active' to={`${url}/book`} className="nav-link text-white" onClick={() => setNavbarToggler(false)}>
+                    <NavLink activeClassName='sidebar-active' to={`${url}/book`} className="nav-link text-white">
                         <FontAwesomeIcon icon={faShoppingBasket} />
                         <span className='ms-2'>Book</span>
                     </NavLink>
                 </li>
                 <li className="nav-item mt-2">
-                    <NavLink exact={true} activeClassName='sidebar-active' to={`${url}/bookingList`} className="nav-link text-white" onClick={() => setNavbarToggler(false)}>
+                    <NavLink exact={true} activeClassName='sidebar-active' to={`${url}/bookingList`} className="nav-link text-white">
                         <FontAwesomeIcon icon={faSort} />
                         <span className='ms-2'>Booking List</span>
                     </NavLink>
                 </li>
                 {isAdmin &&
                 <li className="nav-item mt-2">
-                    <NavLink exact={true} activeClassName='sidebar-active' to={`${url}/manageAdmin`} className="nav-link text-white" onClick={() => setNavbarToggler(false)}>
+                    <NavLink exact={true} activeClassName='sidebar-active' to={`${url}/manageAdmin`} className="nav-link text-white">
                         <FontAwesomeIcon icon={faUserPlus} />
                         <span className='ms-2'>Manage Admin</span>
                     </NavLink>
                 </li>}
                 {isAdmin &&
                 <li className="nav-item mt-2">
-                    <NavLink exact={true} activeClassName='sidebar-active' to={`${url}/addService`} className="nav-link text-white" onClick={() => setNavbarToggler(false)}>
+                    <NavLink exact={true} activeClassName='sidebar-active' to={`${url}/addService`} className="nav-link text-white">
                         <FontAwesomeIcon icon={faPlusCircle} />
                         <span className='ms-2'>Add Service</span>
                     </NavLink>
                 </li>}
                 {isAdmin &&
                 <li className="nav-item mt-2">
-                    <NavLink exact={true} activeClassName='sidebar-active' to={`${url}/manageServices`} className="nav-link text-white" onClick={() => setNavbarToggler(false)}>
+                    <NavLink exact={true} activeClassName='sidebar-active' to={`${url}/manageServices`} className="nav-link text-white">
                         <FontAwesomeIcon icon={faThLarge} />
                         <span className='ms-2'>Manage Service</span>
                     </NavLink>
                 </li>}
                 <li className="nav-item mt-2">
-                    <NavLink exact={true} activeClassName='sidebar-active' to={`${url}/feedback`} className="nav-link text-white" onClick={() => setNavbarToggler(false)}>
+                    <NavLink exact={true} activeClassName='sidebar-active' to={`${url}/feedback`} className="nav-link text-white">
                         <FontAwesomeIcon icon={faCommentDots} />
                         <span className='ms-2'>Feedback</span>
                     </NavLink>
@@ -114,4 +113,4 @@ const Sidebar = ({url, navbarToggler, setNavbarToggler}) => {
     );
 };
 
-export default Sidebar;
+export default forwardRef(Sidebar);

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { context } from '../../../App';
+import Spinner from '../../Shared/Spinner/Spinner';
 import Service from '../Service/Service';
 
 const Services = ({book}) => {
@@ -19,11 +20,13 @@ const Services = ({book}) => {
     return (
         <section id="services" className={book?'mt-3 maxWidth mx-auto':'mt-5 pt-5 container'}>
             <h1 className='mb-4 text-center color-primary'>Our Spacial Services</h1>
-           <div className='row'>
+            {services.length>0?
+            <div className='row'>
                 {
                     services.map(service => <Service service={service} key={service._id} /> )
                 }
-           </div>
+            </div>
+            : <Spinner />}
         </section>
     );
 };
