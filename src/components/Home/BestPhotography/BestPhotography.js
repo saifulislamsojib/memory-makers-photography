@@ -14,7 +14,7 @@ const responsive = {
       items: 2
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
+      breakpoint: { max: 700, min: 0 },
       items: 1
     }
 };
@@ -32,7 +32,7 @@ const BestPhotography = () => {
     return (
         <section className='container mb-3 mt-5'>
             <h1 className='mb-4 color-primary text-center'>Our Best Photography</h1>
-            <div >
+            <div data-aos="fade-up" data-aos-easing="ease-in-sine">
               <Carousel 
                   responsive={responsive}
                   autoPlay={true}
@@ -42,7 +42,7 @@ const BestPhotography = () => {
                   removeArrowOnDeviceType={["tablet", "mobile"]}
               >
                   {
-                      images.map(image => <img data-aos="fade-up" data-aos-easing="ease-in-out" key={image} className='img-fluid p-2' src={image} alt=""/>)
+                      images.map(image => <img key={image} className='img-fluid p-2' src={image} alt=""/>)
                   }
               </Carousel>
             </div>
