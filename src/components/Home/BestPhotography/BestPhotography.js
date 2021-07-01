@@ -42,7 +42,7 @@ const BestPhotography = () => {
                   removeArrowOnDeviceType={["tablet", "mobile"]}
               >
                   {
-                      images.map(image => <img key={image} className='img-fluid p-2' src={image} alt=""/>)
+                    images.map(image => <img key={image} className='img-fluid p-2' src={image} alt=""/>)
                   }
               </Carousel>
             </div>

@@ -105,7 +105,7 @@ body.dark-mode .nav-item:hover .home-nav-link::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.3s;
+  transition: all 0.3s;
   border-radius: 3px;
 }
 .toggler-icon::before {
@@ -114,9 +114,13 @@ body.dark-mode .nav-item:hover .home-nav-link::after {
   width: 25px;
   height: 2px;
   background-color: #fff;
-  transition: 0.3s;
+  transition: all 0.3s;
   transform: translateY(-10px);
   box-shadow: 0 10px 0 #fff;
+}
+
+.dark-mode .toggler-icon::before {
+  box-shadow: 0 10px 0 #363636;
 }
 
 .navbar-toggler {
@@ -133,8 +137,13 @@ body.dark-mode .nav-item:hover .home-nav-link::after {
   width: 25px;
   height: 2px;
   background-color: #fff;
-  transition: 0.3s;
+  transition: all 0.3s;
   transform: translateY(10px);
+}
+
+.dark-mode .toggler-icon::after,
+.dark-mode .toggler-icon::before {
+  background-color: #363636;
 }
 
 .navbar-toggler .toggler-active {
@@ -144,6 +153,7 @@ body.dark-mode .nav-item:hover .home-nav-link::after {
   transform: translateY(0) rotate(45deg);
   box-shadow: 0 0 0 #fff;
 }
+
 .navbar-toggler .toggler-active::after {
   transform: translateY(0) rotate(-45deg);
 }

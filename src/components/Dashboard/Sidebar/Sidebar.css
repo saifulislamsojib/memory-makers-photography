@@ -14,6 +14,7 @@
   background-color: #2b40ff;
   border-radius: 5px;
   position: relative;
+  transition: background-color 0.5s;
 }
 
 .bottom {
@@ -21,6 +22,7 @@
   width: 92%;
   margin: 0 auto;
   background-color: #2b40ff;
+  transition: background-color 0.5s;
 }
 
 .dark-mode .sidebar-active,
@@ -58,7 +60,7 @@
     z-index: 10000;
     top: 0;
     left: -100%;
-    transition: 0.5s;
+    transition: left 0.5s;
   }
   .sidebar.active {
     left: 0;

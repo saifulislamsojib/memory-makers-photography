@@ -2,7 +2,7 @@
   border-radius: 10px !important;
 }
 .color-primary {
-  color: rgb(111, 0, 255);
+  color: #6f00ff;
 }
 
 .dark-mode .color-primary {
@@ -11,6 +11,17 @@
 
 .form-control {
   transition: 0.5s;
+}
+
+.primary-btn {
+  background-color: #6f00ff;
+  color: #ffffff;
+  transition: 0.5s !important;
+}
+
+.primary-btn:hover {
+  background-color: #cacaca;
+  color: #6f00ff;
 }
 
 .dark-mode.dark-mode .form-control {
@@ -22,8 +33,19 @@
 .link {
   text-decoration: none;
 }
+
 .link:hover {
   text-decoration: underline;
+}
+
+.link span {
+  transition: 0.5s;
+}
+
+.link:hover span {
+  display: inline-block;
+  text-decoration: underline;
+  transform: translateX(8px);
 }
 
 .dashboard-common {

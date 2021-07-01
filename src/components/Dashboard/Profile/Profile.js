@@ -18,7 +18,7 @@ const Profile = () => {
 
     const [modalIsOpen,setIsOpen] = useState(false);
 
-    const [imageUrl, setImageUrl] = useState(photo);
+    const [imageUrl, setImageUrl] = useState('');
 
     useEffect(() => {
         document.title = isAdmin?'Admin profile':'User profile';
@@ -81,7 +81,7 @@ const Profile = () => {
                 <div className="upload-image">
                     <input onChange={handelChange} type="file" name="" id="user-img" className='d-none' />
                     <label className="upload-btn btn" htmlFor="user-img">Upload</label>
-                    <img style={{ height: '100px' }} className='rounded-pill' src={photo || 'https://uxwing.com/wp-content/themes/uxwing/download/12-people-gesture/avatar.png'} alt="" />
+                    <img style={{ height: '100px' }} className='rounded-pill' src={imageUrl || photo || 'https://uxwing.com/wp-content/themes/uxwing/download/12-people-gesture/avatar.png'} alt="" />
                 </div>
                 <form onSubmit={handleSubmit(updateUser)}>
                     <input className="my-3 form-control" defaultValue={name} {...register("name", { required: true })} />

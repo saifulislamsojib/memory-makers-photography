@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Route, Switch, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import { context } from '../../../App';
 import Book from '../../Book/Book/Book';
@@ -32,8 +32,6 @@ const Dashboard = () => {
 
     const [adminLoading, setAdminLoading] = useState(true);
 
-    const sidebarRef = useRef(null);
-
     useEffect(() => {
         document.title = 'memory-makers - Dashboard';
     }, [])
@@ -60,21 +58,15 @@ const Dashboard = () => {
             setAdminLoading(false);
         }
       }, [loggedInUser, setAdminLoaded, setAdminLoading, setIsAdmin, adminLoaded])
-
-    const handleDismiss = e => {
-        if (navbarToggler&&sidebarRef.current.id!==e.target.id) {
-            setNavbarToggler(false);
-        }
-    }
     
     return (
         <>
         {adminLoading ? 
             <Spinner />
-        :<div onClick={handleDismiss} className='container-fluid'>
+        :<div className='container-fluid'>
             <div className='row'>
                 <div className="col-lg-3 col-xl-2 position-relative">
-                    <Sidebar ref={sidebarRef} navbarToggler={navbarToggler} url={url} setNavbarToggler={setNavbarToggler} />
+                    <Sidebar navbarToggler={navbarToggler} url={url} setNavbarToggler={setNavbarToggler} />
                 </div>
                 <div className="col-lg-9 col-xl-10">
                     <div className="top-bar d-flex align-items-center justify-content-between py-2 pe-3 mt-3 radius sticky-top">

@@ -33,10 +33,10 @@ const Footer = () => {
                 <div className="col-md-3 col-sm-6 mt-3  mt-md-0">
                     <h4>Social Page</h4>
                     <div className="list-group mt-3">
-                        <a rel="noreferrer" target="_blank" className="text-white link" href="https://www.facebook.com/saifulsojib.bd/"><FontAwesomeIcon icon={faFacebook} className="me-2" /> Facebook</a>
-                        <a rel="noreferrer" target="_blank" className="text-white link mt-2" href="https://www.linkedin.com/in/saiful-sojib/"><FontAwesomeIcon icon={faLinkedin} className="me-2" /> Linkedin</a>
-                        <a rel="noreferrer" target="_blank" className="text-white link mt-2" href="https://www.instagram.com/saifulislam.sojib/"><FontAwesomeIcon icon={faInstagram} className="me-2" /> Instagram</a>
-                        <a rel="noreferrer" target="_blank" className="text-white link mt-2" href="https://www.youtube.com/channel/UCnyYa1ZmY2XvKsBHnwE2n4w"><FontAwesomeIcon icon={faYoutube} className="me-2" /> YouTube</a>
+                        <a rel="noreferrer" target="_blank" className="text-white link" href="https://www.facebook.com/saifulsojib.bd/"><FontAwesomeIcon icon={faFacebook} className="me-2" /> <span>Facebook</span></a>
+                        <a rel="noreferrer" target="_blank" className="text-white link mt-2" href="https://www.linkedin.com/in/saiful-sojib/"><FontAwesomeIcon icon={faLinkedin} className="me-2" /> <span>Linkedin</span></a>
+                        <a rel="noreferrer" target="_blank" className="text-white link mt-2" href="https://www.instagram.com/saifulislam.sojib/"><FontAwesomeIcon icon={faInstagram} className="me-2" /> <span>Instagram</span></a>
+                        <a rel="noreferrer" target="_blank" className="text-white link mt-2" href="https://www.youtube.com/channel/UCnyYa1ZmY2XvKsBHnwE2n4w"><FontAwesomeIcon icon={faYoutube} className="me-2" /> <span>YouTube</span></a>
                     </div>
                 </div>
             </div>
