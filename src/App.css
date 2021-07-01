@@ -83,7 +83,8 @@
 .dark-mode .table,
 .dark-mode tr,
 .dark-mode td,
-.dark-mode th {
+.dark-mode th,
+.dark-mode .border-bottom {
   border-bottom: 1px solid #6e6e6e !important;
 }
 
