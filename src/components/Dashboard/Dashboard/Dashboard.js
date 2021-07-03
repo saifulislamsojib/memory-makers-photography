@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Route, Switch, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import { context } from '../../../App';
 import Book from '../../Book/Book/Book';
+import NotFound from '../../NotFound/NotFound';
 import Spinner from '../../Shared/Spinner/Spinner';
 import AddService from '../AddService/AddService';
 import BookingList from '../BookingList/BookingList';
@@ -94,14 +95,20 @@ const Dashboard = () => {
                         <Route path={`${path}/feedback`}>
                             <Feedback feedbackData={feedbackData} setFeedbackData={setFeedbackData} />
                         </Route>
+                        {isAdmin &&
                         <Route path={`${path}/manageAdmin`}>
-                            {isAdmin && <ManageAdmin />}
-                        </Route>
+                            <ManageAdmin />
+                        </Route>}
+                        {isAdmin &&
                         <Route path={`${path}/addService`}>
-                            {isAdmin && <AddService />}
-                        </Route>
+                            <AddService />
+                        </Route>}
+                        {isAdmin &&
                         <Route path={`${path}/manageServices`}>
-                            {isAdmin && <ManageServices />}
+                            <ManageServices />
+                        </Route>}
+                        <Route exact path='*'>
+                           <NotFound />
                         </Route>
                     </Switch>
                 </div>

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { context } from '../../../App';
+import { getToken } from '../../Login/Login/authManager';
 import Spinner from '../../Shared/Spinner/Spinner';
 import AllBookings from '../AllBookings/AllBookings';
 import Booking from '../Booking/Booking';
@@ -15,9 +16,12 @@ const BookingList = ({bookings, setBookings}) => {
 
     const [showSpinner, setShowSpinner] = useState(true);
 
+    const [reloaded, setReloaded] = useState(false);
+
     useEffect(() => {
         let unsubscribe = true;
-        if (!bookings.length){
+        if (!bookings.length || reloaded){
+            setShowSpinner(true);
             const token = sessionStorage.getItem('Photography/idToken');
             fetch(`https://memory-makers-photography.herokuapp.com/allBookings?email=${loggedInUser.email}`, {
                 method: 'POST',
@@ -33,9 +37,22 @@ const BookingList = ({bookings, setBookings}) => {
                     setShowSpinner(false);
                 }
             })
+            
+        }
+        else{
+            setShowSpinner(false);
         }
         return () => unsubscribe = false;
-    }, [loggedInUser, setBookings, bookings]);
+    }, [loggedInUser, setBookings, bookings, reloaded]);
+
+    const handleReload = () => {
+        setShowSpinner(true);
+        getToken()
+          .then(idToken => {
+            sessionStorage.setItem('Photography/idToken', `Bearer ${idToken}`);
+            setReloaded(true);
+          })
+    }
 
     const handleStatusUpdate = (e, _id, index) => {
         const updateStatus = { status: e.target.value }
@@ -65,14 +82,16 @@ const BookingList = ({bookings, setBookings}) => {
         <section className='mt-4'>
              <Toaster />
             <div className='pt-5 booking-list'>
-                {bookings.length > 0 ?
+                {showSpinner ? <Spinner />
+                :bookings[0]?._id?bookings?.length > 0 ?
                 <div className='row'>
                     {isAdmin ?
                     <AllBookings bookings={bookings} handleStatusUpdate={handleStatusUpdate} />
                         :bookings.map(booking => <Booking key={booking._id} booking={booking} />)
                     }
-                </div>:showSpinner ? <Spinner />:
-                    <h4 className='text-center text-muted'>You Have No Bookings</h4>}
+                </div>:
+                    <h4 className='text-center text-muted'>You Have No Bookings</h4>
+                    :<button onClick={handleReload} className='btn primary-btn d-block mx-auto'>Reload The Page</button>}
             </div>
         </section>
     );

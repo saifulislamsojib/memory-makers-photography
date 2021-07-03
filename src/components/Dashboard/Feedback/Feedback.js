@@ -36,13 +36,13 @@ const Feedback = ({feedbackData, setFeedbackData}) => {
     }, [loggedInUser.email, setFeedbackData, feedbackData])
     
     return (
-        <section className='mt-3'>
+        <section className='mt-4'>
             <Toaster />
             <div className='feedback'>
                 {
                     loading?<Spinner />
                     :feedbackData.email?
-                    <Review review={feedbackData} feedback>
+                    <Review review={feedbackData}>
                         <button onClick={() => setIsOpen(true)} className="mt-3 btn btn-primary">Edit <FontAwesomeIcon icon={faEdit} className="ms-2" /></button>
                     </Review>
                     :<FeedbackForm setFeedbackData={setFeedbackData} />

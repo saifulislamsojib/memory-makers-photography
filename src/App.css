@@ -88,6 +88,14 @@
   border-bottom: 1px solid #6e6e6e !important;
 }
 
+.dark-mode .list-group-item {
+  border: 1px solid #6e6e6e;
+}
+
+.list-group-flush > .list-group-item {
+  border-width: 0 0 1px;
+}
+
 .ReactModal__Overlay {
   z-index: 10000;
 }

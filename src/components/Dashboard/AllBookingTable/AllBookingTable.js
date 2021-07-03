@@ -5,7 +5,7 @@ const AllBookingTable = ({booking={}, handleStatusUpdate, index}) => {
     const { name, email, paymentDetails, service, _id, status } = booking;
 
     return (
-        <div  className='row mb-4 border-bottom booking-border pb-2'>
+        <div  className='row mb-4 border-bottom booking-border pb-2 d-flex align-items-center'>
             <h6 className='col-2'>{name}</h6>
             <h6 className='col-3'>{email}</h6>
             <h6 className='col-2 text-center ps-4'>{paymentDetails?.brand}</h6>

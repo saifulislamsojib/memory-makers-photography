@@ -4,7 +4,6 @@ import './AllBookings.css';
 
 const AllBookings = ({bookings, handleStatusUpdate}) => {
 
-
     return (
         <div className='bookings-container'>
             <div className="p-2 all-bookings">

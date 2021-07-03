@@ -16,7 +16,7 @@ const Booking = ({booking={}}) => {
                 <h6 className='mt-3'>Features :</h6>
                 <ul className='list-group list-group-flush'>
                     {
-                        features.map((feature, index) => <li className='list-group-item' key={index}>{feature}</li> )
+                        features?.map((feature, index) => <li className='list-group-item' key={index}>{feature}</li> )
                     }
                 </ul>
             </div>

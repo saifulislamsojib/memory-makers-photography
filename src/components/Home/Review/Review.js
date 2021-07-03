@@ -2,14 +2,14 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
-const Review = ({review, feedback, children}) => {
+const Review = ({review, children}) => {
     const {name, description, photo, ratings, company} = review;
 
     const avatar = 'https://uxwing.com/wp-content/themes/uxwing/download/12-people-gesture/avatar.png';
 
     return (
-        <div className={feedback?'d-flex justify-content-center':''}>
-            <div style={feedback?{maxWidth: '400px'}:{}} className={`mb-3 text-center p-3 ${feedback?'':'mx-2'} radius shadow my-3`}>
+        <div className={children?'d-flex justify-content-center':''}>
+            <div style={children?{maxWidth: '400px'}:{}} className={`text-center p-3 ${children?'':'mx-2'} radius shadow my-3`}>
                 <img style={{height: '100px', width: '100px'}} className='img-fluid rounded-pill' src={photo || avatar} alt=""/>
                 <h4 className='my-3'>{name}</h4>
                 <h6>{company}</h6>
