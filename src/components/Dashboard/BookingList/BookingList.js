@@ -5,13 +5,13 @@ import Spinner from '../../Shared/Spinner/Spinner';
 import AllBookings from '../AllBookings/AllBookings';
 import Booking from '../Booking/Booking';
 
-const BookingList = ({isAdmin, bookings, setBookings}) => {
+const BookingList = ({bookings, setBookings}) => {
 
     useEffect(() => {
         document.title = 'booking-list';
     }, [])
 
-    const { loggedInUser } = useContext(context);
+    const { loggedInUser, isAdmin } = useContext(context);
 
     const [showSpinner, setShowSpinner] = useState(true);
 

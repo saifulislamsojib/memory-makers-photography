@@ -70,8 +70,8 @@ const Dashboard = () => {
                 </div>
                 <div className="col-lg-9 col-xl-10">
                     <div className="top-bar d-flex align-items-center justify-content-between py-2 pe-3 mt-3 radius sticky-top">
-                        <div onClick={() => setNavbarToggler(!navbarToggler)} className="navbar-toggler d-lg-none" type="button">
-                            <div className={navbarToggler ? 'toggler-icon toggler-active' : 'toggler-icon'} />
+                        <div onClick={() => setNavbarToggler(true)} className="navbar-toggler d-lg-none" type="button">
+                            <div className="toggler-icon" />
                         </div>
                         <h3 className='mt-1 ps-lg-3'>
                             {pathname?.split('/')[2]?.split(/(?=[A-Z])/)?.join(' ').toUpperCase()||'PROFILE'}

@@ -26,7 +26,7 @@ const Header = () => {
                     <div data-aos-offset="300" className="ms-md-5 ps-2 ps-lg-4">
                         <h1 data-aos="fade-down" className="color-primary">World Class Photography</h1>
                         <p data-aos="fade-right" className='my-3'>Any Kind Of Photography Service Find Here. We Makes Your Memory With Our Photography. Happy Photography 📷 📷</p>
-                        <div data-aos="fade-left" className="my-2 fs-1">
+                        <div data-aos="fade-left" className="my-2 header-icon">
                             <a target="_blank" rel="noreferrer" href="https://www.facebook.com/saifulsojib.bd" className="me-1 header-links link-1">
                                 <FontAwesomeIcon icon={faFacebook} />
                             </a>

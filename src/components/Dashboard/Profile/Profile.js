@@ -20,11 +20,14 @@ const Profile = () => {
 
     const [imageUrl, setImageUrl] = useState('');
 
+    const [uploading, setUploading] = useState(false);
+
     useEffect(() => {
         document.title = isAdmin?'Admin profile':'User profile';
     }, [isAdmin])
 
     const handelChange = e => {
+        setUploading(true)
         setImageUrl('');
         const imageData = new FormData();
         imageData.set('key', process.env.REACT_APP_IMAGE_KEY)
@@ -37,6 +40,7 @@ const Profile = () => {
             .then(res => res.json())
             .then(result => {
                 setImageUrl(result.data.display_url);
+                setUploading(false);
             }),
             {
             loading: 'Uploading...',
@@ -47,12 +51,12 @@ const Profile = () => {
     }
 
     const updateUser = data => {
-        if (imageUrl){
+        if (photo){
             toast.promise(
                 updateProfile(data.name, imageUrl)
                 .then( isUpdated => {
                     if (isUpdated){
-                        setLoggedInUser(preUser => ({...preUser, name: data.name, photo: imageUrl}));
+                        setLoggedInUser(preUser => ({...preUser, name: data.name, photo: imageUrl || photo}));
                         swal("Updated Successfully!", "Your Information Updated Successfully!", "success");
                         setIsOpen(false);
                     }
@@ -81,13 +85,13 @@ const Profile = () => {
                 <div className="upload-image">
                     <input onChange={handelChange} type="file" name="" id="user-img" className='d-none' />
                     <label className="upload-btn btn" htmlFor="user-img">Upload</label>
-                    <img style={{ height: '100px' }} className='rounded-pill' src={imageUrl || photo || 'https://uxwing.com/wp-content/themes/uxwing/download/12-people-gesture/avatar.png'} alt="" />
+                    <img style={{ height: '100px', width: '100px'}} className='rounded-pill' src={imageUrl || photo || 'https://uxwing.com/wp-content/themes/uxwing/download/12-people-gesture/avatar.png'} alt="" />
                 </div>
                 <form onSubmit={handleSubmit(updateUser)}>
                     <input className="my-3 form-control" defaultValue={name} {...register("name", { required: true })} />
                     {errors.name && <span className="text-danger">Name is required</span>}
                     <input className="my-3 form-control" defaultValue={email} readOnly />
-                    <button disabled={imageUrl===''} className="btn btn-outline-primary d-block ms-auto">Update</button>
+                    <button disabled={uploading} className="btn btn-outline-primary d-block ms-auto profile-uploading-btn">Update</button>
                 </form>
             </div> 
         </ReactModal>

@@ -21,7 +21,7 @@ const FeedbackForm = ({feedbackData, setFeedbackData, setIsOpen}) => {
             const {email, photo} = loggedInUser;
             const method = feedbackData?'PATCH':'POST';
             const path = feedbackData?`updateFeedback/${feedbackData._id}`: 'sendFeedback';
-            const allData = feedbackData?{...data, ratings}:{...data, email, photo, ratings, feedbackDate: new Date().toDateString()};
+            const allData = feedbackData?{...data, ratings, photo}:{...data, email, photo, ratings, feedbackDate: new Date().toDateString()};
 
             toast.promise(
                 fetch(`https://memory-makers-photography.herokuapp.com/${path}`, {
@@ -43,6 +43,9 @@ const FeedbackForm = ({feedbackData, setFeedbackData, setIsOpen}) => {
                         }
                     }
                     else {
+                        if(feedbackData){
+                            setIsOpen(false);
+                        }
                         swal('Feedback Not Submitted!','Your feedback not submitted successfully!', "error");
                     }
                 }),

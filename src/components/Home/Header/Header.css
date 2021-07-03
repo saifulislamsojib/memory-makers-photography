@@ -53,9 +53,17 @@
   justify-content: center;
 }
 
+.header-icon {
+  font-size: calc(2.1rem + 0.3vw);
+}
+
 .header-links:hover::after {
   opacity: 1;
   transform: scale(1.1);
+}
+
+.header-links:hover {
+  transform: translateY(-8px);
 }
 
 .header-links::after {

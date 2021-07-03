@@ -53,6 +53,15 @@ const AddService = ({ updates, setIsOpen }) => {
                             setServices(preServices => preServices.length?[...preServices, {...serviceData, _id}]:preServices);
                         }
                     }
+                    else{
+                        setIsOpen(false);
+                        if(updates){
+                            swal('Not Updated', "Not Updated Anything", "error");
+                        }
+                        else{
+                            swal('Not Added', "Not Added The Service", "error");
+                        }
+                    }
                 }),
                 {
                     loading: updates?'Updating...':'Adding..',
