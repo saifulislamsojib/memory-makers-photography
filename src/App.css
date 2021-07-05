@@ -25,7 +25,7 @@
 }
 
 .dark-mode.dark-mode .form-control {
-  background-color: #383838;
+  background-color: unset;
   color: #ebebeb;
   border-color: #555555;
 }

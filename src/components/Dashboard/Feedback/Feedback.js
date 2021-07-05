@@ -36,7 +36,7 @@ const Feedback = ({feedbackData, setFeedbackData}) => {
     }, [loggedInUser.email, setFeedbackData, feedbackData])
     
     return (
-        <section className='mt-4'>
+        <section className='mt-3'>
             <Toaster />
             <div className='feedback'>
                 {

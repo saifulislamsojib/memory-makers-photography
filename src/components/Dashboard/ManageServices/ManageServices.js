@@ -65,7 +65,7 @@ const ManageServices = () => {
             <Toaster />
             {services.length ?
             <div className='all-services'>
-                <div className='services-container'>
+                <div className='services-container p-4'>
                     <div className='row mb-3 pb-2 pt-3 table-headers border-bottom'>
                         <h6 className='col-4 text-muted'>Title</h6>
                         <h6 className='col-2 text-muted text-center'>Features</h6>

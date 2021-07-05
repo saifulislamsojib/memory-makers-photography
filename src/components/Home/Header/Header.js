@@ -21,7 +21,7 @@ const Header = () => {
             <div className="position-absolute bg-image">
                 {bgImage}
             </div>
-            <div className="row flex-column-reverse flex-md-row header-row">
+            <div className="row mx-auto flex-column-reverse flex-md-row header-row">
                 <div className="col-md-4">
                     <div data-aos-offset="300" className="ms-md-5 ps-2 ps-lg-4">
                         <h1 data-aos="fade-down" className="color-primary">World Class Photography</h1>

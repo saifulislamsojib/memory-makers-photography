@@ -79,9 +79,9 @@ const BookingList = ({bookings, setBookings}) => {
     };
 
     return (
-        <section className='mt-4'>
+        <section className='mt-3'>
              <Toaster />
-            <div className='pt-5 booking-list'>
+            <div className='pt-4 booking-list'>
                 {showSpinner ? <Spinner />
                 :bookings[0]?._id?bookings?.length > 0 ?
                 <div className='row'>

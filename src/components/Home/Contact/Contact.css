@@ -7,14 +7,6 @@
   color: #fff;
 }
 
-.error {
-  position: relative;
-  color: rgb(255, 50, 50);
-  background-color: #fff;
-  padding: 5px;
-  border-radius: 8px;
-}
-
 .contact-inner {
   background-color: rgba(0, 0, 0, 0.55);
   transition: 0.5s;

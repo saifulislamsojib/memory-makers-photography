@@ -91,7 +91,7 @@ export const sendEmailVerification = path => {
 export const deleteUser = ()=> {
     const user = auth().currentUser;
 
-    user.delete()
+    return user.delete()
     .then(() => true)
-    .catch(() => false);
+    .catch((err) => false);
 }

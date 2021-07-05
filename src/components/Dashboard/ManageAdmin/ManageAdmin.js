@@ -88,7 +88,7 @@ const AddAdmin = () => {
     }
 
     return (
-        <div className='mt-3 addAdmin'>
+        <div className='mt-3 pt-4 addAdmin'>
             <Toaster />
                 <button onClick={openModal} className="d-block ms-auto btn btn-primary">
                     <FontAwesomeIcon icon={faUserPlus} className='me-2' /> Add Admin

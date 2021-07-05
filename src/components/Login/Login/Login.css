@@ -29,7 +29,7 @@
 }
 
 .dark-mode .login-inner {
-  box-shadow: 2px 2px 20px rgb(26, 26, 26);
+  box-shadow: 2px 2px 20px #1a1a1a;
 }
 
 .input {
@@ -60,11 +60,18 @@
 .eye {
   font-size: 20px;
   position: absolute;
-  top: 19px;
-  right: 4%;
+  top: 18px;
+  right: 5px;
   cursor: pointer;
   color: #6710f4;
+  background-color: #fff;
+  height: 30px;
 }
+
+.dark-mode .eye {
+  background-color: #222222;
+}
+
 .create-account {
   cursor: pointer;
 }
@@ -75,13 +82,14 @@
   font-size: 40px;
   cursor: pointer;
 }
-.fb {
-  color: #1094f4;
+
+.exit-container {
+  top: 10px;
+  left: 50px;
 }
-.google {
-  color: #e13e31;
-}
-.login-inner .error {
-  max-width: 320px;
-  background-color: unset;
+
+@media (max-width: 840px) {
+  .exit-container {
+    left: 10px;
+  }
 }

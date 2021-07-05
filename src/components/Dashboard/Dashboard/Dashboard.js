@@ -74,9 +74,9 @@ const Dashboard = () => {
                         <div onClick={() => setNavbarToggler(true)} className="navbar-toggler d-lg-none" type="button">
                             <div className="toggler-icon" />
                         </div>
-                        <h3 className='mt-1 ps-lg-3'>
+                        <h4 className='mt-1 ps-lg-3'>
                             {pathname?.split('/')[2]?.split(/(?=[A-Z])/)?.join(' ').toUpperCase()||'PROFILE'}
-                        </h3>
+                        </h4>
                         <img onClick={()=> history.push('/dashboard')} src={photo || 'https://uxwing.com/wp-content/themes/uxwing/download/12-people-gesture/avatar.png'} className="user-logo" alt="" />
                     </div>
                     <Switch>
