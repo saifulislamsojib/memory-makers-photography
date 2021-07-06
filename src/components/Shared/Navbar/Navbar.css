@@ -6,7 +6,7 @@
 }
 .home-nav-link.active,
 .nav-item:hover .home-nav-link {
-  color: #bd00bd !important;
+  color: #bd00bd;
   position: relative;
   transition: 0.5s;
 }
@@ -44,7 +44,7 @@ body.dark-mode .navbar-bg .home-nav-link:hover {
 
 .navbar-transparent .home-nav-link.active,
 .navbar-transparent .nav-item:hover .home-nav-link {
-  color: #00eeff !important;
+  color: #00eeff;
 }
 
 .home-nav-link.active::after,
@@ -222,9 +222,21 @@ body.dark-mode .nav-item:hover .home-nav-link::after {
     color: #111111;
   }
   .mobile {
-    top: 8px;
+    top: 13px;
     left: 50% !important;
     transform: translateX(-50%);
+  }
+  .navbar-transparent .home-nav-link.active,
+  .navbar-transparent .nav-item:hover .home-nav-link {
+    color: #bd00bd;
+  }
+  .navbar-transparent .home-nav-link.active::after,
+  .navbar-transparent .nav-item:hover .home-nav-link::after {
+    background-color: #bd00bd;
+  }
+  .dark-mode .navbar-transparent .home-nav-link.active,
+  .dark-mode .navbar-transparent .nav-item:hover .home-nav-link {
+    color: #00eeff;
   }
 }
 
