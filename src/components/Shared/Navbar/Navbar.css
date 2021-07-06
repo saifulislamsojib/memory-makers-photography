@@ -125,6 +125,7 @@ body.dark-mode .nav-item:hover .home-nav-link::after {
 
 .navbar-toggler {
   border: none;
+  padding: 0;
 }
 
 .navbar-toggler:focus {

@@ -42,7 +42,7 @@ const Sidebar = ({url, navbarToggler, setNavbarToggler}) => {
         <nav className={`sidebar ${navbarToggler?'active':''} py-4 px-2 navbar-expand-lg navbar-light`}>
             <div className='d-flex align-items-center justify-content-between'>
                 <h4 className='text-white ms-2 mt-2 mt-lg-0'>Dashboard</h4>
-                <div onClick={() => setNavbarToggler(false)} className="navbar-toggler d-lg-none" type="button">
+                <div onClick={() => setNavbarToggler(false)} className="navbar-toggler d-lg-none pe-2" type="button">
                     <div className="toggler-icon toggler-active" />
                 </div>
             </div>

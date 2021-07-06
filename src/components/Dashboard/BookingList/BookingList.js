@@ -1,3 +1,5 @@
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useContext, useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { context } from '../../../App';
@@ -33,11 +35,11 @@ const BookingList = ({bookings, setBookings}) => {
             .then(res => res.json())
             .then(data => {
                 if (unsubscribe) {
+                    setReloaded(false);
                     setBookings([...data].reverse());
                     setShowSpinner(false);
                 }
             })
-            
         }
         else{
             setShowSpinner(false);
@@ -91,7 +93,10 @@ const BookingList = ({bookings, setBookings}) => {
                     }
                 </div>:
                     <h4 className='text-center text-muted'>You Have No Bookings</h4>
-                    :<button onClick={handleReload} className='btn primary-btn d-block mx-auto'>Reload The Page</button>}
+                    :<button onClick={handleReload} className='btn primary-btn d-block mx-auto'>
+                        <FontAwesomeIcon icon={faSyncAlt} className='me-2' />
+                        Refresh
+                    </button>}
             </div>
         </section>
     );

@@ -63,6 +63,7 @@
   .booking-list,
   .services-container {
     padding: 15px;
+    min-height: 86vh;
   }
 }
 
