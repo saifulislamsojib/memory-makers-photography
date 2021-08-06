@@ -1,11 +1,10 @@
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import avatar from '../../../images/user-profile-icon-png.png';
 
 const Review = ({review, children}) => {
     const {name, description, photo, ratings, company} = review;
-
-    const avatar = 'https://uxwing.com/wp-content/themes/uxwing/download/12-people-gesture/avatar.png';
 
     return (
         <div className={children?'d-flex justify-content-center':''}>

@@ -8,7 +8,7 @@ import Spinner from '../../Shared/Spinner/Spinner';
 import AllBookings from '../AllBookings/AllBookings';
 import Booking from '../Booking/Booking';
 
-const BookingList = ({bookings, setBookings}) => {
+const BookingList = ({bookings, setBookings, bookingLoaded, setBookingLoaded}) => {
 
     useEffect(() => {
         document.title = 'booking-list';
@@ -22,7 +22,7 @@ const BookingList = ({bookings, setBookings}) => {
 
     useEffect(() => {
         let unsubscribe = true;
-        if (!bookings.length || reloaded){
+        if (!bookingLoaded || reloaded){
             setShowSpinner(true);
             const token = sessionStorage.getItem('Photography/idToken');
             fetch(`https://memory-makers-photography.herokuapp.com/allBookings?email=${loggedInUser.email}`, {
@@ -35,6 +35,7 @@ const BookingList = ({bookings, setBookings}) => {
             .then(res => res.json())
             .then(data => {
                 if (unsubscribe) {
+                    setBookingLoaded(true);
                     setReloaded(false);
                     setBookings([...data].reverse());
                     setShowSpinner(false);
@@ -45,7 +46,7 @@ const BookingList = ({bookings, setBookings}) => {
             setShowSpinner(false);
         }
         return () => unsubscribe = false;
-    }, [loggedInUser, setBookings, bookings, reloaded]);
+    }, [loggedInUser, setBookings, bookings, reloaded, bookingLoaded, setBookingLoaded]);
 
     const handleReload = () => {
         setShowSpinner(true);
@@ -85,18 +86,18 @@ const BookingList = ({bookings, setBookings}) => {
              <Toaster />
             <div className='pt-4 booking-list'>
                 {showSpinner ? <Spinner />
-                :bookings[0]?._id?bookings?.length > 0 ?
+                :bookings?.length > 0 ?bookings[0]?._id?
                 <div className='row'>
                     {isAdmin ?
                     <AllBookings bookings={bookings} handleStatusUpdate={handleStatusUpdate} />
                         :bookings.map(booking => <Booking key={booking._id} booking={booking} />)
                     }
                 </div>:
-                    <h4 className='text-center text-muted'>You Have No Bookings</h4>
-                    :<button onClick={handleReload} className='btn primary-btn d-block mx-auto'>
-                        <FontAwesomeIcon icon={faSyncAlt} className='me-2' />
-                        Refresh
-                    </button>}
+                <button onClick={handleReload} className='btn primary-btn d-block mx-auto'>
+                    <FontAwesomeIcon icon={faSyncAlt} className='me-2' />
+                    Refresh
+                </button>:
+                <h4 className='text-center text-muted'>You Have No Bookings</h4>}
             </div>
         </section>
     );

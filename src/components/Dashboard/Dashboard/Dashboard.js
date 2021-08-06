@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Route, Switch, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import { context } from '../../../App';
+import avatar from '../../../images/user-profile-icon-png.png';
 import Book from '../../Book/Book/Book';
 import NotFound from '../../NotFound/NotFound';
 import Spinner from '../../Shared/Spinner/Spinner';
@@ -26,6 +27,8 @@ const Dashboard = () => {
     const [navbarToggler, setNavbarToggler] = useState(false);
 
     const [bookings, setBookings] = useState([]);
+
+    const [bookingLoaded, setBookingLoaded] = useState(false);
 
     const [feedbackData, setFeedbackData] = useState({});
 
@@ -77,7 +80,7 @@ const Dashboard = () => {
                         <h4 className='mt-2 ps-lg-3'>
                             {pathname?.split('/')[2]?.split(/(?=[A-Z])/)?.join(' ').toUpperCase()||'PROFILE'}
                         </h4>
-                        <img onClick={()=> history.push('/dashboard')} src={photo || 'https://uxwing.com/wp-content/themes/uxwing/download/12-people-gesture/avatar.png'} className="user-logo" alt="" />
+                        <img onClick={()=> history.push('/dashboard')} src={photo || avatar} className="user-logo" alt="" />
                     </div>
                     <Switch>
                         <Route exact path={path}>
@@ -90,7 +93,7 @@ const Dashboard = () => {
                             <Book setBookings={setBookings} />
                         </Route>
                         <Route path={`${path}/bookingList`}>
-                            <BookingList isAdmin={isAdmin} bookings={bookings} setBookings={setBookings} />
+                            <BookingList isAdmin={isAdmin} bookings={bookings} setBookings={setBookings} bookingLoaded={bookingLoaded} setBookingLoaded={setBookingLoaded} />
                         </Route>
                         <Route path={`${path}/feedback`}>
                             <Feedback feedbackData={feedbackData} setFeedbackData={setFeedbackData} />
@@ -108,7 +111,7 @@ const Dashboard = () => {
                             <ManageServices />
                         </Route>}
                         <Route exact path='*'>
-                           <NotFound />
+                           <NotFound dashboard />
                         </Route>
                     </Switch>
                 </div>

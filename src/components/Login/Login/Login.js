@@ -52,8 +52,10 @@ const Login = () => {
         )
     }
     
-    const updateState = res => {
+    const updateState = (res, toastId) => {
+        toast.dismiss(toastId);
         if (res.email) {
+            toast.success(`${newUser?'Account Created':'Login'} Successfully`);
             if (!res.emailVerified) {
                 sendMail();
             }
@@ -70,6 +72,7 @@ const Login = () => {
             }
         }
         else{
+            toast.error(newUser?'Account Not Created':'Not Login');
             swal('Login Error', res, 'error');
         }
     }
@@ -78,47 +81,25 @@ const Login = () => {
         const {email, password, name, confirmPassword} = data;
         if (newUser) {
             if (password === confirmPassword) {
-                toast.promise(
-                    createUser(email, password, name)
-                    .then(res => updateState(res)),
-                    {
-                        loading: 'Loading, Please Wait...',
-                        success: 'Account Created Successfully',
-                        error: 'Account Not Created'
-                    }
-                )
+                const toastId = toast.loading('Loading, Please Wait...');
+                createUser(email, password, name)
+                .then(res => updateState(res, toastId))
             }
             else{
                 swal('Password Not Matched', {icon: 'error'})
             }
         }
         else{
-            toast.promise(
-                signingUser(email, password)
-                .then(res => {
-                    updateState(res);
-                }),
-                {
-                    loading: 'Loading, Please Wait...',
-                    success: 'Login Successfully',
-                    error: 'Not Login'
-                }
-            )
+            const toastId = toast.loading('Loading, Please Wait...');
+            signingUser(email, password)
+            .then(res => updateState(res, toastId));
         }
     };
 
     const SignInWithProvider = (provider) => {
-        toast.promise(
-            provider()
-            .then(res => {
-                updateState(res);
-            }),
-            {
-                loading: 'Loading, Please Wait...',
-                success: 'Login Successfully',
-                error: 'Not Login'
-            }
-        )
+        const toastId = toast.loading('Loading, Please Wait...');
+        provider()
+        .then(res => updateState(res, toastId));
     }
 
     const handleSignOut = () => {
@@ -135,7 +116,10 @@ const Login = () => {
         if(!loading && loggedInUser.emailVerified){
             history.replace('/');
         }
-    }, [loading, loggedInUser.emailVerified, history])
+        if(!loading && !loggedInUser.email){
+            swal("Use Default Email And Password For Admin Use And Please Don't Misuse This Opportunity", {icon: 'warning'})
+        }
+    }, [loading, loggedInUser, history])
 
     return (
         <>
@@ -165,13 +149,13 @@ const Login = () => {
                             </div>
 
                             <div className='form-floating my-3'>
-                                <input autoComplete="username" className='form-control input' type='email' {...register("email", { required: true, pattern: /\S+@\S+\.\S+/ })} id="email" placeholder="Enter your Email" />
+                                <input defaultValue="saifulsojibdev@gmail.com" autoComplete="username" className='form-control input' type='email' {...register("email", { required: true, pattern: /\S+@\S+\.\S+/ })} id="email" placeholder="Enter your Email" />
                                 <label className='text-muted' htmlFor="email">Enter your Email</label>
                                 {errors.email && <span className="text-danger d-inline-block mt-2 ms-2">Valid Email is required</span>}
                             </div>
                             
                             <div className='password-section form-floating my-3'>
-                                <input autoComplete="current-password" className='input form-control' type={showPassword?'text':'password'} {...register("password", { required: true, minLength: 6 })} id="password" placeholder="Enter Password" />
+                                <input defaultValue="144395" autoComplete="current-password" className='input form-control' type={showPassword?'text':'password'} {...register("password", { required: true, minLength: 6 })} id="password" placeholder="Enter Password" />
                                 <FontAwesomeIcon onClick={()=>setShowPassword(!showPassword)} className='eye' icon={showPassword?faEyeSlash:faEye} />
                                 <label className='text-muted' htmlFor="password">Enter Password</label>
                                 {errors.password && <span className="text-danger d-inline-block mt-2 ms-2">Password required Minimum 6 Character</span>}

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import swal from 'sweetalert';
 import { context } from '../../../App';
 import ReactModal from '../../Dashboard/Modal/Modal';
@@ -17,6 +17,8 @@ const Book = ({setBookings}) => {
     }, [])
 
     const {id} = useParams();
+
+    const history = useHistory();
 
     const [service, setService] = useState({});
 
@@ -63,6 +65,7 @@ const Book = ({setBookings}) => {
                 setBookings(preBookings=> preBookings.length?[{...bookingData, _id}, ...preBookings]:preBookings);
                 swal('Booking Successfully!','Your booking successfully done!', "success");
                 setIsOpen(false);
+                history.replace('/dashboard/bookingList');
             }
         }), {
             loading: 'Booking...',
