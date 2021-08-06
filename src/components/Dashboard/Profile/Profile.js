@@ -51,30 +51,24 @@ const Profile = () => {
     }
 
     const updateUser = data => {
-        if (photo){
-            toast.promise(
-                updateProfile(data.name, imageUrl)
-                .then( isUpdated => {
-                    if (isUpdated){
-                        setLoggedInUser(preUser => ({...preUser, name: data.name, photo: imageUrl || photo}));
-                        swal("Updated Successfully!", "Your Information Updated Successfully!", "success");
-                        setIsOpen(false);
-                    }
-                    else{
-                        swal("Not Updated!", "Your Information Not Updated!", "error");
-                    }
-                }),
-                {
-                loading: 'Updating...',
-                success: <b>Updated Successfully!</b>,
-                error: <b>Could not updated.</b>,
+        toast.promise(
+            updateProfile(data.name, imageUrl)
+            .then( isUpdated => {
+                if (isUpdated){
+                    setLoggedInUser(preUser => ({...preUser, name: data.name, photo: imageUrl || photo}));
+                    swal("Updated Successfully!", "Your Information Updated Successfully!", "success");
+                    setIsOpen(false);
                 }
-            )
-            
-        }
-        else{
-            swal("Upload An Image", "Please upload an image!", "warning");
-        }
+                else{
+                    swal("Not Updated!", "Your Information Not Updated!", "error");
+                }
+            }),
+            {
+            loading: 'Updating...',
+            success: <b>Updated Successfully!</b>,
+            error: <b>Could not updated.</b>,
+            }
+        )
     };
 
     return (
