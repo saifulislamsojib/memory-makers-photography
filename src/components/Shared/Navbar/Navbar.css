@@ -85,13 +85,6 @@ body.dark-mode .nav-item:hover .home-nav-link::after {
   color: #111111;
 }
 
-.user-logo {
-  width: 43px;
-  height: 43px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
 .navbar {
   z-index: 100;
   transition: 0.5s;

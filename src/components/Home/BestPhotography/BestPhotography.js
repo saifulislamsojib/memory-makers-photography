@@ -20,12 +20,12 @@ const responsive = {
 };
 
 const images = [
-    'https://showme.co.za/pretoria/files/2016/03/wildlife-photography.jpg',
-    'https://pbs.twimg.com/media/CrfD4eaUMAADgMl.jpg',
-    'https://assets.website-files.com/5d241d27aab4a552a5dd89b2/5dc213291b705b338c1ae1f9_Lake-Tekapo-Morning-light-XL.jpg',
-    'https://assets.website-files.com/5d36cc33dbdba433e24e83ae/5dc1f4f056c5ec672341d67e_Cape-Reinga-beach-Northland.jpg',
-    'https://cdn.shopify.com/s/files/1/3026/6974/files/low-light_photography_girl_holding_a_lantern_in_the_grass_at_sunset.jpg?v=1533843508',
-    'https://www.khandiephotography.com/wp-content/uploads/2018/02/Bokeh-Babe-4-2.jpg'
+  'https://showme.co.za/pretoria/files/2016/03/wildlife-photography.jpg',
+  'https://pbs.twimg.com/media/CrfD4eaUMAADgMl.jpg',
+  'https://assets.website-files.com/5d241d27aab4a552a5dd89b2/5dc213291b705b338c1ae1f9_Lake-Tekapo-Morning-light-XL.jpg',
+  'https://assets.website-files.com/5d36cc33dbdba433e24e83ae/5dc1f4f056c5ec672341d67e_Cape-Reinga-beach-Northland.jpg',
+  'https://i.ibb.co/gz1F0mh/photography-girl-holding-a-lantern-in-the-grass-at-sunset.jpg',
+  'https://i.ibb.co/rQWxfNK/Bokeh-Babe-4-2.jpg'
 ]
 
 const BestPhotography = () => {

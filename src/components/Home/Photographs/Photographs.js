@@ -8,17 +8,20 @@ const photographs = [
     {
         title: 'Close Short',
         image: closeShort,
-        id: '1'
+        id: '1',
+        aos:"fade-right",
     },
     {
         title: 'Jorna Short',
         image: jornaShort,
-        id: '2'
+        id: '2',
+        aos:"fade-up",
     },
     {
         title: 'Two Bird Short',
         image: TwoBird,
-        id: '3'
+        id: '3',
+        aos:"fade-left",
     },
 ];
 

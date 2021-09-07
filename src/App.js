@@ -1,18 +1,20 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { createContext, useEffect, useState } from "react";
+import { createContext, lazy, Suspense, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Route, Switch
 } from "react-router-dom";
 import './App.css';
-import Book from "./components/Book/Book/Book";
-import Dashboard from "./components/Dashboard/Dashboard/Dashboard";
-import Home from "./components/Home/Home/Home";
 import { auth, getToken, setUser } from "./components/Login/Login/authManager";
-import Login from "./components/Login/Login/Login";
-import PrivateRoute from "./components/Login/PrivateRoute/PrivateRoute";
-import NotFound from "./components/NotFound/NotFound";
+import './components/Shared/Navbar/Navbar.css';
+import Spinner from "./components/Shared/Spinner/Spinner";
+
+const Home = lazy(()=> import("./components/Home/Home/Home"));
+const Dashboard = lazy(()=> import("./components/Dashboard/Dashboard/Dashboard"));
+const Login = lazy(()=> import("./components/Login/Login/Login"));
+const PrivateRoute = lazy(()=> import("./components/Login/PrivateRoute/PrivateRoute"));
+const NotFound = lazy(()=> import("./components/NotFound/NotFound"));
 
 export const context = createContext();
 
@@ -92,13 +94,11 @@ function App() {
   return (
     <context.Provider value={contextValue}>
       <Router>
+        <Suspense fallback={<Spinner />}>
         <Switch>
           <Route exact path="/">
             <Home />
           </Route>
-          <PrivateRoute path="/book/:id">
-            <Book />
-          </PrivateRoute>
           <PrivateRoute path="/dashboard">
             <Dashboard />
           </PrivateRoute>
@@ -109,6 +109,7 @@ function App() {
             <NotFound />
           </Route>
         </Switch>
+        </Suspense>
       </Router>
     </context.Provider>
   );

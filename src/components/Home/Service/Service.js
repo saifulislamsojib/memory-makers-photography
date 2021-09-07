@@ -8,7 +8,7 @@ const Service = ({service}) => {
 
     const {title, image, price, features, _id} = service;
     return (
-        <div data-aos="fade-up" className='col-lg-4 col-md-6 mb-3 text-center'>
+        <div data-aos="fade-up" className='col-xl-4 col-lg-6 mb-3 text-center'>
             <div onClick={() => history.push(`/dashboard/book/${_id}`)} className='service p-4 radius h-100'>
                 <img style={{height: '170px'}} className='img-fluid radius service-img' src={image} alt=""/>
                 <h4 className='mt-3 text-center'>{title}</h4>

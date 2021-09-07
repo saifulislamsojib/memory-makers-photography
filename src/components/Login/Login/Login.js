@@ -20,7 +20,7 @@ const Login = () => {
 
     const [newUser, setNewUser] = useState(false);
 
-    const { loggedInUser, setLoggedInUser, loading, setAdminLoaded } = useContext(context);
+    const { loggedInUser, setLoggedInUser, loading, setAdminLoaded, isDarkMode } = useContext(context);
 
     const [emailVerification, setEmailVerification] = useState('');
 
@@ -117,9 +117,9 @@ const Login = () => {
             history.replace('/');
         }
         if(!loading && !loggedInUser.email){
-            swal("Use Default Email And Password For Admin Use And Please Don't Misuse This Opportunity", {icon: 'warning'})
+            toast.custom(<div className={`${isDarkMode?'bg-dark text-light': 'bg-light text-dark'} p-2 rounded`}><div> <div className="text-center">For Admin</div> Admin Email: saifulsojibdev@gmail.com</div><div>Admin Password: 144395</div></div>)
         }
-    }, [loading, loggedInUser, history])
+    }, [loading, loggedInUser, history, isDarkMode])
 
     return (
         <>
@@ -149,13 +149,13 @@ const Login = () => {
                             </div>
 
                             <div className='form-floating my-3'>
-                                <input defaultValue="saifulsojibdev@gmail.com" autoComplete="username" className='form-control input' type='email' {...register("email", { required: true, pattern: /\S+@\S+\.\S+/ })} id="email" placeholder="Enter your Email" />
+                                <input autoComplete="username" className='form-control input' type='email' {...register("email", { required: true, pattern: /\S+@\S+\.\S+/ })} id="email" placeholder="Enter your Email" />
                                 <label className='text-muted' htmlFor="email">Enter your Email</label>
                                 {errors.email && <span className="text-danger d-inline-block mt-2 ms-2">Valid Email is required</span>}
                             </div>
                             
                             <div className='password-section form-floating my-3'>
-                                <input defaultValue="144395" autoComplete="current-password" className='input form-control' type={showPassword?'text':'password'} {...register("password", { required: true, minLength: 6 })} id="password" placeholder="Enter Password" />
+                                <input autoComplete="current-password" className='input form-control' type={showPassword?'text':'password'} {...register("password", { required: true, minLength: 6 })} id="password" placeholder="Enter Password" />
                                 <FontAwesomeIcon onClick={()=>setShowPassword(!showPassword)} className='eye' icon={showPassword?faEyeSlash:faEye} />
                                 <label className='text-muted' htmlFor="password">Enter Password</label>
                                 {errors.password && <span className="text-danger d-inline-block mt-2 ms-2">Password required Minimum 6 Character</span>}
