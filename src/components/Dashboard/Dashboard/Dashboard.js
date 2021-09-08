@@ -1,18 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { lazy, Suspense, useContext, useEffect, useState } from 'react';
 import { Route, Switch, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import { context } from '../../../App';
 import avatar from '../../../images/user-profile-icon-png.png';
-import Book from '../../Book/Book/Book';
-import NotFound from '../../NotFound/NotFound';
 import Spinner from '../../Shared/Spinner/Spinner';
-import AddService from '../AddService/AddService';
-import BookingList from '../BookingList/BookingList';
-import Feedback from '../Feedback/Feedback';
-import ManageAdmin from '../ManageAdmin/ManageAdmin';
-import ManageServices from '../ManageServices/ManageServices';
-import Profile from '../Profile/Profile';
 import Sidebar from '../Sidebar/Sidebar';
 import './Dashboard.css';
+
+const Book = lazy(() => import("../../Book/Book/Book"));
+const NotFound = lazy(() => import("../../NotFound/NotFound"));
+const AddService = lazy(() => import("../AddService/AddService"));
+const BookingList = lazy(() => import("../BookingList/BookingList"));
+const Feedback = lazy(() => import("../Feedback/Feedback"));
+const ManageAdmin = lazy(() => import("../ManageAdmin/ManageAdmin"));
+const ManageServices = lazy(() => import("../ManageServices/ManageServices"));
+const Profile = lazy(() => import("../Profile/Profile"));
 
 const Dashboard = () => {
 
@@ -82,38 +83,40 @@ const Dashboard = () => {
                         </h4>
                         <img onClick={()=> history.push('/dashboard')} src={photo || avatar} className="user-logo" alt="" />
                     </div>
-                    <Switch>
-                        <Route exact path={path}>
-                            <Profile />
-                        </Route>
-                        <Route path={`${path}/book/:id`}>
-                            <Book setBookings={setBookings} />
-                        </Route>
-                        <Route path={`${path}/book`}>
-                            <Book setBookings={setBookings} />
-                        </Route>
-                        <Route path={`${path}/bookingList`}>
-                            <BookingList isAdmin={isAdmin} bookings={bookings} setBookings={setBookings} bookingLoaded={bookingLoaded} setBookingLoaded={setBookingLoaded} />
-                        </Route>
-                        <Route path={`${path}/feedback`}>
-                            <Feedback feedbackData={feedbackData} setFeedbackData={setFeedbackData} />
-                        </Route>
-                        {isAdmin &&
-                        <Route path={`${path}/manageAdmin`}>
-                            <ManageAdmin />
-                        </Route>}
-                        {isAdmin &&
-                        <Route path={`${path}/addService`}>
-                            <AddService />
-                        </Route>}
-                        {isAdmin &&
-                        <Route path={`${path}/manageServices`}>
-                            <ManageServices />
-                        </Route>}
-                        <Route exact path='*'>
-                           <NotFound dashboard />
-                        </Route>
-                    </Switch>
+                    <Suspense fallback={<Spinner />}>
+                        <Switch>
+                            <Route exact path={path}>
+                                <Profile />
+                            </Route>
+                            <Route path={`${path}/book/:id`}>
+                                <Book setBookings={setBookings} />
+                            </Route>
+                            <Route path={`${path}/book`}>
+                                <Book setBookings={setBookings} />
+                            </Route>
+                            <Route path={`${path}/bookingList`}>
+                                <BookingList isAdmin={isAdmin} bookings={bookings} setBookings={setBookings} bookingLoaded={bookingLoaded} setBookingLoaded={setBookingLoaded} />
+                            </Route>
+                            <Route path={`${path}/feedback`}>
+                                <Feedback feedbackData={feedbackData} setFeedbackData={setFeedbackData} />
+                            </Route>
+                            {isAdmin &&
+                            <Route path={`${path}/manageAdmin`}>
+                                <ManageAdmin />
+                            </Route>}
+                            {isAdmin &&
+                            <Route path={`${path}/addService`}>
+                                <AddService />
+                            </Route>}
+                            {isAdmin &&
+                            <Route path={`${path}/manageServices`}>
+                                <ManageServices />
+                            </Route>}
+                            <Route exact path='*'>
+                            <NotFound dashboard />
+                            </Route>
+                        </Switch>
+                    </Suspense>
                 </div>
             </div>
         </div>}
