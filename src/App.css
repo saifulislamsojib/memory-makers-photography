@@ -102,6 +102,16 @@
 
 .ReactModal__Content {
   box-shadow: 5px 5px 20px lightgray;
+  animation: modal 0.3s ease-in-out;
+}
+
+@keyframes modal {
+  0% {
+    top: 20%;
+  }
+  100% {
+    top: 50%;
+  }
 }
 
 .dark-mode .ReactModal__Content {
