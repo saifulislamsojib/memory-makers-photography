@@ -16,6 +16,7 @@
 .svg-background {
   min-height: 100vh;
   min-width: 100%;
+  display: none;
 }
 
 .path1,
@@ -90,6 +91,7 @@
   .svg-background {
     min-height: 50vh;
     width: 100%;
+    display: unset;
   }
   .header-row {
     min-height: unset;
