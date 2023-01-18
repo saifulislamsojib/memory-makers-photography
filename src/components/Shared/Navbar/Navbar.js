@@ -13,11 +13,7 @@ const Navbar = () => {
 
   const history = useHistory();
 
-  //   const location = useLocation();
-
   const { active } = useActiveValue();
-
-  console.log(active);
 
   const handleLink = () => {
     window.scrollTo(0, 0);

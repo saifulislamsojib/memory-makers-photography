@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { context } from "../../../App";
 import useActive from "../../../hooks/useActive";
 import Spinner from "../../Shared/Spinner/Spinner";
@@ -6,8 +7,9 @@ import Service from "../Service/Service";
 
 const Services = ({ book }) => {
   const { services, setServices } = useContext(context);
+  const { pathname } = useLocation();
 
-  const ref = useActive("services");
+  const ref = useActive("services", pathname === "/");
 
   useEffect(() => {
     let unsubscribe = true;

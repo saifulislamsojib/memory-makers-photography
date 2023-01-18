@@ -5,24 +5,26 @@ const useActive = (id, isCall = true) => {
   const ref = useRef();
   const { seActive } = useActiveValue();
 
-  if (!seActive) {
+  if (!seActive && isCall) {
     throw new Error("ActiveProvider must be use");
   }
 
   const handleSet = useCallback(() => {
-    if (isCall && ref.current) {
+    if (ref.current) {
       if (ref.current.offsetTop <= window?.scrollY + 100) {
         seActive("#" + id);
       }
     }
-  }, [id, isCall, seActive]);
+  }, [id, seActive]);
 
   useEffect(() => {
-    handleSet();
-    window.addEventListener("scroll", handleSet);
+    if (isCall) {
+      handleSet();
+      window.addEventListener("scroll", handleSet);
 
-    return () => window.removeEventListener("scroll", handleSet);
-  }, [handleSet]);
+      return () => window.removeEventListener("scroll", handleSet);
+    }
+  }, [handleSet, isCall]);
 
   return ref;
 };
