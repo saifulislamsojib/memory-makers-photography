@@ -2,7 +2,7 @@
   border-radius: 10px !important;
 }
 .color-primary {
-  color: #6f00ff;
+  color: #0f0097;
 }
 
 .dark-mode .color-primary {
@@ -14,14 +14,14 @@
 }
 
 .primary-btn {
-  background-color: #6f00ff;
+  background-color: #0f0097;
   color: #ffffff;
   transition: 0.5s !important;
 }
 
 .primary-btn:hover {
   background-color: #cacaca;
-  color: #6f00ff;
+  color: #0f0097;
 }
 
 .dark-mode.dark-mode .form-control {
@@ -200,7 +200,7 @@
 }
 
 .link-2 {
-  color: #54bbff;
+  color: #0074c2;
   transition: 0.3s;
 }
 
@@ -220,7 +220,7 @@
 }
 
 .link-2::after {
-  background-color: #54bbff;
+  background-color: #0074c2;
 }
 
 .link-3::after {
