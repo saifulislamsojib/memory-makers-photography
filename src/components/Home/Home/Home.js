@@ -12,7 +12,7 @@ import Services from "../Services/Services";
 
 const Home = () => {
   useEffect(() => {
-    document.title = "memory-makers - home";
+    document.title = "Home - Memory Makers";
   }, []);
 
   return (

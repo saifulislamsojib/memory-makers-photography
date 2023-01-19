@@ -44,7 +44,7 @@ const Dashboard = () => {
   const [adminLoading, setAdminLoading] = useState(true);
 
   useEffect(() => {
-    document.title = "memory-makers - Dashboard";
+    document.title = "Dashboard - Memory Makers";
   }, []);
 
   useEffect(() => {
