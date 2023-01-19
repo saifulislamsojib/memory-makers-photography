@@ -1,6 +1,6 @@
 .header-container {
   overflow: hidden;
-  background-color: #00f7ff;
+  background-color: #d8f3fe;
 }
 
 .dark-mode .header-container {
@@ -37,5 +37,8 @@
   }
   .header-row img {
     width: 95%;
+  }
+  .header-row {
+    min-height: unset;
   }
 }
