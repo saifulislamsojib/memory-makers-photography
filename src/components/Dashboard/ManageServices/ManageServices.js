@@ -15,7 +15,7 @@ const ManageServices = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    document.title = "manage-services";
+    document.title = "Manage Services";
   }, []);
 
   useEffect(() => {

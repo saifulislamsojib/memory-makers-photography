@@ -12,7 +12,7 @@ import ProcessPayment from "../ProcessPayment/ProcessPayment";
 
 const Book = ({ setBookings }) => {
   useEffect(() => {
-    document.title = "service-booking";
+    document.title = "Service Booking";
   }, []);
 
   const { id } = useParams();

@@ -21,7 +21,7 @@ const AddService = ({ updates, setIsOpen }) => {
   const fromRef = useRef(null);
 
   useEffect(() => {
-    document.title = "add-services";
+    document.title = "Add Services";
   }, []);
 
   const onSubmit = (data) => {

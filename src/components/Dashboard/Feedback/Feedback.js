@@ -16,7 +16,7 @@ const Feedback = ({ feedbackData, setFeedbackData }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    document.title = "feedback";
+    document.title = "Feedback";
   }, []);
 
   useEffect(() => {

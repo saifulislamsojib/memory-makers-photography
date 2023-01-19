@@ -15,7 +15,7 @@ const BookingList = ({
   setBookingLoaded,
 }) => {
   useEffect(() => {
-    document.title = "booking-list";
+    document.title = "Booking List";
   }, []);
 
   const { loggedInUser, isAdmin } = useContext(context);
